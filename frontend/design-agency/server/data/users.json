@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "user_5e4c7061-6358-413b-8499-9d1de797fa9a",
+    "createdAt": "2026-04-17T14:32:43.337Z",
+    "updatedAt": "2026-04-17T14:32:43.337Z",
+    "name": "Design Admin",
+    "email": "admin@designagency.local",
+    "passwordHash": "$2b$12$/fg/ikkq4JoLll1U4XnPdeHQ81up/OayWmL44UTOBY0b1bfVtXFj6",
+    "role": "admin"
+  }
+]

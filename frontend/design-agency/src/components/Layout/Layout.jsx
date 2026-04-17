@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { siteConfig } from '../../config/site'
+import Footer from '../Footer/Footer'
 
 function Layout() {
   return (
@@ -32,12 +33,7 @@ function Layout() {
 
       <Outlet />
 
-      <footer className="site-footer">
-        <div className="site-footer__inner">
-          <p>Creative design solutions for ambitious teams.</p>
-          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }
