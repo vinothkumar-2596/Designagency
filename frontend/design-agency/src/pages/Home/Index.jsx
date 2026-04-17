@@ -9,7 +9,21 @@ import {
   Trophy,
   Star,
   Zap,
+  Plus,
+  Minus,
 } from 'lucide-react'
+import { BiLogoAdobe } from 'react-icons/bi'
+import { LuBanana } from 'react-icons/lu'
+import {
+  SiCloudflare,
+  SiFigma,
+  SiFreepik,
+  SiGithub,
+  SiNodedotjs,
+  SiOpenai,
+  SiReact,
+  SiVercel,
+} from 'react-icons/si'
 import { Link } from 'react-router-dom'
 import formulaCursorImage from '../../assets/image copy.png'
 import formulaPuzzleImage from '../../assets/image.png'
@@ -71,8 +85,51 @@ const serviceHighlights = [
   },
 ]
 
+const faqItems = [
+  {
+    question: 'How long does a typical project take?',
+    answer: 'Project timelines vary based on scope and complexity. Most brand projects take 6-12 weeks, while web development can range from 8-20 weeks depending on requirements.',
+  },
+  {
+    question: 'Do you work with startups and small businesses?',
+    answer: 'Absolutely! We work with ambitious brands of all sizes, from early-stage startups to established enterprises. We tailor our approach to fit your budget and goals.',
+  },
+  {
+    question: 'What is your design and development process?',
+    answer: 'We follow a collaborative process: Discovery, Strategy, Design, Development, Testing, and Launch. Regular communication ensures your vision is realized at every stage.',
+  },
+  {
+    question: 'Can you help with brand strategy?',
+    answer: 'Yes, brand strategy is core to everything we do. We help define positioning, messaging, and visual identity to create coherent brand experiences.',
+  },
+  {
+    question: 'Do you provide ongoing support after launch?',
+    answer: 'We offer maintenance and support packages to keep your digital presence optimized, secure, and performing at its best.',
+  },
+  {
+    question: 'How do we get started with a project?',
+    answer: 'Simply reach out through our contact form or email. We\'ll schedule a discovery call to discuss your goals, and provide a customized proposal and timeline.',
+  },
+]
+
+const trustTools = [
+  { label: 'Adobe', icon: BiLogoAdobe },
+  { label: 'Figma', icon: SiFigma },
+  { label: 'GitHub', icon: SiGithub },
+  { label: 'React', icon: SiReact },
+  { label: 'Node.js', icon: SiNodedotjs },
+  { label: 'Freepik', icon: SiFreepik },
+  { label: 'OpenAI', icon: SiOpenai },
+  { label: 'Cloudflare', icon: SiCloudflare },
+  { label: 'Vercel', icon: SiVercel },
+  { label: 'Nano Banana', icon: LuBanana },
+]
+
+const marqueeTools = [...trustTools, ...trustTools]
+
 function Home() {
   const [meta, setMeta] = useState(null)
+  const [openFaq, setOpenFaq] = useState(0)
 
   useEffect(() => {
     getSeo('/').then((seo) => {
@@ -210,6 +267,28 @@ function Home() {
         </div>
       </section>
 
+      <section className="trusted-by" aria-labelledby="trusted-heading">
+        <div className="trusted-by__inner">
+          <h2 id="trusted-heading" className="trusted-by__heading">Trusted by teams at</h2>
+          <div className="trusted-by__scroll-container">
+            <div className="trusted-by__logos">
+              <div className="trusted-by__logo">Runebottloop</div>
+              <div className="trusted-by__logo">Mythosync</div>
+              <div className="trusted-by__logo">Fizzyriff</div>
+              <div className="trusted-by__logo">Voltaura</div>
+              <div className="trusted-by__logo">Okoblox</div>
+              <div className="trusted-by__logo">Tunogen</div>
+              <div className="trusted-by__logo">Runebottloop</div>
+              <div className="trusted-by__logo">Mythosync</div>
+              <div className="trusted-by__logo">Fizzyriff</div>
+              <div className="trusted-by__logo">Voltaura</div>
+              <div className="trusted-by__logo">Okoblox</div>
+              <div className="trusted-by__logo">Tunogen</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <BrandSystem />
 
       <section className="home-formula" aria-labelledby="formula-heading">
@@ -260,6 +339,78 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <section className="home-faq" aria-labelledby="faq-heading">
+        <div className="home-faq__wrapper">
+          <div className="home-faq__inner">
+            <div className="home-faq__cta">
+              <p className="home-faq__cta-eyebrow">( 03 ) FAQ</p>
+              <h3>Have questions we didn't cover?</h3>
+              <p className="home-faq__cta-description">Can't find what you're looking for? Reach out to our team and we'll be happy to help.</p>
+              <a href="mailto:hello@brandvue.com" className="home-faq__cta-email">hello@brandvue.com</a>
+              <div className="home-faq__cta-image">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=400&fit=crop" alt="Analytics and data visualization" />
+              </div>
+            </div>
+
+            <div className="home-faq__content">
+              <div className="home-faq__header">
+                <h2 id="faq-heading" className="home-faq__heading">Here to help with all your <span>questions</span></h2>
+                <p className="home-faq__description">Understand our process and how we deliver bold, memorable brand experiences that drive results.</p>
+              </div>
+              <div className="home-faq__list" role="region" aria-label="Frequently asked questions">
+                {faqItems.map((item, index) => (
+                  <div key={index} className="home-faq__item">
+                    <button
+                      className={`home-faq__trigger ${openFaq === index ? 'is-open' : ''}`}
+                      onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
+                      aria-expanded={openFaq === index}
+                    >
+                      <span>{item.question}</span>
+                      {openFaq === index ? (
+                        <Minus size={20} />
+                      ) : (
+                        <Plus size={20} />
+                      )}
+                    </button>
+                    {openFaq === index && (
+                      <div className="home-faq__answer">
+                        <p>{item.answer}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="trust-strip">
+          <div className="trust-strip__inner">
+            <span className="trust-strip__eyebrow">Powered by Industry Tools</span>
+
+            <div className="trust-strip__marquee">
+              <div className="trust-strip__marquee-inner">
+                {marqueeTools.map((tool, index) => {
+                  const Icon = tool.icon
+
+                  return (
+                    <div
+                      key={`${tool.label}-${index}`}
+                      className="trust-strip__logo-item"
+                      aria-label={tool.label}
+                    >
+                      <Icon />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </main>
   )
 }

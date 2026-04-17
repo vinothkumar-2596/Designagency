@@ -17,16 +17,33 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: #f7c28b;
+  color: $text-primary;
+}
+
+::-moz-selection {
+  background: #f7c28b;
+  color: $text-primary;
+}
+
 body {
   min-width: 320px;
   min-height: 100vh;
   background: $color-background;
+  caret-color: transparent;
 }
 
 button,
 input,
 textarea {
   font: inherit;
+}
+
+input,
+textarea,
+[contenteditable='true'] {
+  caret-color: auto;
 }
 
 button {
