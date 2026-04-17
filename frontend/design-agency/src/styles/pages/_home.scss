@@ -587,16 +587,13 @@
 .home-formula {
   position: relative;
   overflow: hidden;
-  padding-block: 5.5rem 6rem;
+  margin-top: -1px;
+  padding-block: 2.6rem 6rem;
   background: #fefff5;
   color: $text-primary;
 
   &::before {
-    position: absolute;
-    inset: 0 0 auto;
-    height: 0.38rem;
-    background: $brand-orange;
-    content: '';
+    display: none;
   }
 
   .eyebrow {
@@ -920,73 +917,158 @@
 }
 
 .home-faq__cta {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  padding: 2.5rem;
-  background: linear-gradient(135deg, $text-primary 0%, rgba($text-primary, 0.95) 100%);
-  border-radius: 0.8rem;
+  gap: 1.4rem;
+  padding: 2rem 1.5rem 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba($white, 0.08);
+  border-radius: 0;
+  background:
+    radial-gradient(circle at top right, rgba($brand-orange, 0.18), transparent 34%),
+    linear-gradient(160deg, #070707 0%, #0c0c0c 54%, #080808 100%);
+  box-shadow:
+    0 24px 56px rgba($text-primary, 0.16),
+    inset 0 1px 0 rgba($white, 0.06);
   color: $white;
 
+  &::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba($white, 0.04), transparent 28%),
+      linear-gradient(180deg, transparent, rgba($white, 0.02));
+    content: '';
+    pointer-events: none;
+  }
+
   @include respond-up(md) {
-    padding: 3rem;
-    gap: 2rem;
+    gap: 1.6rem;
+    padding: 2.4rem 2rem 1.85rem;
   }
 
   @include respond-up(lg) {
-    padding: 3.5rem;
+    padding: 2.75rem 2.35rem 2.1rem;
   }
 
-  .home-faq__cta-eyebrow {
+.home-faq__cta-eyebrow {
     margin: 0;
-    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 0.38rem 0.7rem;
+    border: 1px solid rgba($brand-orange, 0.22);
+    border-radius: 0;
+    background: rgba($brand-orange, 0.08);
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: $brand-orange;
   }
 
   h3 {
     margin: 0;
-    font-size: 1.6rem;
+    max-width: 12ch;
+    font-size: 1.9rem;
     font-weight: 700;
-    line-height: 1.25;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
     color: $white;
+    text-wrap: balance;
 
     @include respond-up(md) {
-      font-size: 2rem;
+      font-size: 2.4rem;
     }
   }
 }
 
+.home-faq__cta-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+}
+
 .home-faq__cta-description {
   margin: 0;
-  color: rgba($white, 0.82);
-  font-size: 0.95rem;
+  max-width: 24rem;
+  color: rgba($white, 0.72);
+  font-size: 0.96rem;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.62;
+}
+
+.home-faq__cta-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.45rem 0.72rem;
+    border: 1px solid rgba($white, 0.08);
+    border-radius: 999px;
+    background: rgba($white, 0.04);
+    color: rgba($white, 0.74);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
 }
 
 .home-faq__cta-email {
-  color: $brand-orange;
-  font-size: 1.1rem;
-  font-weight: 600;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  color: $white;
+  font-size: 1rem;
+  font-weight: 700;
   text-decoration: none;
-  transition: opacity 300ms ease;
+  transition:
+    color 220ms ease,
+    transform 220ms ease;
+
+  svg {
+    color: $brand-orange;
+    transition: transform 220ms ease;
+  }
 
   &:hover {
-    opacity: 0.85;
+    color: rgba($white, 0.86);
+    transform: translateX(2px);
+
+    svg {
+      transform: translateX(2px);
+    }
   }
 }
 
 .home-faq__cta-image {
-  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+  margin-top: 0.25rem;
   overflow: hidden;
-  border-radius: 0.6rem;
-  min-height: 220px;
+  border: 1px solid rgba($white, 0.08);
+  border-radius: 0;
+  aspect-ratio: 1 / 1.02;
+  background:
+    linear-gradient(180deg, rgba($white, 0.04), transparent 24%),
+    #111;
+  box-shadow:
+    inset 0 1px 0 rgba($white, 0.06),
+    0 18px 36px rgba($text-primary, 0.22);
 
   @include respond-up(md) {
-    min-height: 280px;
+    aspect-ratio: 1 / 1;
   }
 
   img {
@@ -994,6 +1076,64 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transform: scale(1.06);
+    filter: saturate(0.74) contrast(1.08) brightness(0.88);
+  }
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba($text-primary, 0.04), transparent 26%),
+      linear-gradient(180deg, transparent 44%, rgba($text-primary, 0.84) 100%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .home-faq__cta-vector {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.9rem;
+    z-index: 1;
+    width: 6.5rem;
+    height: 6.5rem;
+    opacity: 0.62;
+    pointer-events: none;
+
+    circle,
+    path {
+      fill: none;
+      stroke: rgba($white, 0.55);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    circle:first-child {
+      stroke-width: 1.15;
+    }
+
+    path {
+      stroke-width: 1;
+    }
+
+    circle:not(:first-child) {
+      fill: rgba($brand-orange, 0.9);
+      stroke: rgba($white, 0.72);
+      stroke-width: 0.7;
+    }
+  }
+
+  figcaption {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 1;
+    color: rgba($white, 0.92);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-shadow: 0 2px 10px rgba($text-primary, 0.45);
   }
 }
 
@@ -1039,50 +1179,84 @@
 .home-faq__list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.9rem;
 }
 
 .home-faq__item {
-  border-bottom: 1px solid rgba($text-primary, 0.12);
+  border: 1px solid rgba($text-primary, 0.1);
+  border-radius: 0;
+  background: transparent;
   overflow: hidden;
-  transition: border-color 300ms ease;
+  box-shadow: none;
+  transition:
+    border-color 240ms ease,
+    background-color 240ms ease,
+    box-shadow 240ms ease,
+    transform 240ms ease;
 
-  &:first-child {
-    border-top: 1px solid rgba($text-primary, 0.12);
+  &:hover {
+    border-color: rgba($text-primary, 0.16);
+    background: transparent;
+  }
+
+  &.is-open {
+    border-color: rgba($brand-orange, 0.22);
+    background: transparent;
+    box-shadow: none;
   }
 }
 
 .home-faq__trigger {
   width: 100%;
-  padding: 1.5rem 0;
+  height: 5.5rem;
+  padding: 1.2rem 1.25rem;
   background: none;
   border: none;
   color: $text-primary;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.02rem;
+  font-weight: 650;
   text-align: left;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  transition: color 300ms ease;
+  transition: color 220ms ease;
 
   span {
     flex: 1;
     color: $text-primary;
+    line-height: 1.35;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .home-faq__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    flex: 0 0 auto;
+    transition:
+      transform 220ms ease;
   }
 
   svg {
     flex-shrink: 0;
-    color: $text-primary;
-    transition: color 300ms ease;
-    width: 20px;
-    height: 20px;
+    color: rgba($text-primary, 0.56);
+    transition:
+      color 220ms ease,
+      transform 220ms ease;
+    width: 15px;
+    height: 15px;
   }
 
   &:hover {
-    color: $brand-orange;
+    color: rgba($text-primary, 0.96);
 
     svg {
       color: $brand-orange;
@@ -1094,20 +1268,57 @@
 
     svg {
       color: $brand-orange;
+      transform: rotate(180deg);
     }
   }
 }
 
 .home-faq__answer {
-  padding: 0 0 1.5rem;
-  animation: faqSlideDown 300ms ease-out;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease;
+
+  &.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+.home-faq__answer-inner {
+  overflow: hidden;
+  padding: 0 1.25rem 0;
 
   p {
     margin: 0;
-    color: rgba($text-primary, 0.72);
-    font-size: 0.95rem;
+    padding: 0 0 1.35rem;
+    color: rgba($text-primary, 0.68);
+    font-size: 0.94rem;
     font-weight: 500;
-    line-height: 1.55;
+    line-height: 1.65;
+  }
+}
+
+@include respond-up(md) {
+  .home-faq__trigger {
+    height: 5.75rem;
+    padding: 1.35rem 1.45rem;
+    font-size: 1.05rem;
+  }
+
+  .home-faq__trigger span {
+    -webkit-line-clamp: 1;
+  }
+
+  .home-faq__answer-inner {
+    padding-inline: 1.45rem;
+
+    p {
+      max-width: 40rem;
+      padding-bottom: 1.45rem;
+    }
   }
 }
 

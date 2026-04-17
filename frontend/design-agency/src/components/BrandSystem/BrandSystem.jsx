@@ -44,6 +44,7 @@ function BrandSystem() {
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
   const signalGradientId = useId().replace(/:/g, '')
+  const lineGradientId = `${signalGradientId}-line`
 
   useEffect(() => {
     const section = sectionRef.current
@@ -71,10 +72,15 @@ function BrandSystem() {
   return (
     <section className="brand-system" aria-labelledby="brand-system-heading" ref={sectionRef}>
       <div className="brand-system__inner">
-        <div className="brand-system__heading">
-          <p className="eyebrow">Integrated delivery</p>
-          <h2 id="brand-system-heading">Connected systems for modern brands.</h2>
-          <p>Strategy, identity, web, content, and growth in one flow.</p>
+        <div className="brand-system__copy">
+          <div className="brand-system__heading">
+            <p className="eyebrow"><span>Integrated delivery</span></p>
+            <h2 id="brand-system-heading">
+              Connected systems,{` `}
+              <span>delivered with clarity.</span>
+            </h2>
+            <p>Strategy, identity, web, content, and growth aligned in one operating model.</p>
+          </div>
         </div>
 
         <div className={`brand-system__stage ${isVisible ? 'is-visible' : ''}`}>
@@ -86,6 +92,18 @@ function BrandSystem() {
               aria-hidden="true"
             >
               <defs>
+                <linearGradient
+                  id={lineGradientId}
+                  x1="480"
+                  y1="360"
+                  x2="480"
+                  y2="128"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stopColor="#fff3e6" stopOpacity="0.95" />
+                  <stop offset="58%" stopColor="#ffd2a3" stopOpacity="0.55" />
+                  <stop offset="100%" stopColor="#fff7ef" stopOpacity="0.2" />
+                </linearGradient>
                 <linearGradient
                   id={signalGradientId}
                   x1="0"
@@ -103,9 +121,16 @@ function BrandSystem() {
               {brandSystemNodes.map((item) => (
                 <g key={item.label}>
                   <path
+                    className="brand-system__line brand-system__line--glow"
+                    d={item.path}
+                    pathLength="100"
+                    stroke={`url(#${lineGradientId})`}
+                  />
+                  <path
                     className="brand-system__line brand-system__line--base"
                     d={item.path}
                     pathLength="100"
+                    stroke={`url(#${lineGradientId})`}
                   />
                   {isVisible ? (
                     <g className="brand-system__signal">
@@ -150,11 +175,15 @@ function BrandSystem() {
             </svg>
 
             <div className="brand-system__nodes" aria-label="Brandvue network services">
-              {brandSystemNodes.map((item) => (
+              {brandSystemNodes.map((item, index) => (
                 <article
                   className="brand-system__node"
                   key={item.label}
-                  style={{ '--node-left': item.left }}
+                  style={{
+                    '--node-left': item.left,
+                    '--node-delay': `${120 + (index * 90)}ms`,
+                    '--node-float-delay': `${index * 0.4}s`,
+                  }}
                   aria-label={item.label}
                 >
                   <span className="brand-system__node-icon" aria-hidden="true">
@@ -162,15 +191,6 @@ function BrandSystem() {
                   </span>
                 </article>
               ))}
-            </div>
-
-            <div className="brand-system__brand" aria-label="Brandvue India">
-              <span className="brand-system__brand-mark" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </span>
-              <strong>Brandvue India</strong>
             </div>
           </div>
         </div>

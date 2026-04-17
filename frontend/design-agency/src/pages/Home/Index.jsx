@@ -9,8 +9,7 @@ import {
   Trophy,
   Star,
   Zap,
-  Plus,
-  Minus,
+  ChevronDown,
 } from 'lucide-react'
 import { BiLogoAdobe } from 'react-icons/bi'
 import { LuBanana } from 'react-icons/lu'
@@ -344,13 +343,38 @@ function Home() {
         <div className="home-faq__wrapper">
           <div className="home-faq__inner">
             <div className="home-faq__cta">
-              <p className="home-faq__cta-eyebrow">( 03 ) FAQ</p>
-              <h3>Have questions we didn't cover?</h3>
-              <p className="home-faq__cta-description">Can't find what you're looking for? Reach out to our team and we'll be happy to help.</p>
-              <a href="mailto:hello@brandvue.com" className="home-faq__cta-email">hello@brandvue.com</a>
-              <div className="home-faq__cta-image">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&h=400&fit=crop" alt="Analytics and data visualization" />
+              <div className="home-faq__cta-copy">
+                <p className="home-faq__cta-eyebrow">( 03 ) FAQ</p>
+                <h3>Need a sharper answer?</h3>
+                <p className="home-faq__cta-description">
+                  Discuss scope, timelines, or collaboration details with the Brandvue team.
+                </p>
               </div>
+
+              <div className="home-faq__cta-meta" aria-label="Contact topics">
+                <span>Project inquiries</span>
+                <span>Retainer support</span>
+                <span>Partnerships</span>
+              </div>
+
+              <a href="mailto:hello@brandvue.com" className="home-faq__cta-email">
+                <span>hello@brandvue.com</span>
+                <ArrowRight size={16} />
+              </a>
+
+              <figure className="home-faq__cta-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Leadership team in a strategy meeting" />
+                <svg className="home-faq__cta-vector" viewBox="0 0 160 160" aria-hidden="true">
+                  <circle cx="118" cy="42" r="28" />
+                  <path d="M28 132C54 98 76 82 118 42" />
+                  <path d="M58 132C78 104 94 90 126 58" />
+                  <path d="M86 132C102 112 114 96 132 76" />
+                  <circle cx="28" cy="132" r="4" />
+                  <circle cx="58" cy="132" r="4" />
+                  <circle cx="86" cy="132" r="4" />
+                </svg>
+                <figcaption>Direct access for planning, launch, and long-term brand work.</figcaption>
+              </figure>
             </div>
 
             <div className="home-faq__content">
@@ -360,24 +384,26 @@ function Home() {
               </div>
               <div className="home-faq__list" role="region" aria-label="Frequently asked questions">
                 {faqItems.map((item, index) => (
-                  <div key={index} className="home-faq__item">
+                  <div key={index} className={`home-faq__item ${openFaq === index ? 'is-open' : ''}`}>
                     <button
                       className={`home-faq__trigger ${openFaq === index ? 'is-open' : ''}`}
                       onClick={() => setOpenFaq(openFaq === index ? -1 : index)}
                       aria-expanded={openFaq === index}
+                      aria-controls={`faq-panel-${index}`}
                     >
                       <span>{item.question}</span>
-                      {openFaq === index ? (
-                        <Minus size={20} />
-                      ) : (
-                        <Plus size={20} />
-                      )}
+                      <span className="home-faq__icon" aria-hidden="true">
+                        <ChevronDown size={18} />
+                      </span>
                     </button>
-                    {openFaq === index && (
-                      <div className="home-faq__answer">
+                    <div
+                      id={`faq-panel-${index}`}
+                      className={`home-faq__answer ${openFaq === index ? 'is-open' : ''}`}
+                    >
+                      <div className="home-faq__answer-inner">
                         <p>{item.answer}</p>
                       </div>
-                    )}
+                    </div>
                   </div>
                 ))}
               </div>
