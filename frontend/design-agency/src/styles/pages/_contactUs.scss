@@ -1,0 +1,63 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/breakpoints' as *;
+
+.contact-us-page {
+  background: $bg-main;
+}
+
+.contact-layout {
+  display: grid;
+  gap: $spacing-xl;
+
+  @include respond-up(lg) {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+  }
+}
+
+.lead-form {
+  display: grid;
+  gap: $spacing-md;
+
+  @include respond-up(md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  label {
+    display: grid;
+    gap: $spacing-xs;
+    color: $text-primary;
+    font-weight: 800;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    border: 1px solid $border-dark;
+    border-radius: $radius-sm;
+    background: $white;
+    color: $text-primary;
+    font: inherit;
+    padding: $spacing-sm $spacing-md;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
+
+.lead-form__wide,
+.lead-form button,
+.lead-form p {
+  @include respond-up(md) {
+    grid-column: 1 / -1;
+  }
+}
+
+.contact-panel {
+  padding: $spacing-lg;
+  border: 1px solid $border-dark;
+  border-radius: $radius-md;
+  background: $accent-yellow;
+}

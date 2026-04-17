@@ -1,0 +1,86 @@
+[
+  {
+    "id": "content_service_brand",
+    "type": "services",
+    "title": "Brand Identity Systems",
+    "slug": "brand-identity-systems",
+    "excerpt": "Distinctive identity systems for brands that need clarity, consistency, and a sharper market presence.",
+    "body": "We create logo systems, visual language, typography, color, and brand guidelines that help teams communicate with confidence across every touchpoint.",
+    "status": "published",
+    "publishedAt": "2026-04-17T00:00:00.000Z",
+    "heroImage": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+    "meta": {
+      "title": "Brand Identity Systems",
+      "description": "Brand identity services for teams that need sharper visuals and a reliable design system.",
+      "keywords": ["brand identity", "logo system", "brand guidelines"],
+      "canonicalPath": "/services/brand-identity-systems",
+      "noIndex": false,
+      "schemaType": "Service"
+    },
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  },
+  {
+    "id": "content_service_web",
+    "type": "services",
+    "title": "Conversion-Focused Web Design",
+    "slug": "conversion-focused-web-design",
+    "excerpt": "Responsive websites that combine strong creative direction with performance, accessibility, and clear conversion paths.",
+    "body": "We design website experiences that load quickly, adapt across devices, support accessibility, and guide visitors toward meaningful action.",
+    "status": "published",
+    "publishedAt": "2026-04-17T00:00:00.000Z",
+    "heroImage": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    "meta": {
+      "title": "Conversion-Focused Web Design",
+      "description": "Responsive web design services for creative brands and service businesses.",
+      "keywords": ["web design", "responsive design", "accessible websites"],
+      "canonicalPath": "/services/conversion-focused-web-design",
+      "noIndex": false,
+      "schemaType": "Service"
+    },
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  },
+  {
+    "id": "content_case_launch",
+    "type": "case-studies",
+    "title": "Launch System For A New Creative Platform",
+    "slug": "launch-system-for-a-new-creative-platform",
+    "excerpt": "A complete launch identity, landing experience, and content system for a digital product entering a crowded market.",
+    "body": "The project combined positioning, interface design, campaign visuals, and landing page optimization into one focused launch system.",
+    "status": "published",
+    "publishedAt": "2026-04-17T00:00:00.000Z",
+    "heroImage": "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1200&q=80",
+    "meta": {
+      "title": "Creative Platform Launch Case Study",
+      "description": "A design case study covering brand, web, and campaign systems for a creative product launch.",
+      "keywords": ["case study", "product launch", "campaign design"],
+      "canonicalPath": "/case-studies/launch-system-for-a-new-creative-platform",
+      "noIndex": false,
+      "schemaType": "Article"
+    },
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  },
+  {
+    "id": "content_blog_accessibility",
+    "type": "blog",
+    "title": "Design Systems Need Accessibility From Day One",
+    "slug": "design-systems-need-accessibility-from-day-one",
+    "excerpt": "Accessibility is easier to maintain when color, type, interaction, and component rules are planned before production.",
+    "body": "Strong design systems treat accessibility as a foundation. Contrast, focus states, keyboard navigation, and content hierarchy should be baked into reusable patterns.",
+    "status": "published",
+    "publishedAt": "2026-04-17T00:00:00.000Z",
+    "heroImage": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+    "meta": {
+      "title": "Accessible Design Systems",
+      "description": "Why accessible design systems improve usability, consistency, and long-term frontend quality.",
+      "keywords": ["accessibility", "design systems", "frontend design"],
+      "canonicalPath": "/blog/design-systems-need-accessibility-from-day-one",
+      "noIndex": false,
+      "schemaType": "Article"
+    },
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  }
+]

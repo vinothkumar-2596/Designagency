@@ -1,0 +1,104 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/breakpoints' as *;
+
+.page-loading {
+  @include container;
+  padding-block: $spacing-2xl;
+}
+
+.section {
+  padding-block: $spacing-2xl;
+}
+
+.section--accent {
+  background: $brand-orange-light;
+}
+
+.section__inner {
+  @include container;
+}
+
+.section__heading {
+  max-width: 680px;
+  margin-bottom: $spacing-xl;
+}
+
+.page-hero {
+  border-bottom: 1px solid $border-dark;
+  background: $brand-orange-light;
+}
+
+.page-hero__content {
+  @include container;
+  max-width: 900px;
+  padding-block: $spacing-2xl;
+
+  p {
+    max-width: 680px;
+  }
+}
+
+.eyebrow {
+  margin-bottom: $spacing-sm;
+  color: $brand-orange-hover;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.split-section {
+  display: grid;
+  gap: $spacing-xl;
+
+  @include respond-up(md) {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+    align-items: start;
+  }
+}
+
+.principles-list {
+  display: grid;
+  gap: $spacing-sm;
+  padding: $spacing-lg;
+  border: 1px solid $border-dark;
+  border-radius: $radius-md;
+  background: $white;
+  list-style-position: inside;
+}
+
+.content-detail__hero {
+  @include container;
+  display: grid;
+  gap: $spacing-xl;
+  padding-block: $spacing-2xl;
+
+  @include respond-up(md) {
+    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+    align-items: center;
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    border: 1px solid $border-dark;
+    border-radius: $radius-md;
+  }
+}
+
+.content-detail__copy {
+  max-width: 720px;
+}
+
+.content-detail__body {
+  @include container;
+  max-width: 760px;
+  padding-bottom: $spacing-2xl;
+
+  p {
+    color: $text-secondary;
+    font-size: 1.125rem;
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "seo_home",
+    "path": "/",
+    "title": "Creative Design Agency For Digital Brands",
+    "description": "A design agency creating brand systems, websites, and digital experiences for ambitious teams.",
+    "keywords": ["design agency", "brand design", "web design", "creative design"],
+    "canonicalPath": "/",
+    "noIndex": false,
+    "schemaType": "Organization",
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  },
+  {
+    "id": "seo_about",
+    "path": "/aboutus",
+    "title": "About Our Creative Design Studio",
+    "description": "Meet a design team focused on strategy, craft, accessibility, and measurable digital experiences.",
+    "keywords": ["about design agency", "creative studio", "design team"],
+    "canonicalPath": "/aboutus",
+    "noIndex": false,
+    "schemaType": "AboutPage",
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  },
+  {
+    "id": "seo_contact",
+    "path": "/contactus",
+    "title": "Contact The Design Agency",
+    "description": "Start a design project for branding, websites, product interfaces, or creative digital campaigns.",
+    "keywords": ["contact design agency", "start design project", "creative services"],
+    "canonicalPath": "/contactus",
+    "noIndex": false,
+    "schemaType": "ContactPage",
+    "createdAt": "2026-04-17T00:00:00.000Z",
+    "updatedAt": "2026-04-17T00:00:00.000Z"
+  }
+]

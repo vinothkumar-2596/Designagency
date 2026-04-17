@@ -1,0 +1,47 @@
+// Base
+$bg-main: #e7e5df;
+
+// Text
+$text-primary: #000000;
+$text-secondary: #111111;
+
+// Brand
+$brand-orange: #ff6a00;
+$brand-orange-hover: #e65c00;
+$brand-orange-light: #fff1e6;
+
+// Secondary Accent
+$accent-yellow: #f4e58a;
+
+// Borders
+$border-dark: #1a1a1a;
+$border-light: #bdbdbd;
+
+// Utility
+$white: #ffffff;
+
+// App aliases
+$color-primary: $brand-orange;
+$color-primary-dark: $brand-orange-hover;
+$color-secondary: $accent-yellow;
+$color-text: $text-primary;
+$color-muted: $text-secondary;
+$color-surface: $white;
+$color-background: $bg-main;
+$color-border: $border-light;
+
+$font-family-base: 'Manrope', 'Segoe UI', Arial, sans-serif;
+$font-family-heading: 'Manrope', 'Segoe UI', Arial, sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.6;
+
+$spacing-xs: 0.5rem;
+$spacing-sm: 0.75rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$shadow-soft: 0 10px 30px rgba(17, 24, 39, 0.08);
