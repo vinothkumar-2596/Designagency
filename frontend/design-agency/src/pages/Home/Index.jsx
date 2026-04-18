@@ -125,6 +125,7 @@ const trustTools = [
 ]
 
 const marqueeTools = [...trustTools, ...trustTools]
+const heroGridLines = Array.from({ length: 12 }, (_, index) => index)
 
 function Home() {
   const [meta, setMeta] = useState(null)
@@ -140,6 +141,13 @@ function Home() {
     <main className="home-page" id="main-content">
       <SEO meta={meta} />
       <section className="home-hero">
+        <div className="home-hero__grid-box grid-box" aria-hidden="true">
+          {heroGridLines.map((line) => (
+            <div className="grid-line" key={line}>
+              <div className="grid-line-inner" />
+            </div>
+          ))}
+        </div>
         <div className="home-hero__inner">
           <div className="home-hero__content">
             <div className="home-hero__badge" aria-label="Trusted by ambitious founders">

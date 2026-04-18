@@ -23,6 +23,42 @@
   }
 }
 
+.home-page + .footer {
+  &::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(90deg, rgba(#ffffff, 0.08) 1px, transparent 1px),
+      linear-gradient(180deg, transparent 0%, rgba(#ffffff, 0.26) 44%, rgba($brand-orange, 0.34) 52%, transparent 66%),
+      linear-gradient(180deg, transparent 0%, rgba($accent-yellow, 0.2) 46%, transparent 64%),
+      linear-gradient(180deg, transparent 0%, rgba(#ffffff, 0.16) 42%, rgba($brand-orange, 0.16) 56%, transparent 70%);
+    background-position:
+      0 0,
+      20% -45%,
+      52% -72%,
+      82% -58%;
+    background-repeat: repeat, no-repeat, no-repeat, no-repeat;
+    background-size:
+      clamp(5.5rem, 10vw, 8.5rem) 100%,
+      1px 38%,
+      1px 30%,
+      1px 44%;
+    opacity: 0.44;
+    mask-image: linear-gradient(90deg, rgba(#000000, 0.9), rgba(#000000, 0.72) 55%, rgba(#000000, 0.32));
+    mix-blend-mode: screen;
+    animation: footer-line-glow 6.4s linear infinite;
+    content: '';
+    pointer-events: none;
+  }
+}
+
+.footer__cta-banner,
+.footer__content {
+  position: relative;
+  z-index: 1;
+}
+
 .footer__cta-banner {
   @include container;
   display: flex;
@@ -267,6 +303,30 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes footer-line-glow {
+  0% {
+    background-position:
+      0 0,
+      20% -45%,
+      52% -72%,
+      82% -58%;
+  }
+
+  100% {
+    background-position:
+      0 0,
+      20% 142%,
+      52% 128%,
+      82% 138%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page + .footer::after {
+    animation: none;
   }
 }
 

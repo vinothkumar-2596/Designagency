@@ -7,20 +7,93 @@
 }
 
 .home-hero {
-  width: calc(100% - 2rem);
+  position: relative;
+  isolation: isolate;
+  width: 100%;
   margin-inline: auto;
   overflow: hidden;
   border-bottom: 1px solid rgba($white, 0.12);
-  background: $text-primary;
+  background:
+    radial-gradient(circle at 12% 78%, rgba($brand-orange, 0.16), transparent 34%),
+    linear-gradient(116deg, #020202 0%, #0a0d12 52%, #000 100%);
   color: $white;
+  min-height: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.home-hero__grid-box {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.grid-line {
+  position: relative;
+  justify-self: start;
+  width: 1px;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(#ff6a00, 0.2);
+  opacity: 0.8;
+  transition: transform 2.5s;
+}
+
+.grid-line-inner {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 10%;
+  background-image: linear-gradient(#ff6a00, rgba(0, 255, 255, 0));
+  animation: gridAnimation 3s linear infinite;
+  opacity: 0.4;
+}
+
+.grid-line:nth-child(2) .grid-line-inner {
+  animation-delay: -0.5s;
+}
+
+.grid-line:nth-child(3) .grid-line-inner {
+  animation-delay: -1s;
+}
+
+.grid-line:nth-child(4) .grid-line-inner {
+  animation-delay: -1.5s;
+}
+
+.grid-line:nth-child(5) .grid-line-inner {
+  animation-delay: -2s;
+}
+
+.grid-line:nth-child(6) .grid-line-inner {
+  animation-delay: -2.5s;
+}
+
+.grid-line:nth-child(7) .grid-line-inner {
+  animation-delay: -3s;
+}
+
+.grid-line:nth-child(8) .grid-line-inner {
+  animation-delay: -3.5s;
 }
 
 .home-hero__inner {
   @include container;
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 3rem;
   min-height: 458px;
   padding-block: 4rem 4.5rem;
+  max-width: 1300px;
+  width: 100%;
 
   @include respond-up(lg) {
     grid-template-columns: minmax(380px, 0.95fr) minmax(340px, 1.05fr);
@@ -29,7 +102,6 @@
 }
 
 .home-hero__content {
-  max-width: 440px;
   align-self: center;
 
   @include respond-up(lg) {
@@ -45,13 +117,12 @@
   }
 
   h1 {
-    max-width: 430px;
     margin-top: 1.125rem;
     margin-bottom: 0;
     color: $white;
     font-size: 2.05rem;
-    font-weight: 700;
-    line-height: 1.06;
+    font-weight: 600;
+    line-height: 1.36;
     letter-spacing: -0.01em;
     text-shadow: 0 0 30px rgba(200, 200, 200, 0.25), 0 0 60px rgba(180, 180, 180, 0.15);
 
@@ -120,7 +191,7 @@
       radial-gradient(circle at 35% 35%, $white 0 18%, transparent 19%),
       linear-gradient(135deg, $accent-yellow, $brand-orange);
 
-    & + span {
+    &+span {
       margin-left: -0.45rem;
     }
   }
@@ -130,7 +201,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: $spacing-sm;
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 
 .home-hero__secondary {
@@ -171,17 +242,14 @@
   position: absolute;
   inset: 0;
   animation: hero-asset-reveal 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform: translateY(-80px) !important;
 }
 
 .home-hero__asset {
   position: absolute;
   display: block;
   filter:
-    hue-rotate(188deg)
-    saturate(1.85)
-    brightness(1.12)
-    contrast(1.04)
-    drop-shadow(0 0 34px rgba($brand-orange, 0.18));
+    hue-rotate(188deg) saturate(1.85) brightness(1.12) contrast(1.04) drop-shadow(0 0 34px rgba($brand-orange, 0.18));
   object-fit: contain;
   pointer-events: none;
   user-select: none;
@@ -472,14 +540,53 @@
 }
 
 .home-services {
+  --home-section-grid-size: clamp(5.5rem, 10vw, 8.5rem);
+
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   padding-block: 7rem 8rem;
-  background: $text-primary;
+  background:
+    radial-gradient(circle at 12% 10%, rgba($brand-orange, 0.12), transparent 30%),
+    linear-gradient(116deg, #020202 0%, #090b0f 52%, #000 100%);
   color: $white;
 
   &::before {
-    display: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: linear-gradient(90deg, rgba($white, 0.09) 1px, transparent 1px);
+    background-size: var(--home-section-grid-size) 100%;
+    opacity: 0.46;
+    mask-image: linear-gradient(90deg, rgba(#000, 0.9), rgba(#000, 0.72) 55%, rgba(#000, 0.32));
+    content: '';
+    pointer-events: none;
+  }
+
+  &::after {
+    position: absolute;
+    inset: -50% 0;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, transparent 0%, rgba($white, 0.08) 31%, rgba($white, 0.28) 43%, rgba($brand-orange, 0.38) 52%, rgba($brand-orange, 0.1) 63%, transparent 82%),
+      linear-gradient(180deg, transparent 0%, rgba($accent-yellow, 0.07) 36%, rgba($accent-yellow, 0.22) 48%, rgba($accent-yellow, 0.06) 62%, transparent 80%),
+      linear-gradient(180deg, transparent 0%, rgba($white, 0.06) 30%, rgba($white, 0.18) 42%, rgba($brand-orange, 0.18) 56%, rgba($brand-orange, 0.04) 68%, transparent 86%);
+    background-position:
+      calc(var(--home-section-grid-size) * 3) -45%,
+      calc(var(--home-section-grid-size) * 8) -72%,
+      calc(var(--home-section-grid-size) * 12) -58%;
+    background-repeat: no-repeat;
+    background-size:
+      1px 38%,
+      1px 30%,
+      1px 44%;
+    opacity: 0.68;
+    filter: blur(0.4px);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mix-blend-mode: screen;
+    animation: home-line-glow 6.4s linear infinite;
+    content: '';
+    pointer-events: none;
   }
 
   .eyebrow {
@@ -533,6 +640,7 @@
   border-radius: 0.8rem;
   background: rgba($white, 0.04);
   box-shadow: none;
+  backdrop-filter: blur(5px);
 }
 
 .home-service__icon {
@@ -794,13 +902,60 @@
 }
 
 .trusted-by {
+  --home-section-grid-size: clamp(5.5rem, 10vw, 8.5rem);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   padding-block: 1.5rem 4.5rem;
-  background: $text-primary;
+  background:
+    radial-gradient(circle at 12% 0%, rgba($brand-orange, 0.08), transparent 30%),
+    linear-gradient(116deg, #020202 0%, #090b0f 52%, #000 100%);
   color: $white;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: linear-gradient(90deg, rgba($white, 0.09) 1px, transparent 1px);
+    background-size: var(--home-section-grid-size) 100%;
+    opacity: 0.46;
+    mask-image: linear-gradient(90deg, rgba(#000, 0.9), rgba(#000, 0.72) 55%, rgba(#000, 0.32));
+    content: '';
+    pointer-events: none;
+  }
+
+  &::after {
+    position: absolute;
+    inset: -50% 0;
+    z-index: 0;
+    background:
+      linear-gradient(180deg, transparent 0%, rgba($white, 0.08) 31%, rgba($white, 0.28) 43%, rgba($brand-orange, 0.38) 52%, rgba($brand-orange, 0.1) 63%, transparent 82%),
+      linear-gradient(180deg, transparent 0%, rgba($accent-yellow, 0.07) 36%, rgba($accent-yellow, 0.22) 48%, rgba($accent-yellow, 0.06) 62%, transparent 80%),
+      linear-gradient(180deg, transparent 0%, rgba($white, 0.06) 30%, rgba($white, 0.18) 42%, rgba($brand-orange, 0.18) 56%, rgba($brand-orange, 0.04) 68%, transparent 86%);
+    background-position:
+      calc(var(--home-section-grid-size) * 3) -45%,
+      calc(var(--home-section-grid-size) * 8) -72%,
+      calc(var(--home-section-grid-size) * 12) -58%;
+    background-repeat: no-repeat;
+    background-size:
+      1px 38%,
+      1px 30%,
+      1px 44%;
+    opacity: 0.68;
+    filter: blur(0.4px);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mix-blend-mode: screen;
+    animation: home-line-glow 6.4s linear infinite;
+    content: '';
+    pointer-events: none;
+  }
 }
 
 .trusted-by__inner {
   @include container;
+  position: relative;
+  z-index: 1;
 }
 
 .trusted-by__heading {
@@ -882,6 +1037,7 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(calc(-50% - 1.5rem));
   }
@@ -952,7 +1108,7 @@
     padding: 2.75rem 2.35rem 2.1rem;
   }
 
-.home-faq__cta-eyebrow {
+  .home-faq__cta-eyebrow {
     margin: 0;
     display: inline-flex;
     align-items: center;
@@ -1379,18 +1535,14 @@
   display: flex;
   align-items: center;
   --marquee-fade: 72px;
-  mask-image: linear-gradient(
-    to right,
-    #000 0,
-    #000 calc(100% - var(--marquee-fade)),
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    #000 0,
-    #000 calc(100% - var(--marquee-fade)),
-    transparent 100%
-  );
+  mask-image: linear-gradient(to right,
+      #000 0,
+      #000 calc(100% - var(--marquee-fade)),
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      #000 0,
+      #000 calc(100% - var(--marquee-fade)),
+      transparent 100%);
 
   @include respond-up(md) {
     --marquee-fade: 112px;
@@ -1416,6 +1568,7 @@
   0% {
     transform: translate3d(0, 0, 0);
   }
+
   100% {
     transform: translate3d(calc(-50% - 16px), 0, 0);
   }
@@ -1555,7 +1708,7 @@
   background-position: center;
   box-shadow: 0 2px 8px rgba($text-primary, 0.1);
 
-  & + & {
+  &+& {
     margin-left: -12px;
   }
 }
@@ -1620,6 +1773,7 @@
     opacity: 0;
     transform: translateY(-12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1854,27 +2008,21 @@
 }
 
 @keyframes hero-base-glow {
+
   0%,
   100% {
     filter:
-      hue-rotate(188deg)
-      saturate(1.75)
-      brightness(1.04)
-      contrast(1.04)
-      drop-shadow(0 0 24px rgba($brand-orange, 0.14));
+      hue-rotate(188deg) saturate(1.75) brightness(1.04) contrast(1.04) drop-shadow(0 0 24px rgba($brand-orange, 0.14));
   }
 
   50% {
     filter:
-      hue-rotate(188deg)
-      saturate(2)
-      brightness(1.2)
-      contrast(1.06)
-      drop-shadow(0 0 44px rgba($brand-orange, 0.28));
+      hue-rotate(188deg) saturate(2) brightness(1.2) contrast(1.06) drop-shadow(0 0 44px rgba($brand-orange, 0.28));
   }
 }
 
 @keyframes hero-cubes-float {
+
   0%,
   100% {
     transform: translateX(-45%) translateY(0) rotate(0deg);
@@ -1886,6 +2034,7 @@
 }
 
 @keyframes hero-seal-float {
+
   0%,
   100% {
     transform: translateY(0);
@@ -1896,11 +2045,42 @@
   }
 }
 
+@keyframes gridAnimation {
+  0% {
+    transform: translateY(110%);
+  }
+
+  100% {
+    transform: translateY(-1100%);
+  }
+}
+
+@keyframes home-line-glow {
+  0% {
+    background-position:
+      calc(var(--home-section-grid-size) * 3) 142%,
+      calc(var(--home-section-grid-size) * 8) 128%,
+      calc(var(--home-section-grid-size) * 12) 138%;
+  }
+
+  100% {
+    background-position:
+      calc(var(--home-section-grid-size) * 3) -45%,
+      calc(var(--home-section-grid-size) * 8) -72%,
+      calc(var(--home-section-grid-size) * 12) -58%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+
   .home-hero__asset-stack,
   .home-hero__asset--base,
   .home-hero__asset--cubes,
-  .home-hero__seal {
+  .home-hero__seal,
+  .grid-line-inner,
+  .home-hero::after,
+  .home-services::after,
+  .trusted-by::after {
     animation: none;
   }
 }
