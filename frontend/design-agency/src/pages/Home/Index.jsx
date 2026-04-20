@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import {
   ArrowRight,
   Award,
+  Briefcase,
   Blocks,
   Code2,
+  TrendingUp,
   Smartphone,
   Sparkles,
   Trophy,
   Star,
+  Users,
   Zap,
   ChevronDown,
 } from 'lucide-react'
@@ -81,6 +84,27 @@ const serviceHighlights = [
     title: 'App Development',
     copy: 'Cross-platform apps designed to deliver seamless, engaging experiences.',
     icon: Smartphone,
+  },
+]
+
+const proofHighlights = [
+  {
+    icon: Briefcase,
+    title: 'Strong design can outperform competitors',
+    copy: 'Companies that invest in design maturity have been shown to achieve significantly stronger revenue growth and shareholder returns. BrandVue helps businesses turn creative execution into measurable business value.',
+    source: 'McKinsey',
+  },
+  {
+    icon: Users,
+    title: 'Consistent branding builds trust faster',
+    copy: 'Consistent brand presentation can improve recognition, strengthen credibility, and even contribute to revenue growth. We create clear, unified brand systems that stay powerful across every touchpoint.',
+    source: 'Adobe',
+  },
+  {
+    icon: TrendingUp,
+    title: 'Better design decisions create real ROI',
+    copy: 'Research on design thinking and experience-led practices shows that thoughtful design investment can produce strong returns. From brand identity to digital products, we focus on work that performs, not just work that looks good.',
+    source: 'Forrester',
   },
 ]
 
@@ -344,6 +368,46 @@ function Home() {
               </div>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section className="home-proof" aria-labelledby="proof-heading">
+        <div className="home-proof__inner">
+          <div className="home-proof__header">
+            <div className="home-proof__copy">
+              <p className="eyebrow">Why it matters</p>
+              <h2 id="proof-heading">
+                Great design drives real
+                <span className="home-proof__rotating">
+                  <span>business growth</span>
+                  <span>brand authority</span>
+                  <span>customer trust</span>
+                </span>
+              </h2>
+            </div>
+
+            <div className="home-proof__mark" aria-hidden="true">
+              <span className="home-proof__arc home-proof__arc--outer" />
+              <span className="home-proof__arc home-proof__arc--middle" />
+              <span className="home-proof__arc home-proof__arc--inner" />
+              <span className="home-proof__needle" />
+            </div>
+          </div>
+
+          <div className="home-proof__grid" role="list">
+            {proofHighlights.map((item) => (
+              <article className="home-proof__card" key={item.title} role="listitem">
+                <span className="home-proof__icon" aria-hidden="true">
+                  <item.icon strokeWidth={1.7} />
+                </span>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+                <span className="home-proof__source">Source: {item.source}</span>
+              </article>
+            ))}
+          </div>
+
+          <p className="home-proof__sources">Sources: McKinsey, Adobe, Forrester</p>
         </div>
       </section>
 
