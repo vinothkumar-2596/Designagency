@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowUpRight, Bookmark, Clock, Copy, Link2, Share2 } from 'l
 import SEO from '../../components/SEO/SEO'
 import { getContentItem, getContentList } from '../../services/contentService'
 
+const SAVED_POSTS_KEY = 'design-agency:saved-posts'
+
 function renderSection(section, index) {
   if (!section || !section.type) return null
   if (section.type === 'heading') {
@@ -43,6 +45,8 @@ function ContentDetail({ type }) {
   const { slug } = useParams()
   const [state, setState] = useState({ item: null, slug: null, type: null })
   const [related, setRelated] = useState([])
+  const [shareFeedback, setShareFeedback] = useState('')
+  const [isSaved, setIsSaved] = useState(false)
 
   useEffect(() => {
     let ignore = false
@@ -65,8 +69,82 @@ function ContentDetail({ type }) {
     }
   }, [slug, type])
 
+  useEffect(() => {
+    if (type !== 'blog' || !slug || typeof window === 'undefined') return
+    try {
+      const savedPosts = JSON.parse(window.localStorage.getItem(SAVED_POSTS_KEY) ?? '[]')
+      setIsSaved(Array.isArray(savedPosts) && savedPosts.includes(slug))
+    } catch {
+      setIsSaved(false)
+    }
+  }, [slug, type])
+
+  useEffect(() => {
+    if (!shareFeedback) return undefined
+    const timeoutId = window.setTimeout(() => setShareFeedback(''), 2200)
+    return () => window.clearTimeout(timeoutId)
+  }, [shareFeedback])
+
   const loading = state.slug !== slug || state.type !== type
   const item = state.item
+
+  function getArticleUrl() {
+    if (typeof window === 'undefined') return ''
+    return window.location.href
+  }
+
+  async function handleCopyLink() {
+    const articleUrl = getArticleUrl()
+    if (!articleUrl) return
+
+    try {
+      await navigator.clipboard.writeText(articleUrl)
+      setShareFeedback('Link copied')
+    } catch {
+      setShareFeedback('Copy unavailable')
+    }
+  }
+
+  async function handleShare() {
+    const articleUrl = getArticleUrl()
+    if (!articleUrl) return
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: item?.title ?? 'Article',
+          text: item?.excerpt ?? '',
+          url: articleUrl,
+        })
+        setShareFeedback('Shared')
+        return
+      } catch (error) {
+        if (error?.name === 'AbortError') return
+      }
+    }
+
+    await handleCopyLink()
+  }
+
+  function handleToggleSave() {
+    if (typeof window === 'undefined' || !slug) return
+
+    try {
+      const savedPosts = JSON.parse(window.localStorage.getItem(SAVED_POSTS_KEY) ?? '[]')
+      const nextSavedPosts = Array.isArray(savedPosts)
+        ? savedPosts.includes(slug)
+          ? savedPosts.filter((savedSlug) => savedSlug !== slug)
+          : [...savedPosts, slug]
+        : [slug]
+
+      window.localStorage.setItem(SAVED_POSTS_KEY, JSON.stringify(nextSavedPosts))
+      const nextIsSaved = nextSavedPosts.includes(slug)
+      setIsSaved(nextIsSaved)
+      setShareFeedback(nextIsSaved ? 'Saved' : 'Removed')
+    } catch {
+      setShareFeedback('Save unavailable')
+    }
+  }
 
   if (loading) {
     return (
@@ -105,7 +183,54 @@ function ContentDetail({ type }) {
               <span key={i} className="blog-article__hero-line" />
             ))}
           </div>
-          <div className="blog-article__hero-inner">
+
+          <svg className="blog-article__sketch blog-article__sketch--star" viewBox="0 0 64 64" aria-hidden="true">
+            <path
+              d="M32 6 L36 26 L56 30 L36 34 L32 54 L28 34 L8 30 L28 26 Z"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+            />
+            <circle cx="32" cy="30" r="2" fill="currentColor" />
+          </svg>
+
+          <svg className="blog-article__sketch blog-article__sketch--swirl" viewBox="0 0 80 80" aria-hidden="true">
+            <defs>
+              <filter id="blog-brush-swirl" x="-15%" y="-15%" width="130%" height="130%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="4" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+              <linearGradient id="blog-brush-swirl-stroke" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="currentColor" stopOpacity="0.3" />
+                <stop offset="0.2" stopColor="currentColor" stopOpacity="1" />
+                <stop offset="0.8" stopColor="currentColor" stopOpacity="1" />
+                <stop offset="1" stopColor="currentColor" stopOpacity="0.35" />
+              </linearGradient>
+            </defs>
+            <g filter="url(#blog-brush-swirl)">
+              <path
+                d="M14 40 C 14 18, 36 8, 54 18 S 72 46, 56 58 S 26 62, 22 48 S 32 26, 46 30 S 56 44, 46 50 S 34 46, 38 40 S 46 38, 46 42"
+                fill="none"
+                stroke="url(#blog-brush-swirl-stroke)"
+                strokeWidth="3.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M14 40 C 14 18, 36 8, 54 18 S 72 46, 56 58 S 26 62, 22 48 S 32 26, 46 30 S 56 44, 46 50 S 34 46, 38 40 S 46 38, 46 42"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                opacity="0.55"
+              />
+            </g>
+          </svg>
+
+<div className="blog-article__hero-inner">
             <nav className="blog-article__crumbs" aria-label="Breadcrumb">
               <Link to="/blog" className="blog-article__crumb">
                 <ArrowLeft size={14} strokeWidth={2.2} aria-hidden="true" /> All articles
@@ -155,15 +280,22 @@ function ContentDetail({ type }) {
         <article className="blog-article__body">
           <aside className="blog-article__share" aria-label="Share">
             <span className="blog-article__share-label">Share</span>
-            <button type="button" className="blog-article__share-btn" aria-label="Copy link">
+            <button type="button" className="blog-article__share-btn" aria-label="Copy link" onClick={handleCopyLink}>
               <Link2 size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>
-            <button type="button" className="blog-article__share-btn" aria-label="Share">
+            <button type="button" className="blog-article__share-btn" aria-label="Share article" onClick={handleShare}>
               <Share2 size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>
-            <button type="button" className="blog-article__share-btn" aria-label="Save">
+            <button
+              type="button"
+              className={`blog-article__share-btn${isSaved ? ' is-active' : ''}`}
+              aria-label={isSaved ? 'Remove saved article' : 'Save article'}
+              aria-pressed={isSaved}
+              onClick={handleToggleSave}
+            >
               <Bookmark size={15} strokeWidth={2.2} aria-hidden="true" />
             </button>
+            {shareFeedback ? <span className="blog-article__share-status" role="status">{shareFeedback}</span> : null}
           </aside>
 
           <div className="blog-article__prose">
@@ -191,6 +323,16 @@ function ContentDetail({ type }) {
 
         {item.author ? (
           <section className="blog-article__author-block" aria-label="About the author">
+            <svg className="blog-article__sketch blog-article__sketch--sparkle" viewBox="0 0 48 48" aria-hidden="true">
+              <path
+                d="M24 4 L26 22 L44 24 L26 26 L24 44 L22 26 L4 24 L22 22 Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+            </svg>
             <div className="blog-article__author-inner">
               <span className="blog-article__avatar blog-article__avatar--lg" aria-hidden="true">
                 {item.author.charAt(0)}
