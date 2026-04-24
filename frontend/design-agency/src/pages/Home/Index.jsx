@@ -28,8 +28,8 @@ import {
   SiVercel,
 } from 'react-icons/si'
 import { Link } from 'react-router-dom'
-import formulaCursorImage from '../../assets/image copy.png'
-import formulaPuzzleImage from '../../assets/image.png'
+import formulaCursorImage from '../../assets/formula-cursor.png'
+import formulaPuzzleImage from '../../assets/formula-puzzle.png'
 import BrandSystem from '../../components/BrandSystem/BrandSystem'
 import Button from '../../components/Button/Button'
 import SEO from '../../components/SEO/SEO'
@@ -286,11 +286,20 @@ function Home() {
                 className="home-hero__asset home-hero__asset--base"
                 src="https://framerusercontent.com/images/czMv9lrgvmFb1ErVo2lqUWyBjU.png?width=825&height=694"
                 alt=""
+                width="825"
+                height="694"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
               />
               <img
                 className="home-hero__asset home-hero__asset--cubes"
                 src="https://framerusercontent.com/images/9HLgJV9XMUyaWaX4Kn4NDxzk.png?width=610&height=610"
                 alt=""
+                width="610"
+                height="610"
+                loading="eager"
+                decoding="async"
               />
             </div>
             <div className="home-hero__seal">
@@ -325,6 +334,10 @@ function Home() {
               <img
                 src="https://framerusercontent.com/images/WaZHSoJlOYIWHh3RuwUm5E2fY4.png?width=884&height=1564"
                 alt="Architectural concrete steps"
+                width="884"
+                height="1564"
+                loading="lazy"
+                decoding="async"
               />
             </figure>
 
@@ -428,14 +441,14 @@ function Home() {
               </div>
 
               <div className="home-formula__visual home-formula__visual--left" aria-hidden="true">
-                <img src={formulaPuzzleImage} alt="" className="home-formula__image home-formula__image--puzzle" />
+                <img src={formulaPuzzleImage} alt="" className="home-formula__image home-formula__image--puzzle" loading="lazy" decoding="async" />
               </div>
             </article>
 
             <article className="home-formula__panel home-formula__panel--right">
               <div className="home-formula__visual home-formula__visual--right" aria-hidden="true">
                 <div className="home-formula__figure">
-                  <img src={formulaCursorImage} alt="" className="home-formula__image home-formula__image--cursor" />
+                  <img src={formulaCursorImage} alt="" className="home-formula__image home-formula__image--cursor" loading="lazy" decoding="async" />
                 </div>
               </div>
 
@@ -517,7 +530,7 @@ function Home() {
               </a>
 
               <figure className="home-faq__cta-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Leadership team in a strategy meeting" />
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Leadership team in a strategy meeting" width="900" height="600" loading="lazy" decoding="async" />
                 <svg className="home-faq__cta-vector" viewBox="0 0 160 160" aria-hidden="true">
                   <circle cx="118" cy="42" r="28" />
                   <path d="M28 132C54 98 76 82 118 42" />

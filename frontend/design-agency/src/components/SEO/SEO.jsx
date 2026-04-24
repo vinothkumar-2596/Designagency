@@ -14,25 +14,31 @@ function upsertMeta(selector, createElement, updateElement) {
   updateElement(element)
 }
 
+function upsertNamedMeta(attribute, name, content) {
+  upsertMeta(
+    `meta[${attribute}="${name}"]`,
+    () => {
+      const element = document.createElement('meta')
+      element.setAttribute(attribute, name)
+      return element
+    },
+    (element) => element.setAttribute('content', content),
+  )
+}
+
 function SEO({ meta }) {
   const location = useLocation()
   const title = meta?.title ?? siteConfig.name
   const description = meta?.description ?? siteConfig.description
   const canonicalPath = meta?.canonicalPath ?? location.pathname
+  const canonicalUrl = `${siteConfig.url}${canonicalPath}`
+  const image = meta?.image ?? `${siteConfig.url}/og-image.jpg`
   const schema = buildSchema(meta, location.pathname)
 
   useEffect(() => {
     document.title = title
 
-    upsertMeta(
-      'meta[name="description"]',
-      () => {
-        const element = document.createElement('meta')
-        element.setAttribute('name', 'description')
-        return element
-      },
-      (element) => element.setAttribute('content', description),
-    )
+    upsertNamedMeta('name', 'description', description)
 
     upsertMeta(
       'link[rel="canonical"]',
@@ -41,8 +47,20 @@ function SEO({ meta }) {
         element.setAttribute('rel', 'canonical')
         return element
       },
-      (element) => element.setAttribute('href', `${siteConfig.url}${canonicalPath}`),
+      (element) => element.setAttribute('href', canonicalUrl),
     )
+
+    upsertNamedMeta('property', 'og:title', title)
+    upsertNamedMeta('property', 'og:description', description)
+    upsertNamedMeta('property', 'og:url', canonicalUrl)
+    upsertNamedMeta('property', 'og:site_name', siteConfig.name)
+    upsertNamedMeta('property', 'og:type', meta?.type ?? 'website')
+    upsertNamedMeta('property', 'og:image', image)
+
+    upsertNamedMeta('name', 'twitter:card', 'summary_large_image')
+    upsertNamedMeta('name', 'twitter:title', title)
+    upsertNamedMeta('name', 'twitter:description', description)
+    upsertNamedMeta('name', 'twitter:image', image)
 
     upsertMeta(
       'script[type="application/ld+json"][data-managed="schema"]',
@@ -56,7 +74,7 @@ function SEO({ meta }) {
         element.textContent = JSON.stringify(schema)
       },
     )
-  }, [canonicalPath, description, schema, title])
+  }, [canonicalUrl, description, image, meta?.type, schema, title])
 
   return null
 }

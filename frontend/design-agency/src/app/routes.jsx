@@ -9,6 +9,7 @@ const Blog = lazy(() => import('../pages/Blog/Index.jsx'))
 const AboutUs = lazy(() => import('../pages/AboutUs/Index.jsx'))
 const ContactUs = lazy(() => import('../pages/ContactUs/Index.jsx'))
 const ContentDetail = lazy(() => import('../pages/ContentDetail/Index.jsx'))
+const NotFound = lazy(() => import('../pages/NotFound/Index.jsx'))
 
 function AppRoutes() {
   return (
@@ -16,7 +17,6 @@ function AppRoutes() {
       fallback={
         <main className="page-loading page-loading--screen" id="main-content" aria-live="polite">
           <span className="page-loading__mark" aria-hidden="true" />
-          <span className="page-loading__brand">BrandView India</span>
           <span className="page-loading__text">Preparing your experience</span>
         </main>
       }
@@ -32,6 +32,7 @@ function AppRoutes() {
           <Route path="/blog/:slug" element={<ContentDetail type="blog" />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Suspense>

@@ -9,7 +9,7 @@ const INTERNATIONAL_FALLBACK = {
 }
 
 const STATE_GREETINGS = [
-  { states: ['tamil nadu', 'puducherry'], codes: ['tn', 'py'], text: '\u0bb5\u0ba3\u0b95\u0bcd\u0b95\u0bae\u0bcd', transliteration: 'Vanakkam' },
+  { states: ['tamil nadu', 'puducherry', 'pondicherry'], codes: ['tn', 'py'], text: '\u0bb5\u0ba3\u0b95\u0bcd\u0b95\u0bae\u0bcd', transliteration: 'Vanakkam' },
   { states: ['karnataka'], codes: ['ka'], text: '\u0ca8\u0cae\u0cb8\u0ccd\u0c95\u0cbe\u0cb0', transliteration: 'Namaskara' },
   { states: ['andhra pradesh', 'telangana'], codes: ['ap', 'tg', 'ts'], text: '\u0c28\u0c2e\u0c38\u0c4d\u0c15\u0c3e\u0c30\u0c02', transliteration: 'Namaskaram' },
   { states: ['kerala'], codes: ['kl'], text: '\u0d28\u0d2e\u0d38\u0d4d\u0d15\u0d3e\u0d30\u0d02', transliteration: 'Namaskaram' },
@@ -161,8 +161,35 @@ async function fetchIpWhoGreeting() {
   }
 }
 
+async function fetchGeoJsGreeting() {
+  const controller = new AbortController()
+  const timeout = window.setTimeout(() => controller.abort(), 1400)
+
+  try {
+    const response = await fetch('https://get.geojs.io/v1/ip/geo.json', {
+      signal: controller.signal,
+    })
+
+    if (!response.ok) {
+      return null
+    }
+
+    const data = await response.json()
+
+    if (data.country_code !== 'IN') {
+      return INTERNATIONAL_FALLBACK
+    }
+
+    return getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
+  } catch {
+    return null
+  } finally {
+    window.clearTimeout(timeout)
+  }
+}
+
 async function getGreetingByIpRegion() {
-  return (await fetchIpApiGreeting()) ?? (await fetchIpWhoGreeting())
+  return (await fetchGeoJsGreeting()) ?? (await fetchIpApiGreeting()) ?? (await fetchIpWhoGreeting())
 }
 
 export function getRegionalGreeting() {
