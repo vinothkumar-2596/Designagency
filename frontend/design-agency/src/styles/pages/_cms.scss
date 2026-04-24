@@ -4,7 +4,54 @@
 
 .page-loading {
   @include container;
+  display: grid;
+  place-items: center;
+  gap: 0.75rem;
+  min-height: 12rem;
   padding-block: $spacing-2xl;
+  color: $text-primary;
+  font-weight: 800;
+}
+
+.page-loading--screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  padding: 0;
+  background:
+    radial-gradient(circle at 50% 44%, rgba($brand-orange, 0.16), transparent 22rem),
+    linear-gradient(115deg, #070707 0%, #0a0d12 56%, #000 100%);
+  color: $white;
+}
+
+.page-loading__mark {
+  width: 1.3rem;
+  height: 1.3rem;
+  border: 3px solid rgba($accent-yellow, 0.28);
+  border-top-color: $brand-orange;
+  border-radius: 50%;
+  animation: page-loading-spin 850ms linear infinite;
+}
+
+.page-loading__brand {
+  color: $white;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.page-loading__text {
+  color: rgba($white, 0.58);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+@keyframes page-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .section {

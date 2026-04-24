@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -6,11 +6,13 @@ import {
   Calendar,
   CheckCircle2,
   Clock,
-  Mail,
-  MapPin,
-  MessageSquare,
-  Phone,
+  Compass,
+  Diamond,
+  Layers3,
+  MonitorSmartphone,
+  Rocket,
   Send,
+  Sparkles,
   Zap,
 } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
@@ -36,6 +38,15 @@ const BUDGET_OPTIONS = [
 
 const TIMELINE_OPTIONS = ['ASAP', '1 month', '2–3 months', 'Later this year', 'Flexible']
 
+const SERVICE_ICONS = {
+  'Brand identity': Diamond,
+  'Website design': MonitorSmartphone,
+  'Design system': Layers3,
+  'Product interface': Compass,
+  'Launch campaign': Rocket,
+  Other: Sparkles,
+}
+
 const WHATSAPP_NUMBER = '919876543210'
 const WHATSAPP_MESSAGE = 'Hi Design Agency, I would like to talk about a project.'
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
@@ -43,11 +54,14 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent
 function ContactUs() {
   const [meta, setMeta] = useState(null)
   const [status, setStatus] = useState('idle')
+  const [activeField, setActiveField] = useState('')
+  const [flowPosition, setFlowPosition] = useState(null)
+  const [flowDrag, setFlowDrag] = useState({ isDragging: false, offsetX: 0, offsetY: 0 })
   const [form, setForm] = useState({
     name: '',
     email: '',
     company: '',
-    service: '',
+    service: [],
     budget: '',
     timeline: '',
     message: '',
@@ -65,29 +79,132 @@ function ContactUs() {
   }
 
   function handleServicePick(service) {
-    setForm((current) => ({ ...current, service }))
+    setActiveField('service')
+    setForm((current) => {
+      const nextServices = current.service.includes(service)
+        ? current.service.filter((item) => item !== service)
+        : [...current.service, service]
+      return { ...current, service: nextServices }
+    })
   }
+
+  const briefFlow = useMemo(() => {
+    const sections = [
+      {
+        id: 'about',
+        label: 'Identity',
+        fields: ['name', 'email', 'company'],
+      },
+      {
+        id: 'scope',
+        label: 'Scope',
+        fields: ['service', 'budget', 'timeline'],
+      },
+      {
+        id: 'notes',
+        label: 'Notes',
+        fields: ['message'],
+      },
+    ]
+
+    const hasValue = (value) => Array.isArray(value) ? value.length > 0 : value.trim().length > 0
+    const completedCount = Object.values(form).filter(hasValue).length
+    const totalCount = Object.keys(form).length
+    const progress = Math.round((completedCount / totalCount) * 100)
+    const hasStarted = completedCount > 0
+    const trustMessage = progress >= 92
+      ? 'this is going to be something great.'
+      : progress >= 78
+        ? 'almost ready to bring this to life.'
+        : progress >= 61
+          ? "clarity is building, we're getting close."
+          : progress >= 43
+            ? 'your project is already taking shape.'
+            : 'start with a few details, we will shape the rest.'
+    const activeSection = sections.find((section) => section.fields.includes(activeField))
+      ?? sections.find((section) => section.fields.some((field) => !hasValue(form[field])))
+      ?? sections[sections.length - 1]
+
+    return {
+      activeSectionId: activeSection.id,
+      activeSectionLabel: activeSection.label,
+      completedCount,
+      hasStarted,
+      progress,
+      trustMessage,
+      totalCount,
+      sections: sections.map((section) => {
+        const filled = section.fields.filter((field) => hasValue(form[field])).length
+        return {
+          ...section,
+          filled,
+          total: section.fields.length,
+          isComplete: filled === section.fields.length,
+        }
+      }),
+    }
+  }, [activeField, form])
 
   async function handleSubmit(event) {
     event.preventDefault()
     setStatus('submitting')
 
     try {
-      await submitLead({ ...form, source: 'contact-page' })
+      await submitLead({ ...form, service: form.service.join(', '), source: 'contact-page' })
       setStatus('success')
       setForm({
         name: '',
         email: '',
         company: '',
-        service: '',
+        service: [],
         budget: '',
         timeline: '',
         message: '',
       })
+      setActiveField('')
     } catch {
       setStatus('error')
     }
   }
+
+  function handleFlowPointerDown(event) {
+    if (event.button !== 0) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    setFlowPosition({ x: rect.left, y: rect.top })
+    setFlowDrag({
+      isDragging: true,
+      offsetX: event.clientX - rect.left,
+      offsetY: event.clientY - rect.top,
+    })
+  }
+
+  function handleFlowPointerMove(event) {
+    if (!flowDrag.isDragging) return
+    const width = event.currentTarget.offsetWidth
+    const height = event.currentTarget.offsetHeight
+    const maxX = Math.max(8, window.innerWidth - width - 8)
+    const maxY = Math.max(8, window.innerHeight - height - 8)
+    const nextX = Math.min(Math.max(8, event.clientX - flowDrag.offsetX), maxX)
+    const nextY = Math.min(Math.max(8, event.clientY - flowDrag.offsetY), maxY)
+    setFlowPosition({ x: nextX, y: nextY })
+  }
+
+  function handleFlowPointerUp(event) {
+    if (flowDrag.isDragging) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+    setFlowDrag((current) => ({ ...current, isDragging: false }))
+  }
+
+  const flowStyle = flowPosition
+      ? {
+          left: `${flowPosition.x}px`,
+          top: `${flowPosition.y}px`,
+          right: 'auto',
+          bottom: 'auto',
+        }
+      : undefined
 
   return (
     <main className="contact-page" id="main-content">
@@ -134,6 +251,79 @@ function ContactUs() {
       </section>
 
       <section className="contact-body" aria-label="Contact form and details">
+        <div
+          className={`contact-flow${briefFlow.hasStarted ? '' : ' contact-flow--idle'}${flowDrag.isDragging ? ' is-dragging' : ''}`}
+          style={flowStyle}
+          aria-label="Brief completion progress"
+          onPointerDown={handleFlowPointerDown}
+          onPointerMove={handleFlowPointerMove}
+          onPointerUp={handleFlowPointerUp}
+          onPointerCancel={handleFlowPointerUp}
+        >
+          {briefFlow.hasStarted ? (
+            <>
+              <div className="contact-flow__head">
+                <div className="contact-flow__topline">
+                  <span>Brief</span>
+                </div>
+                <a
+                  className="contact-flow__whatsapp"
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label="Chat with us on WhatsApp"
+                  onPointerDown={(event) => event.stopPropagation()}
+                >
+                  <FaWhatsapp aria-hidden="true" />
+                  WhatsApp
+                  <ArrowUpRight size={12} strokeWidth={2.3} aria-hidden="true" />
+                </a>
+              </div>
+              <div className="contact-flow__summary">
+                <div className="contact-flow__percent">
+                  <strong>{briefFlow.progress}%</strong>
+                  <span>complete</span>
+                </div>
+                <div className="contact-flow__copy">
+                  <p>{briefFlow.trustMessage}</p>
+                  <span>
+                    {briefFlow.completedCount} of {briefFlow.totalCount} details added
+                  </span>
+                </div>
+              </div>
+              <div className="contact-flow__track" aria-hidden="true">
+                <span style={{ width: `${briefFlow.progress}%` }} />
+              </div>
+              <div className="contact-flow__sections" aria-label="Brief section completion">
+                {briefFlow.sections.map((section) => (
+                  <span
+                    key={section.id}
+                    className={`contact-flow__section${
+                      section.id === briefFlow.activeSectionId ? ' is-active' : ''
+                    }${section.isComplete ? ' is-complete' : ''}`}
+                  >
+                    <span>{section.label}</span>
+                    <strong>{section.filled}/{section.total}</strong>
+                  </span>
+                ))}
+              </div>
+            </>
+          ) : (
+            <a
+              className="contact-flow__whatsapp"
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Chat with us on WhatsApp"
+              onPointerDown={(event) => event.stopPropagation()}
+            >
+              <FaWhatsapp aria-hidden="true" />
+              WhatsApp
+              <ArrowUpRight size={12} strokeWidth={2.3} aria-hidden="true" />
+            </a>
+          )}
+        </div>
+
         <div className="contact-body__inner">
           <div className="contact-body__form-wrap">
             <header className="contact-form__header">
@@ -145,7 +335,9 @@ function ContactUs() {
             <form className="contact-form" onSubmit={handleSubmit} noValidate>
               <fieldset className="contact-form__section">
                 <legend>
-                  <span className="contact-form__step">01</span>
+                  <span className="contact-form__step">
+                    <span>(01)</span>
+                  </span>
                   About you
                 </legend>
                 <div className="contact-form__grid">
@@ -155,6 +347,7 @@ function ContactUs() {
                       name="name"
                       value={form.name}
                       onChange={handleChange}
+                      onFocus={() => setActiveField('name')}
                       placeholder="Jane Doe"
                       required
                       autoComplete="name"
@@ -167,6 +360,7 @@ function ContactUs() {
                       type="email"
                       value={form.email}
                       onChange={handleChange}
+                      onFocus={() => setActiveField('email')}
                       placeholder="jane@company.com"
                       required
                       autoComplete="email"
@@ -178,6 +372,7 @@ function ContactUs() {
                       name="company"
                       value={form.company}
                       onChange={handleChange}
+                      onFocus={() => setActiveField('company')}
                       placeholder="Acme Studio"
                       autoComplete="organization"
                     />
@@ -187,27 +382,33 @@ function ContactUs() {
 
               <fieldset className="contact-form__section">
                 <legend>
-                  <span className="contact-form__step">02</span>
+                  <span className="contact-form__step">
+                    <span>(02)</span>
+                  </span>
                   What you need
                 </legend>
-                <div className="contact-chips" role="radiogroup" aria-label="Service of interest">
-                  {SERVICE_OPTIONS.map((option) => (
-                    <button
-                      type="button"
-                      key={option}
-                      role="radio"
-                      aria-checked={form.service === option}
-                      className={`contact-chip${form.service === option ? ' is-active' : ''}`}
-                      onClick={() => handleServicePick(option)}
-                    >
-                      {option}
-                    </button>
-                  ))}
+                <div className="contact-chips" role="group" aria-label="Service of interest">
+                  {SERVICE_OPTIONS.map((option) => {
+                    const ServiceIcon = SERVICE_ICONS[option]
+                    return (
+                      <button
+                        type="button"
+                        key={option}
+                        aria-pressed={form.service.includes(option)}
+                        className={`contact-chip${form.service.includes(option) ? ' is-active' : ''}`}
+                        onClick={() => handleServicePick(option)}
+                        onFocus={() => setActiveField('service')}
+                      >
+                        <ServiceIcon size={13} strokeWidth={2.2} aria-hidden="true" />
+                        {option}
+                      </button>
+                    )
+                  })}
                 </div>
                 <div className="contact-form__grid">
                   <label className="contact-field">
                     <span className="contact-field__label">Budget</span>
-                    <select name="budget" value={form.budget} onChange={handleChange}>
+                    <select name="budget" value={form.budget} onChange={handleChange} onFocus={() => setActiveField('budget')}>
                       <option value="">Select a range</option>
                       {BUDGET_OPTIONS.map((option) => (
                         <option key={option} value={option}>
@@ -218,7 +419,7 @@ function ContactUs() {
                   </label>
                   <label className="contact-field">
                     <span className="contact-field__label">Timeline</span>
-                    <select name="timeline" value={form.timeline} onChange={handleChange}>
+                    <select name="timeline" value={form.timeline} onChange={handleChange} onFocus={() => setActiveField('timeline')}>
                       <option value="">When to start</option>
                       {TIMELINE_OPTIONS.map((option) => (
                         <option key={option} value={option}>
@@ -232,7 +433,9 @@ function ContactUs() {
 
               <fieldset className="contact-form__section">
                 <legend>
-                  <span className="contact-form__step">03</span>
+                  <span className="contact-form__step">
+                    <span>(03)</span>
+                  </span>
                   Project notes
                 </legend>
                 <label className="contact-field">
@@ -241,6 +444,7 @@ function ContactUs() {
                     name="message"
                     value={form.message}
                     onChange={handleChange}
+                    onFocus={() => setActiveField('message')}
                     required
                     rows="6"
                     maxLength="1200"
@@ -312,23 +516,12 @@ function ContactUs() {
 
             <ul className="contact-channels">
               <li>
-                <span className="contact-channels__icon"><Mail size={16} strokeWidth={2.2} aria-hidden="true" /></span>
-                <div>
-                  <strong>Email</strong>
-                  <a href="mailto:hello@designagency.local">hello@designagency.local</a>
-                </div>
-              </li>
-              <li>
-                <span className="contact-channels__icon"><Phone size={16} strokeWidth={2.2} aria-hidden="true" /></span>
                 <div>
                   <strong>Phone</strong>
                   <a href="tel:+919876543210">+91 98765 43210</a>
                 </div>
               </li>
               <li>
-                <span className="contact-channels__icon contact-channels__icon--whatsapp">
-                  <FaWhatsapp aria-hidden="true" />
-                </span>
                 <div>
                   <strong>WhatsApp</strong>
                   <a href={WHATSAPP_URL} target="_blank" rel="noreferrer noopener">
@@ -337,14 +530,12 @@ function ContactUs() {
                 </div>
               </li>
               <li>
-                <span className="contact-channels__icon"><MessageSquare size={16} strokeWidth={2.2} aria-hidden="true" /></span>
                 <div>
                   <strong>Studio chat</strong>
                   <span>Mon–Fri, 10:00 – 18:30 IST</span>
                 </div>
               </li>
               <li>
-                <span className="contact-channels__icon"><MapPin size={16} strokeWidth={2.2} aria-hidden="true" /></span>
                 <div>
                   <strong>Studio</strong>
                   <span>SMVEC campus, Puducherry, India</span>
@@ -396,19 +587,6 @@ function ContactUs() {
         </div>
       </section>
 
-      <a
-        className="contact-whatsapp-fab"
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noreferrer noopener"
-        aria-label="Chat with us on WhatsApp"
-      >
-        <span className="contact-whatsapp-fab__pulse" aria-hidden="true" />
-        <span className="contact-whatsapp-fab__icon" aria-hidden="true">
-          <FaWhatsapp />
-        </span>
-        <span className="contact-whatsapp-fab__label">Chat with us</span>
-      </a>
     </main>
   )
 }

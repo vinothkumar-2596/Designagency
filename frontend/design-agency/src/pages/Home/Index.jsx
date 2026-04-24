@@ -13,6 +13,7 @@ import {
   Users,
   Zap,
   ChevronDown,
+  Heart,
 } from 'lucide-react'
 import { BiLogoAdobe } from 'react-icons/bi'
 import { LuBanana } from 'react-icons/lu'
@@ -33,6 +34,7 @@ import BrandSystem from '../../components/BrandSystem/BrandSystem'
 import Button from '../../components/Button/Button'
 import SEO from '../../components/SEO/SEO'
 import { getSeo } from '../../services/contentService'
+import { resolveRegionalGreeting, splitGreetingText } from '../../utils/regionalGreeting'
 
 const whyStats = [
   {
@@ -154,12 +156,78 @@ const heroGridLines = Array.from({ length: 12 }, (_, index) => index)
 function Home() {
   const [meta, setMeta] = useState(null)
   const [openFaq, setOpenFaq] = useState(0)
+  const [regionalGreeting, setRegionalGreeting] = useState(null)
+  const [typedGreeting, setTypedGreeting] = useState('')
+  const [isGreetingVisible, setIsGreetingVisible] = useState(true)
+  const [isGreetingLeaving, setIsGreetingLeaving] = useState(false)
+  const [isIntroComplete, setIsIntroComplete] = useState(false)
 
   useEffect(() => {
+    let isMounted = true
+
     getSeo('/').then((seo) => {
       setMeta(seo)
     })
+
+    resolveRegionalGreeting().then((greeting) => {
+      if (isMounted) {
+        setRegionalGreeting(greeting)
+      }
+    })
+
+    return () => {
+      isMounted = false
+    }
   }, [])
+
+  useEffect(() => {
+    if (!regionalGreeting) return undefined
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const greetingSegments = splitGreetingText(regionalGreeting.text)
+    setTypedGreeting('')
+    setIsGreetingLeaving(false)
+    setIsGreetingVisible(true)
+    setIsIntroComplete(false)
+
+    if (prefersReducedMotion) {
+      setTypedGreeting(regionalGreeting.text)
+      const hideTimer = window.setTimeout(() => {
+        setIsGreetingLeaving(true)
+        window.setTimeout(() => {
+          setIsGreetingVisible(false)
+          setIsIntroComplete(true)
+        }, 420)
+      }, 1200)
+
+      return () => window.clearTimeout(hideTimer)
+    }
+
+    let characterIndex = 0
+    const typingTimer = window.setInterval(() => {
+      characterIndex += 1
+      setTypedGreeting(greetingSegments.slice(0, characterIndex).join(''))
+
+      if (characterIndex >= greetingSegments.length) {
+        window.clearInterval(typingTimer)
+      }
+    }, 72)
+
+    const exitTimer = window.setTimeout(() => {
+      setIsGreetingLeaving(true)
+    }, greetingSegments.length * 72 + 1250)
+
+    const removeTimer = window.setTimeout(() => {
+      setIsGreetingVisible(false)
+      setIsIntroComplete(true)
+    }, greetingSegments.length * 72 + 1750)
+
+    return () => {
+      window.clearInterval(typingTimer)
+      window.clearTimeout(exitTimer)
+      window.clearTimeout(removeTimer)
+    }
+  }, [regionalGreeting])
 
   return (
     <main className="home-page" id="main-content">
@@ -172,7 +240,21 @@ function Home() {
             </div>
           ))}
         </div>
-        <div className="home-hero__inner">
+        {regionalGreeting && isGreetingVisible ? (
+          <p
+            className={`home-hero__greeting${isGreetingLeaving ? ' is-leaving' : ''}`}
+            aria-label={`Regional greeting: ${regionalGreeting.transliteration}`}
+          >
+            <span className="home-hero__greeting-line">
+              <span>{typedGreeting}</span>
+              {typedGreeting === regionalGreeting.text ? (
+                <Heart className="home-hero__greeting-love" size={68} strokeWidth={2.1} aria-hidden="true" />
+              ) : null}
+              <span className="home-hero__greeting-cursor" aria-hidden="true" />
+            </span>
+          </p>
+        ) : null}
+        <div className={`home-hero__inner${isIntroComplete ? ' is-ready' : ''}`}>
           <div className="home-hero__content">
             <div className="home-hero__badge" aria-label="Trusted by ambitious founders">
               <span className="home-hero__avatars" aria-hidden="true">

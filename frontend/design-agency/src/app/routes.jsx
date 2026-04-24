@@ -14,8 +14,10 @@ function AppRoutes() {
   return (
     <Suspense
       fallback={
-        <main className="page-loading" id="main-content">
-          Loading
+        <main className="page-loading page-loading--screen" id="main-content" aria-live="polite">
+          <span className="page-loading__mark" aria-hidden="true" />
+          <span className="page-loading__brand">BrandView India</span>
+          <span className="page-loading__text">Preparing your experience</span>
         </main>
       }
     >
