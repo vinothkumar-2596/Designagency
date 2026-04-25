@@ -55,6 +55,34 @@ function getRegionFromLanguage(language) {
   return parts.length > 1 ? parts[parts.length - 1].toUpperCase() : ''
 }
 
+const CITY_TO_STATE = {
+  pondicherry: 'puducherry',
+  puducherry: 'puducherry',
+  karaikal: 'puducherry',
+  mahe: 'kerala',
+  yanam: 'andhra pradesh',
+  chandigarh: 'chandigarh',
+  silvassa: 'dadra and nagar haveli',
+  daman: 'daman and diu',
+  diu: 'daman and diu',
+  'port blair': 'andaman and nicobar islands',
+  gangtok: 'sikkim',
+  shillong: 'meghalaya',
+  aizawl: 'mizoram',
+  kohima: 'nagaland',
+  imphal: 'manipur',
+  itanagar: 'arunachal pradesh',
+  agartala: 'tripura',
+}
+
+function getGreetingByCity(cityName) {
+  if (!cityName) return null
+  const normalizedCity = normalizeRegion(cityName)
+  const mappedState = CITY_TO_STATE[normalizedCity]
+  if (mappedState) return getGreetingByState(mappedState)
+  return null
+}
+
 function getGreetingByState(regionName) {
   const normalizedRegion = normalizeRegion(regionName)
   return STATE_GREETINGS.find(({ codes = [], states }) =>
@@ -122,7 +150,7 @@ async function fetchIpApiGreeting() {
       return INTERNATIONAL_FALLBACK
     }
 
-    return getGreetingByState(data.region_code ?? '') ?? getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
+    return getGreetingByCity(data.city ?? '') ?? getGreetingByState(data.region_code ?? '') ?? getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
   } catch {
     return null
   } finally {
@@ -153,7 +181,7 @@ async function fetchIpWhoGreeting() {
       return INTERNATIONAL_FALLBACK
     }
 
-    return getGreetingByState(data.region_code ?? '') ?? getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
+    return getGreetingByCity(data.city ?? '') ?? getGreetingByState(data.region_code ?? '') ?? getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
   } catch {
     return null
   } finally {
@@ -180,7 +208,7 @@ async function fetchGeoJsGreeting() {
       return INTERNATIONAL_FALLBACK
     }
 
-    return getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
+    return getGreetingByCity(data.city ?? '') ?? getGreetingByState(data.region ?? '') ?? INDIA_FALLBACK
   } catch {
     return null
   } finally {
@@ -188,8 +216,68 @@ async function fetchGeoJsGreeting() {
   }
 }
 
+async function fetchGpsGreeting() {
+  if (!navigator.geolocation) return null
+
+  // Skip GPS if user previously denied or we already cached a region
+  const gpsDenied = window.sessionStorage.getItem('brandvue_gps_denied')
+  if (gpsDenied) return null
+
+  try {
+    if (navigator.permissions) {
+      const perm = await navigator.permissions.query({ name: 'geolocation' })
+      if (perm.state === 'denied') {
+        window.sessionStorage.setItem('brandvue_gps_denied', '1')
+        return null
+      }
+    }
+  } catch {
+    // permissions API not supported, still try GPS
+  }
+
+  try {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        timeout: 2500,
+        maximumAge: 600000,
+        enableHighAccuracy: false,
+      })
+    })
+
+    const { latitude, longitude } = position.coords
+    const controller = new AbortController()
+    const timer = window.setTimeout(() => controller.abort(), 2500)
+
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=en&zoom=5`,
+        { signal: controller.signal },
+      )
+
+      if (!response.ok) return null
+
+      const data = await response.json()
+      const state = data.address?.state ?? ''
+      const city = data.address?.city ?? data.address?.town ?? data.address?.village ?? ''
+
+      const result = getGreetingByCity(city) ?? getGreetingByState(state) ?? null
+
+      // Cache the GPS-resolved region so we don't prompt again
+      if (result && state) {
+        window.localStorage.setItem('brandvue_region', state.toLowerCase())
+      }
+
+      return result
+    } finally {
+      window.clearTimeout(timer)
+    }
+  } catch {
+    return null
+  }
+}
+
 async function getGreetingByIpRegion() {
-  return (await fetchGeoJsGreeting()) ?? (await fetchIpApiGreeting()) ?? (await fetchIpWhoGreeting())
+  return (await fetchGpsGreeting()) ?? (await fetchGeoJsGreeting()) ?? (await fetchIpApiGreeting()) ?? (await fetchIpWhoGreeting())
 }
 
 export function getRegionalGreeting() {
@@ -205,7 +293,13 @@ export async function resolveRegionalGreeting() {
     return INTERNATIONAL_FALLBACK
   }
 
-  return getLocalGreetingOverride() ?? (await getGreetingByIpRegion()) ?? getGreetingByBrowser()
+  const localOverride = getLocalGreetingOverride()
+  if (localOverride) return localOverride
+
+  const ipGreeting = await getGreetingByIpRegion()
+  if (ipGreeting) return ipGreeting
+
+  return getGreetingByBrowser()
 }
 
 export function splitGreetingText(text) {
