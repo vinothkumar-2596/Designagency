@@ -4,6 +4,7 @@ import Layout from '../components/Layout/Layout'
 
 const Home = lazy(() => import('../pages/Home/Index.jsx'))
 const Services = lazy(() => import('../pages/Services/Index.jsx'))
+const ServiceRouter = lazy(() => import('../pages/Services/ServiceRouter.jsx'))
 const CaseStudies = lazy(() => import('../pages/CaseStudies/Index.jsx'))
 const Blog = lazy(() => import('../pages/Blog/Index.jsx'))
 const AboutUs = lazy(() => import('../pages/AboutUs/Index.jsx'))
@@ -25,7 +26,7 @@ function AppRoutes() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/services/:slug" element={<ContentDetail type="services" />} />
+          <Route path="/services/:slug" element={<ServiceRouter />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/case-studies/:slug" element={<ContentDetail type="case-studies" />} />
           <Route path="/blog" element={<Blog />} />
