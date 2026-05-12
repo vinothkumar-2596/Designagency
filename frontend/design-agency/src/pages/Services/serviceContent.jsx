@@ -300,6 +300,18 @@ export const services = [
       'Design System',
     ],
     cta: 'Improve My User Experience',
+    banner: {
+      badge: 'Collaborate with the studio',
+      heading: (
+        <>
+          Let U<em>(&amp;)</em>I design UX, together.
+        </>
+      ),
+      lede:
+        'Research, wireframes, interaction design, and final UI — co-built with your team, from concept to launch.',
+      cta: { label: 'Start a project', to: '/contactus' },
+      secondary: { label: 'View our process', to: '/services' },
+    },
   },
   {
     number: '03',

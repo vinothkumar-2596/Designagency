@@ -2233,3 +2233,115 @@
     transform: none;
   }
 }
+
+/* ---------------------------------------------------------------- */
+/* Hand-drawn illustrated doodle overlay (icons + leaves + sparkles) */
+/* ---------------------------------------------------------------- */
+
+.blog-doodle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  color: $white;
+  overflow: hidden;
+}
+
+.blog-doodle__item {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.22))
+    drop-shadow(0 6px 14px rgba(0, 0, 0, 0.28));
+  opacity: 0.96;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 360ms ease;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  &--icon {
+    opacity: 0.96;
+  }
+
+  &--leaves {
+    opacity: 0.9;
+  }
+
+  &--sparkleBig {
+    animation: blog-doodle-twinkle 4.8s ease-in-out infinite;
+  }
+
+  &--sparkle {
+    animation: blog-doodle-twinkle 5.6s ease-in-out infinite;
+    opacity: 0.85;
+  }
+
+  &--swirl {
+    opacity: 0.75;
+  }
+}
+
+.blog-card__media,
+.blog-spotlight__media,
+.blog-picks__feature-media,
+.blog-picks__item-media {
+  isolation: isolate;
+
+  > img {
+    filter: saturate(0.92) contrast(1.04) brightness(0.86);
+  }
+
+  /* Soft vignette under doodles for legibility on bright photos */
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(140% 90% at 50% 0%, rgba(0, 0, 0, 0.28), transparent 55%),
+      radial-gradient(140% 90% at 50% 100%, rgba(0, 0, 0, 0.18), transparent 55%);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+}
+
+/* Smaller picks items show only icons (skip leaves wreath) */
+.blog-picks__item-media .blog-doodle__item--leaves,
+.blog-picks__item-media .blog-doodle__item--swirl {
+  display: none;
+}
+.blog-picks__item-media .blog-doodle__item--icon {
+  width: 38px !important;
+  height: 38px !important;
+}
+.blog-picks__item-media .blog-doodle__item--sparkleBig {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* Hover micro-interaction */
+.blog-card:hover .blog-doodle__item--icon {
+  transform: translate(-50%, -52%) rotate(0deg) !important;
+}
+.blog-card:hover .blog-doodle__item--leaves {
+  opacity: 1;
+}
+
+@keyframes blog-doodle-twinkle {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-doodle__item {
+    animation: none;
+  }
+}

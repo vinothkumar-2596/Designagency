@@ -1,4 +1,5 @@
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowUpRight, Code2, LayoutGrid, Palette, PenTool, Smartphone } from 'lucide-react'
 import { siteConfig } from '../../config/site'
 import Footer from '../Footer/Footer'
@@ -12,6 +13,20 @@ const NAV_ICONS = {
 }
 
 function Layout() {
+  const location = useLocation()
+
+  // When the route changes, drop focus from anything inside the header dropdown
+  // (trigger or menu link) so `:focus-within` releases and the CSS-driven menu can close.
+  useEffect(() => {
+    const active = typeof document !== 'undefined' ? document.activeElement : null
+    if (
+      active instanceof HTMLElement &&
+      active.closest('.site-header__nav-item--has-menu')
+    ) {
+      active.blur()
+    }
+  }, [location.pathname])
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -33,7 +48,11 @@ function Layout() {
                     key={item.path}
                     className="site-header__nav-item site-header__nav-item--has-menu"
                   >
-                    <NavLink to={item.path} className="site-header__nav-link">
+                    <NavLink
+                      to={item.path}
+                      className="site-header__nav-link"
+                      onClick={(event) => event.currentTarget.blur()}
+                    >
                       <span>{item.label}</span>
                       <svg
                         className="site-header__nav-caret"
@@ -63,6 +82,7 @@ function Layout() {
                             to={child.path}
                             className="site-header__nav-menu-link"
                             role="menuitem"
+                            onClick={(event) => event.currentTarget.blur()}
                           >
                             {Icon ? (
                               <span className="site-header__nav-menu-icon" aria-hidden="true">

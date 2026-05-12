@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { SERVICE_SLUGS } from './serviceSlugs'
 
 const PORTFOLIO_ITEMS = [
-  { title: 'DLF CyberHub Musix', tag: 'Branding', img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80', bg: '#cfd5dc' },
+  { title: 'DLF CyberHub Musix', tag: 'Branding', img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80', bg: '#cfd5dc', slug: 'dlf-cyberhub-musix' },
   { title: 'Ahimsa', tag: 'Branding', img: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=900&q=80', bg: '#e8c84a' },
   { title: 'Nordlys Craft & Design', tag: 'Branding', img: 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=900&q=80', bg: '#4a3f3a' },
   { title: 'Spice Grill', tag: 'Branding', img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80', bg: '#f0d9b8' },
@@ -32,9 +32,13 @@ function ServicesPortfolio({ heading = 'Branding Portfolio', lede = "A glimpse o
           <div className="services-portfolio__grid">
             {PORTFOLIO_ITEMS.map((item) => (
               <article className="portfolio-card" key={item.title}>
-                <Link to="/contactus" className="portfolio-card__link">
+                <Link
+                  to={item.slug ? `/case-studies/${item.slug}` : '/contactus'}
+                  className="portfolio-card__link"
+                >
                   <div className="portfolio-card__media" style={{ background: item.bg }}>
                     <img src={item.img} alt={item.title} loading="lazy" decoding="async" />
+                    <span className="portfolio-card__chip">{item.slug ? 'Case study' : item.tag}</span>
                   </div>
                   <span className="portfolio-card__tag">{item.tag}</span>
                   <h3 className="portfolio-card__title">{item.title}</h3>

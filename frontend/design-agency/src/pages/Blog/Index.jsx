@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, Clock, Command, Mail, Search, Shield, SlidersHorizontal, X } from 'lucide-react'
 import SEO from '../../components/SEO/SEO'
 import Button from '../../components/Button/Button'
+import BlogDoodle from '../../components/BlogDoodle/BlogDoodle'
 import { getContentList, getSeo } from '../../services/contentService'
 
 const FALLBACK_CATEGORIES = ['All', 'Branding', 'Design Systems', 'Web Design', 'Typography', 'Motion', 'Process']
@@ -358,6 +359,11 @@ function Blog() {
                 ) : (
                   <div className="blog-spotlight__media-fallback" aria-hidden="true" />
                 )}
+                <BlogDoodle
+                  icons={activeSpotlight.doodleIcons ?? []}
+                  leafSide={activeSpotlight.doodleSide ?? 'left'}
+                  seed={activeSpotlight.slug}
+                />
                 <span className="blog-spotlight__badge">Featured</span>
               </Link>
             </div>
@@ -388,6 +394,11 @@ function Blog() {
                     ) : (
                       <div className="blog-card__media-fallback" aria-hidden="true" />
                     )}
+                    <BlogDoodle
+                      icons={post.doodleIcons ?? []}
+                      leafSide={post.doodleSide ?? (index % 2 === 0 ? 'left' : 'right')}
+                      seed={post.slug}
+                    />
                     {post.category ? (
                       <span className="blog-card__category">{post.category}</span>
                     ) : null}
@@ -520,6 +531,11 @@ function Blog() {
                         ) : (
                           <div className="blog-picks__media-fallback" aria-hidden="true" />
                         )}
+                        <BlogDoodle
+                          icons={feature.doodleIcons ?? []}
+                          leafSide={feature.doodleSide ?? 'left'}
+                          seed={feature.slug}
+                        />
                       </Link>
                       <div className="blog-picks__feature-body">
                         {feature.category ? (
@@ -546,6 +562,11 @@ function Blog() {
                             ) : (
                               <div className="blog-picks__media-fallback" aria-hidden="true" />
                             )}
+                            <BlogDoodle
+                              icons={post.doodleIcons ?? []}
+                              leafSide={post.doodleSide ?? 'left'}
+                              seed={post.slug}
+                            />
                           </Link>
                           <div className="blog-picks__item-body">
                             {post.category ? (

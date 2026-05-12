@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowUpRight, Bookmark, Clock, Copy, Link2, Share2 } from 'lucide-react'
 import SEO from '../../components/SEO/SEO'
+import BlogDoodle from '../../components/BlogDoodle/BlogDoodle'
 import { getContentItem, getContentList } from '../../services/contentService'
 
 const SAVED_POSTS_KEY = 'design-agency:saved-posts'
@@ -281,6 +282,13 @@ function ContentDetail({ type }) {
         {item.heroImage ? (
           <figure className="blog-article__cover">
             <img src={item.heroImage} alt="" />
+            {type === 'blog' ? (
+              <BlogDoodle
+                icons={item.doodleIcons ?? []}
+                leafSide={item.doodleSide ?? 'left'}
+                seed={item.slug}
+              />
+            ) : null}
             <figcaption>{item.category ? `${item.category} — ${item.title}` : item.title}</figcaption>
           </figure>
         ) : null}
@@ -369,6 +377,11 @@ function ContentDetail({ type }) {
                   <li key={post.id} className="blog-article__related-card">
                     <Link to={`/blog/${post.slug}`} className="blog-article__related-media">
                       {post.heroImage ? <img src={post.heroImage} alt="" loading="lazy" /> : null}
+                      <BlogDoodle
+                        icons={post.doodleIcons ?? []}
+                        leafSide={post.doodleSide ?? 'left'}
+                        seed={post.slug}
+                      />
                     </Link>
                     <div className="blog-article__related-body">
                       {post.category ? <span className="blog-article__related-chip">{post.category}</span> : null}
@@ -389,6 +402,16 @@ function ContentDetail({ type }) {
 
   if (type === 'case-studies') {
     const deckImages = Array.isArray(item.deckImages) ? item.deckImages : []
+    const facts = Array.isArray(item.facts) ? item.facts : []
+    const narrative = Array.isArray(item.sections) ? item.sections : []
+    const palette = Array.isArray(item.palette) ? item.palette : []
+    const typography = Array.isArray(item.typography) ? item.typography : []
+    const applications = Array.isArray(item.applications) ? item.applications : []
+    const metrics = Array.isArray(item.metrics) ? item.metrics : []
+    const quote = item.quote && item.quote.text ? item.quote : null
+    const tags = Array.isArray(item.tags) ? item.tags : []
+    const nextProject = item.nextProject ?? null
+    const coverImage = item.coverImage || item.heroImage
 
     return (
       <main className="case-study" id="main-content">
@@ -401,6 +424,17 @@ function ContentDetail({ type }) {
             <Link to="/case-studies" className="case-study__crumb">
               <ArrowLeft size={14} strokeWidth={2.2} aria-hidden="true" /> All case studies
             </Link>
+            {item.externalLink ? (
+              <a
+                href={item.externalLink.url}
+                className="case-study__external"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.externalLink.label}
+                <ArrowUpRight size={13} strokeWidth={2.2} aria-hidden="true" />
+              </a>
+            ) : null}
           </div>
         </nav>
 
@@ -423,6 +457,134 @@ function ContentDetail({ type }) {
               ) : null}
             </div>
           </header>
+        ) : null}
+
+        {coverImage && narrative.length > 0 ? (
+          <figure className="case-study__cover">
+            <img src={coverImage} alt={item.brandName ?? item.title} loading="eager" />
+          </figure>
+        ) : null}
+
+        {facts.length > 0 ? (
+          <section className="case-study__facts" aria-label="Project facts">
+            <div className="case-study__facts-inner">
+              {facts.map((f) => (
+                <div className="case-study__fact" key={f.label}>
+                  <span className="case-study__fact-label">{f.label}</span>
+                  <span className="case-study__fact-value">{f.value}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {narrative.length > 0 ? (
+          <section className="case-study__narrative" aria-label="Project narrative">
+            {narrative.map((s, idx) => (
+              <article className="case-study__chapter" key={s.eyebrow ?? idx}>
+                <div className="case-study__chapter-side">
+                  {s.eyebrow ? <p className="case-study__chapter-eyebrow">{s.eyebrow}</p> : null}
+                </div>
+                <div className="case-study__chapter-main">
+                  {s.title ? <h2 className="case-study__chapter-title">{s.title}</h2> : null}
+                  {s.body ? <p className="case-study__chapter-body">{s.body}</p> : null}
+                </div>
+              </article>
+            ))}
+          </section>
+        ) : null}
+
+        {palette.length > 0 ? (
+          <section className="case-study__palette" aria-label="Colour palette">
+            <header className="case-study__section-head">
+              <p className="case-study__section-eyebrow">04 — Colour</p>
+              <h2 className="case-study__section-title">A palette tuned for low light.</h2>
+            </header>
+            <div className="case-study__palette-grid">
+              {palette.map((swatch) => (
+                <div className="case-study__swatch" key={swatch.hex}>
+                  <div
+                    className="case-study__swatch-chip"
+                    style={{ background: swatch.hex }}
+                    aria-hidden="true"
+                  />
+                  <div className="case-study__swatch-meta">
+                    <span className="case-study__swatch-role">{swatch.role}</span>
+                    <span className="case-study__swatch-name">{swatch.name}</span>
+                    <span className="case-study__swatch-hex">{swatch.hex}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {typography.length > 0 ? (
+          <section className="case-study__type" aria-label="Typography">
+            <header className="case-study__section-head">
+              <p className="case-study__section-eyebrow">05 — Type</p>
+              <h2 className="case-study__section-title">A wordmark built like a tour poster.</h2>
+            </header>
+            <ul className="case-study__type-list">
+              {typography.map((t) => (
+                <li className="case-study__type-row" key={t.name}>
+                  <span className="case-study__type-sample">{t.sample}</span>
+                  <span className="case-study__type-meta">
+                    <strong>{t.name}</strong>
+                    <span>{t.role}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {applications.length > 0 ? (
+          <section className="case-study__applications" aria-label="Applications">
+            <header className="case-study__section-head">
+              <p className="case-study__section-eyebrow">06 — In context</p>
+              <h2 className="case-study__section-title">From facade to ticket stub.</h2>
+            </header>
+            <div className="case-study__applications-grid">
+              {applications.map((app, idx) => (
+                <figure
+                  className={`case-study__application${app.span === 'wide' ? ' case-study__application--wide' : ''}`}
+                  key={app.src ?? idx}
+                >
+                  <img src={app.src} alt={app.alt ?? ''} loading="lazy" />
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {quote ? (
+          <section className="case-study__quote-block" aria-label="Client testimonial">
+            <blockquote className="case-study__quote">
+              <p>&ldquo;{quote.text}&rdquo;</p>
+              {quote.attribution ? <footer>— {quote.attribution}</footer> : null}
+            </blockquote>
+          </section>
+        ) : null}
+
+        {metrics.length > 0 ? (
+          <section className="case-study__metrics" aria-label="Outcomes">
+            <header className="case-study__metrics-head">
+              <p className="case-study__metrics-eyebrow">07 — Outcomes</p>
+              <h2 className="case-study__metrics-title">What changed after launch.</h2>
+            </header>
+            <dl className="case-study__metrics-grid">
+              {metrics.map((m) => (
+                <div className="case-study__metric" key={m.label}>
+                  <dt className="case-study__metric-value">{m.value}</dt>
+                  <dd className="case-study__metric-label">
+                    <strong>{m.label}</strong>
+                    {m.caption ? <span>{m.caption}</span> : null}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
         ) : null}
 
         {deckImages.length > 0 ? (
@@ -465,6 +627,31 @@ function ContentDetail({ type }) {
               )
             })}
           </div>
+        ) : null}
+
+        {tags.length > 0 ? (
+          <div className="case-study__tags">
+            <div className="case-study__tags-inner">
+              <span className="case-study__tags-label">Tagged</span>
+              <ul>
+                {tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : null}
+
+        {nextProject ? (
+          <Link to={`/case-studies/${nextProject.slug}`} className="case-study__next">
+            <div className="case-study__next-inner">
+              <span className="case-study__next-eyebrow">{nextProject.eyebrow ?? 'Next case study'}</span>
+              <span className="case-study__next-title">
+                {nextProject.label}
+                <ArrowUpRight size={22} strokeWidth={2.2} aria-hidden="true" />
+              </span>
+            </div>
+          </Link>
         ) : null}
 
         <section className="case-study__cta">
