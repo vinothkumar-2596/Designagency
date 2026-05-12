@@ -1637,6 +1637,7 @@
 }
 
 .blog-picks__feature-media {
+  position: relative;
   display: block;
   overflow: hidden;
   aspect-ratio: 16 / 11;
@@ -1802,6 +1803,7 @@
 }
 
 .blog-picks__item-media {
+  position: relative;
   display: block;
   overflow: hidden;
   aspect-ratio: 1 / 1;
