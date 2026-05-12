@@ -6,36 +6,44 @@ import { getContentItem, getContentList } from '../../services/contentService'
 
 const SAVED_POSTS_KEY = 'design-agency:saved-posts'
 
-function renderSection(section, index) {
+function renderSection(section, index, classPrefix = 'blog-article') {
   if (!section || !section.type) return null
   if (section.type === 'heading') {
     return (
-      <h2 key={index} className="blog-article__h2">
+      <h2 key={index} className={`${classPrefix}__h2`}>
         {section.text}
       </h2>
     )
   }
   if (section.type === 'paragraph') {
     return (
-      <p key={index} className="blog-article__p">
+      <p key={index} className={`${classPrefix}__p`}>
         {section.text}
       </p>
     )
   }
   if (section.type === 'quote') {
     return (
-      <blockquote key={index} className="blog-article__quote">
+      <blockquote key={index} className={`${classPrefix}__quote`}>
         <p>{section.text}</p>
       </blockquote>
     )
   }
   if (section.type === 'list') {
     return (
-      <ul key={index} className="blog-article__list">
+      <ul key={index} className={`${classPrefix}__list`}>
         {(section.items ?? []).map((item, idx) => (
           <li key={idx}>{item}</li>
         ))}
       </ul>
+    )
+  }
+  if (section.type === 'image') {
+    return (
+      <figure key={index} className={`${classPrefix}__figure`}>
+        <img src={section.src} alt={section.alt ?? ''} loading="lazy" />
+        {section.caption ? <figcaption>{section.caption}</figcaption> : null}
+      </figure>
     )
   }
   return null
@@ -375,6 +383,99 @@ function ContentDetail({ type }) {
             </div>
           </section>
         ) : null}
+      </main>
+    )
+  }
+
+  if (type === 'case-studies') {
+    const deckImages = Array.isArray(item.deckImages) ? item.deckImages : []
+
+    return (
+      <main className="case-study" id="main-content">
+        <SEO meta={item.meta} />
+
+        <h1 className="sr-only">{item.title}</h1>
+
+        <nav className="case-study__topbar" aria-label="Breadcrumb">
+          <div className="case-study__topbar-inner">
+            <Link to="/case-studies" className="case-study__crumb">
+              <ArrowLeft size={14} strokeWidth={2.2} aria-hidden="true" /> All case studies
+            </Link>
+          </div>
+        </nav>
+
+        {item.heroHeadline || item.heroSubhead ? (
+          <header className="case-study__hero">
+            <div className="case-study__hero-inner">
+              {item.year ? <span className="case-study__hero-year">© {item.year}</span> : null}
+              {item.heroEyebrow ? <p className="case-study__hero-eyebrow">{item.heroEyebrow}</p> : null}
+              {item.heroHeadline ? <p className="case-study__hero-headline">{item.heroHeadline}</p> : null}
+              {item.heroSubhead ? <p className="case-study__hero-subhead">{item.heroSubhead}</p> : null}
+              {Array.isArray(item.heroMeta) && item.heroMeta.length > 0 ? (
+                <dl className="case-study__hero-meta">
+                  {item.heroMeta.map((m) => (
+                    <div key={m.label} className="case-study__hero-meta-row">
+                      <dt>{m.label}</dt>
+                      <dd>{m.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+            </div>
+          </header>
+        ) : null}
+
+        {deckImages.length > 0 ? (
+          <div className="case-study__deck-stack">
+            {deckImages.map((img, idx) => {
+              const srcSet = Array.isArray(img.srcSet)
+                ? img.srcSet.map((s) => `${s.url} ${s.width}w`).join(', ')
+                : undefined
+              return (
+                <figure
+                  key={img.src ?? idx}
+                  className="case-study__deck"
+                  style={
+                    img.width && img.height
+                      ? { aspectRatio: `${img.width} / ${img.height}` }
+                      : undefined
+                  }
+                >
+                  <img
+                    src={img.src}
+                    srcSet={srcSet}
+                    sizes="(min-width: 1280px) 1280px, 100vw"
+                    width={img.width}
+                    height={img.height}
+                    alt={img.alt ?? ''}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                    decoding="async"
+                    fetchpriority={idx === 0 ? 'high' : 'low'}
+                    style={
+                      img.placeholder
+                        ? {
+                            backgroundImage: `url(${img.placeholder})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'top center',
+                          }
+                        : undefined
+                    }
+                  />
+                </figure>
+              )
+            })}
+          </div>
+        ) : null}
+
+        <section className="case-study__cta">
+          <div className="case-study__cta-inner">
+            <h2>Have a project like this in mind?</h2>
+            <p>We design brand-aligned product experiences that feel as considered as the product itself.</p>
+            <Link to="/contactus" className="case-study__cta-btn">
+              Start a project <ArrowUpRight size={16} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
       </main>
     )
   }
