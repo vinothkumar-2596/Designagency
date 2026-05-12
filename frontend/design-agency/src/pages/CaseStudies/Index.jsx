@@ -7,17 +7,18 @@ import { getContentList, getSeo } from '../../services/contentService'
 const SHOWCASE_TILES = [
   { img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80', tag: 'Branding · 2024', title: 'DLF CyberHub Musix' },
   { img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=900&q=80', tag: 'Mobile UX', title: 'Wellness companion' },
-  { img: 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=900&q=80', tag: 'Identity', title: 'Modern hospitality' },
-  { img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80', tag: 'Dashboard', title: 'Analytics platform' },
+  { img: 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?auto=format&fit=crop&w=1200&q=80', tag: 'Identity', title: 'Modern hospitality', size: 'wide' },
+  { img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80', tag: 'Dashboard', title: 'Analytics platform', size: 'wide' },
   { img: 'https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=900&q=80', tag: 'Web design', title: 'Studio launch site' },
   { img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80', tag: 'E-commerce', title: 'Premium retail' },
-  { img: 'https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=900&q=80', tag: 'UX research', title: 'Wireframe system' },
+  { img: 'https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=1200&q=80', tag: 'UX research', title: 'Wireframe system', size: 'wide' },
   { img: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=80', tag: 'Strategy', title: 'Design sprint deck' },
 ]
 
 function ShowcaseTile({ tile, index }) {
+  const className = `case-hero__tile${tile.size ? ` case-hero__tile--${tile.size}` : ''}`
   return (
-    <article className="case-hero__tile">
+    <article className={className}>
       <img src={tile.img} alt="" loading="lazy" decoding="async" />
       <span className="case-hero__tile-marker">
         <span className="case-hero__tile-marker-dot" aria-hidden="true" />
@@ -55,14 +56,6 @@ function CaseStudies() {
         </div>
 
         <div className="case-hero__inner">
-          <div className="case-hero__meta">
-            <span className="case-hero__meta-index">Case studies / {String(caseStudies.length || 4).padStart(2, '0')}</span>
-            <span className="case-hero__meta-status" aria-label="Available for new projects">
-              <span className="case-hero__meta-status-dot" aria-hidden="true" />
-              Available for Q3 2026
-            </span>
-          </div>
-
           <h1 className="case-hero__title">
             Selected work across
             {' '}

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowUpRight, Code2, LayoutGrid, Palette, PenTool, Smartphone } from 'lucide-react'
 import { siteConfig } from '../../config/site'
+import { prefetchRoute, warmIdleRoutes } from '../../app/routePrefetch'
 import Footer from '../Footer/Footer'
 
 const NAV_ICONS = {
@@ -12,11 +13,22 @@ const NAV_ICONS = {
   palette: Palette,
 }
 
+// Shared handlers — wire hover/focus/touchstart to start the chunk download
+// before the user actually clicks. Touchstart catches mobile taps that have
+// no hover state.
+function prefetchHandlers(path) {
+  const fire = () => prefetchRoute(path)
+  return {
+    onMouseEnter: fire,
+    onFocus: fire,
+    onTouchStart: fire,
+  }
+}
+
 function Layout() {
   const location = useLocation()
 
-  // When the route changes, drop focus from anything inside the header dropdown
-  // (trigger or menu link) so `:focus-within` releases and the CSS-driven menu can close.
+  // Close any open dropdown after route changes (release :focus-within).
   useEffect(() => {
     const active = typeof document !== 'undefined' ? document.activeElement : null
     if (
@@ -27,6 +39,13 @@ function Layout() {
     }
   }, [location.pathname])
 
+  // After the page is interactive, warm the chunks for the rest of the nav
+  // during browser idle time. Every primary route ends up pre-cached without
+  // blocking the first-paint critical path.
+  useEffect(() => {
+    warmIdleRoutes(location.pathname)
+  }, [location.pathname])
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -35,7 +54,12 @@ function Layout() {
 
       <header className="site-header">
         <div className="site-header__inner">
-          <NavLink className="site-header__brand" to="/" aria-label={`${siteConfig.name} home`}>
+          <NavLink
+            className="site-header__brand"
+            to="/"
+            aria-label={`${siteConfig.name} home`}
+            {...prefetchHandlers('/')}
+          >
             <span className="site-header__brand-mark" aria-hidden="true" />
             <span>{siteConfig.name}</span>
           </NavLink>
@@ -47,11 +71,18 @@ function Layout() {
                   <div
                     key={item.path}
                     className="site-header__nav-item site-header__nav-item--has-menu"
+                    onMouseEnter={() => {
+                      // Parent hover = imminent dropdown open. Warm every
+                      // child route at once so a click on any item is instant.
+                      prefetchRoute(item.path)
+                      for (const child of item.children) prefetchRoute(child.path)
+                    }}
                   >
                     <NavLink
                       to={item.path}
                       className="site-header__nav-link"
                       onClick={(event) => event.currentTarget.blur()}
+                      {...prefetchHandlers(item.path)}
                     >
                       <span>{item.label}</span>
                       <svg
@@ -83,6 +114,7 @@ function Layout() {
                             className="site-header__nav-menu-link"
                             role="menuitem"
                             onClick={(event) => event.currentTarget.blur()}
+                            {...prefetchHandlers(child.path)}
                           >
                             {Icon ? (
                               <span className="site-header__nav-menu-icon" aria-hidden="true">
@@ -102,14 +134,18 @@ function Layout() {
                 )
               }
               return (
-                <NavLink key={item.path} to={item.path}>
+                <NavLink key={item.path} to={item.path} {...prefetchHandlers(item.path)}>
                   {item.label}
                 </NavLink>
               )
             })}
           </nav>
 
-          <NavLink className="site-header__action" to="/contactus">
+          <NavLink
+            className="site-header__action"
+            to="/contactus"
+            {...prefetchHandlers('/contactus')}
+          >
             Start a project
             <span aria-hidden="true">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">

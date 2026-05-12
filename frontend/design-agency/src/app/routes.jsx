@@ -1,27 +1,28 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../components/Layout/Layout'
+import { getLoader } from './routePrefetch'
 
-const Home = lazy(() => import('../pages/Home/Index.jsx'))
-const Services = lazy(() => import('../pages/Services/Index.jsx'))
-const ServiceRouter = lazy(() => import('../pages/Services/ServiceRouter.jsx'))
-const CaseStudies = lazy(() => import('../pages/CaseStudies/Index.jsx'))
-const Blog = lazy(() => import('../pages/Blog/Index.jsx'))
-const AboutUs = lazy(() => import('../pages/AboutUs/Index.jsx'))
-const ContactUs = lazy(() => import('../pages/ContactUs/Index.jsx'))
-const ContentDetail = lazy(() => import('../pages/ContentDetail/Index.jsx'))
-const NotFound = lazy(() => import('../pages/NotFound/Index.jsx'))
+const Home = lazy(getLoader('/'))
+const Services = lazy(getLoader('/services'))
+const ServiceRouter = lazy(getLoader('/services/:slug'))
+const CaseStudies = lazy(getLoader('/case-studies'))
+const Blog = lazy(getLoader('/blog'))
+const AboutUs = lazy(getLoader('/aboutus'))
+const ContactUs = lazy(getLoader('/contactus'))
+const ContentDetail = lazy(getLoader('/blog/:slug'))
+const NotFound = lazy(getLoader('*'))
+
+// Tiny invisible fallback: previous page stays painted while the next chunk
+// loads. With prefetch-on-hover the chunk is almost always already cached,
+// so the spinner would just flash for ~10ms and feel like jank.
+function RouteFallback() {
+  return <div aria-hidden="true" style={{ minHeight: '60vh' }} />
+}
 
 function AppRoutes() {
   return (
-    <Suspense
-      fallback={
-        <main className="page-loading page-loading--screen" id="main-content" aria-live="polite">
-          <span className="page-loading__mark" aria-hidden="true" />
-          <span className="page-loading__text">Preparing your experience</span>
-        </main>
-      }
-    >
+    <Suspense fallback={<RouteFallback />}>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
