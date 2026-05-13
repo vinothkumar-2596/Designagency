@@ -278,6 +278,14 @@ export const services = [
       'Visual Direction',
     ],
     cta: 'Create My Brand Identity',
+    measuredInTrust: {
+      eyebrow: 'Designed to stand out',
+      before: 'Strong brands',
+      middle: "don't whisper — they",
+      highlight: 'own',
+      after: 'the room',
+      copy: 'From identity to expression, every detail is built to earn recognition and respect across every touchpoint.',
+    },
   },
   {
     number: '02',
@@ -300,6 +308,14 @@ export const services = [
       'Design System',
     ],
     cta: 'Improve My User Experience',
+    measuredInTrust: {
+      eyebrow: 'Tested with real users',
+      before: 'Clean interfaces',
+      middle: 'still need thoughtful',
+      highlight: 'flows',
+      after: 'behind every screen',
+      copy: 'Research, wireframes, and polish that turn complex products into journeys people finish without thinking.',
+    },
     banner: {
       badge: 'Collaborate with the studio',
       heading: (
@@ -334,6 +350,14 @@ export const services = [
       'Website Maintenance Support',
     ],
     cta: 'Build My Website',
+    measuredInTrust: {
+      eyebrow: 'Built to perform',
+      before: 'Beautiful sites',
+      middle: 'still need real',
+      highlight: 'performance',
+      after: 'under load',
+      copy: 'Pixel-perfect design, clean code, and Core Web Vitals tuned to move the needle from the first paint.',
+    },
   },
   {
     number: '04',
@@ -356,6 +380,14 @@ export const services = [
       'Feature Planning',
     ],
     cta: 'Start My App Project',
+    measuredInTrust: {
+      eyebrow: 'Engineered for scale',
+      before: 'Good ideas',
+      middle: 'still need',
+      highlight: 'reliable',
+      after: 'engineering behind them',
+      copy: 'From prototype to store launch, we ship products users open daily and keep coming back to.',
+    },
   },
   {
     number: '05',
@@ -378,5 +410,13 @@ export const services = [
       'Digital Creatives',
     ],
     cta: 'Design My Brand Creatives',
+    measuredInTrust: {
+      eyebrow: 'Consistent at speed',
+      before: 'Daily creative',
+      middle: 'still needs an',
+      highlight: 'unmistakable',
+      after: 'voice across every feed',
+      copy: 'Campaign-ready assets that earn the scroll and keep your brand instantly recognizable, post after post.',
+    },
   },
 ]

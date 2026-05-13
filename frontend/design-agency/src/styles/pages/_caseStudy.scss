@@ -9,8 +9,18 @@ $cs-text: #0d0d0d;
 $cs-muted: #4a4a4a;
 
 .case-study {
+  min-height: 100vh;
   background: $cs-bg;
   color: $cs-text;
+}
+
+/* Generic .content-detail wrapper — used by blog articles and other CMS
+   detail pages. Same guard so the dark footer can't peek through during
+   the async data-loading window. */
+.content-detail {
+  min-height: 100vh;
+  background: $color-background;
+  color: $text-primary;
 }
 
 .sr-only {

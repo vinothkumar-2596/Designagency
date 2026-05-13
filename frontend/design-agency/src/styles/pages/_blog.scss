@@ -3,6 +3,10 @@
 @use '../abstracts/breakpoints' as *;
 
 .blog-page {
+  /* Always at least viewport-tall — keeps the dark footer below the fold
+     during the brief window where posts haven't loaded yet, so the cream
+     page background fills the viewport instead of the footer peeking up. */
+  min-height: 100vh;
   background:
     linear-gradient(180deg, #faf8f0 0%, #f7f4ec 42%, #f5f1e8 100%);
   color: $text-primary;

@@ -1,9 +1,26 @@
+import { useEffect, useState } from 'react'
+import { ArrowUp } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { siteConfig } from '../../config/site'
 
 function Footer() {
   const currentYear = new Date().getFullYear()
   const { email, social } = siteConfig
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    const onScroll = () => setShowScrollTop(window.scrollY > 400)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const handleScrollTop = () => {
+    if (typeof window === 'undefined') return
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' })
+  }
 
   const socialLinks = [
     { url: social.twitter, label: 'Twitter', symbol: '𝕏' },
@@ -91,6 +108,17 @@ function Footer() {
           <p>© {currentYear} {siteConfig.name}. All rights reserved <span aria-hidden="true">›</span></p>
         </div>
       </div>
+
+      <button
+        type="button"
+        className={`footer__back-to-top${showScrollTop ? ' is-visible' : ''}`}
+        onClick={handleScrollTop}
+        aria-label="Back to top"
+        aria-hidden={!showScrollTop}
+        tabIndex={showScrollTop ? 0 : -1}
+      >
+        <ArrowUp size={20} strokeWidth={2.4} aria-hidden="true" />
+      </button>
     </footer>
   )
 }

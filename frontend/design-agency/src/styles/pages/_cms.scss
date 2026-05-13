@@ -2,6 +2,15 @@
 @use '../abstracts/mixins' as *;
 @use '../abstracts/breakpoints' as *;
 
+/* Pages that share .cms-page (Case Studies, content detail listings) must
+   fill at least the viewport so the dark footer can't peek up while their
+   async content is still loading. */
+.cms-page {
+  min-height: 100vh;
+  background: $color-background;
+  color: $text-primary;
+}
+
 .page-loading {
   @include container;
   display: flex;

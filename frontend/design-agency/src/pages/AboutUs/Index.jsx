@@ -360,16 +360,63 @@ function AboutUs() {
 
               <rect x="0" y="0" width="560" height="560" fill="url(#aboutStatsDots)" />
 
-              <image
-                href="https://res.cloudinary.com/dofapr3pk/image/upload/v1777996089/Untitled-2_zhtqot.jpg"
-                x="20"
-                y="90"
-                width="360"
-                height="360"
-                preserveAspectRatio="xMidYMid slice"
-                clipPath="url(#aboutStatsCircleClip)"
-              />
-              <circle cx="200" cy="270" r="180" fill="#ff6a00" fillOpacity="0.045" clipPath="url(#aboutStatsCircleClip)" />
+              {/* On-brand replacement: a stylised brand-sheet inside the circle.
+                  Uses the same vocabulary as the page (line art + brand swatches +
+                  editorial type) instead of the previous stock cartoon. */}
+              <g clipPath="url(#aboutStatsCircleClip)">
+                {/* warm backdrop */}
+                <rect x="20" y="90" width="360" height="360" fill="#f7f0e2" />
+
+                {/* dashed horizon */}
+                <line x1="50" y1="394" x2="350" y2="394" stroke="#0a0d12" strokeOpacity="0.14" strokeWidth="1" strokeDasharray="2 5" />
+
+                {/* hand-drawn arrow pointing to the logo */}
+                <path d="M82 132 C 72 154, 76 178, 100 188" fill="none" stroke="#ff6a00" strokeWidth="2.2" strokeLinecap="round" />
+                <path d="M94 180 L100 188 L94 196" fill="none" stroke="#ff6a00" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+
+                {/* sticky note, top-right */}
+                <g transform="translate(266 124) rotate(8)">
+                  <rect x="0" y="0" width="46" height="46" fill="#f4e58a" stroke="#0a0d12" strokeWidth="1.4" />
+                  <line x1="8" y1="14" x2="38" y2="14" stroke="#0a0d12" strokeWidth="1" strokeOpacity="0.55" strokeLinecap="round" />
+                  <line x1="8" y1="22" x2="38" y2="22" stroke="#0a0d12" strokeWidth="1" strokeOpacity="0.55" strokeLinecap="round" />
+                  <line x1="8" y1="30" x2="28" y2="30" stroke="#0a0d12" strokeWidth="1" strokeOpacity="0.55" strokeLinecap="round" />
+                </g>
+
+                {/* Brand mark + wordmark */}
+                <g transform="translate(120 170)">
+                  <rect x="0" y="0" width="56" height="56" rx="12" fill="#ff6a00" />
+                  <rect x="9" y="9" width="38" height="38" rx="7" fill="#ffc28a" fillOpacity="0.55" />
+                  <rect x="18" y="18" width="20" height="20" rx="3" fill="#ffffff" fillOpacity="0.9" />
+                </g>
+                <text x="190" y="196" fontFamily="'Manrope', system-ui, sans-serif" fontSize="17" fontWeight="700" letterSpacing="-0.025em" fill="#0a0d12">BrandView</text>
+                <text x="190" y="215" fontFamily="'Manrope', system-ui, sans-serif" fontSize="9" fontWeight="600" letterSpacing="0.2em" fill="#0a0d12" fillOpacity="0.55">DESIGN · STRATEGY · TECH</text>
+
+                {/* divider */}
+                <line x1="120" y1="248" x2="290" y2="248" stroke="#0a0d12" strokeOpacity="0.16" strokeWidth="1" />
+
+                {/* Palette */}
+                <text x="120" y="266" fontFamily="'Manrope', system-ui, sans-serif" fontSize="8" fontWeight="700" letterSpacing="0.22em" fill="#0a0d12" fillOpacity="0.45">/ PALETTE</text>
+                <g transform="translate(120 276)">
+                  <rect x="0" y="0" width="28" height="28" rx="4" fill="#ff6a00" />
+                  <rect x="34" y="0" width="28" height="28" rx="4" fill="#f4e58a" />
+                  <rect x="68" y="0" width="28" height="28" rx="4" fill="#0a0d12" />
+                  <rect x="102" y="0" width="28" height="28" rx="4" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="1.2" />
+                </g>
+
+                {/* Typography sample */}
+                <text x="120" y="332" fontFamily="'Manrope', system-ui, sans-serif" fontSize="8" fontWeight="700" letterSpacing="0.22em" fill="#0a0d12" fillOpacity="0.45">/ TYPE</text>
+                <text x="120" y="370" fontFamily="'Manrope', system-ui, sans-serif" fontSize="36" fontWeight="700" letterSpacing="-0.03em" fill="#0a0d12">Aa</text>
+                <text x="176" y="358" fontFamily="'Manrope', system-ui, sans-serif" fontSize="11" fontWeight="600" fill="#0a0d12">Manrope</text>
+                <text x="176" y="372" fontFamily="'Manrope', system-ui, sans-serif" fontSize="9" fontWeight="400" fill="#0a0d12" fillOpacity="0.6">Display · Body · Caption</text>
+
+                {/* corner sparkle */}
+                <g transform="translate(308 218)" stroke="#ff6a00" strokeWidth="2.4" strokeLinecap="round">
+                  <line x1="0" y1="-9" x2="0" y2="9" />
+                  <line x1="-9" y1="0" x2="9" y2="0" />
+                  <line x1="-6" y1="-6" x2="6" y2="6" strokeWidth="1.6" strokeOpacity="0.7" />
+                  <line x1="6" y1="-6" x2="-6" y2="6" strokeWidth="1.6" strokeOpacity="0.7" />
+                </g>
+              </g>
 
               <g transform="rotate(5 280 460)">
                 <rect x="128" y="426" width="300" height="72" rx="14" fill="#0a0d12" />

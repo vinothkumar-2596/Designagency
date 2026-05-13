@@ -13,11 +13,11 @@ const ContactUs = lazy(getLoader('/contactus'))
 const ContentDetail = lazy(getLoader('/blog/:slug'))
 const NotFound = lazy(getLoader('*'))
 
-// Tiny invisible fallback: previous page stays painted while the next chunk
-// loads. With prefetch-on-hover the chunk is almost always already cached,
-// so the spinner would just flash for ~10ms and feel like jank.
+// Invisible fallback at 100vh so the dark footer stays below the fold while
+// the next chunk loads (otherwise it would peek into view as a black bar).
+// Prefetch-on-hover means this is usually unmounted within a frame or two.
 function RouteFallback() {
-  return <div aria-hidden="true" style={{ minHeight: '60vh' }} />
+  return <div aria-hidden="true" style={{ minHeight: '100vh' }} />
 }
 
 function AppRoutes() {

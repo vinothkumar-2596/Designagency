@@ -17,6 +17,7 @@ const SORT_OPTIONS = [
 function Blog() {
   const [posts, setPosts] = useState([])
   const [meta, setMeta] = useState(null)
+  const [hasLoaded, setHasLoaded] = useState(false)
   const [activeCategory, setActiveCategory] = useState('All')
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState('latest')
@@ -28,15 +29,14 @@ function Blog() {
     Promise.all([getContentList('blog'), getSeo('/blog')]).then(([content, seo]) => {
       setPosts(content)
       setMeta(seo)
+      setHasLoaded(true)
     })
   }, [])
 
+  // ⌘/Ctrl+K is owned by the global command palette (see Layout). Here we
+  // only handle Escape to clear/blur this in-page search.
   useEffect(() => {
     function handleShortcut(event) {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-        event.preventDefault()
-        searchRef.current?.focus()
-      }
       if (event.key === 'Escape' && document.activeElement === searchRef.current) {
         setQuery('')
         searchRef.current?.blur()
@@ -587,6 +587,7 @@ function Blog() {
         </section>
       ) : null}
 
+      {hasLoaded ? (
       <section className="blog-newsletter">
         <div className="blog-newsletter__inner">
           <div className="blog-newsletter__copy">
@@ -626,6 +627,7 @@ function Blog() {
           </div>
         </div>
       </section>
+      ) : null}
     </main>
   )
 }

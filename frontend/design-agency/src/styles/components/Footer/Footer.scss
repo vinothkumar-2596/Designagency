@@ -23,7 +23,8 @@
   }
 }
 
-.home-page + .footer {
+.home-page + .footer,
+.page-transition--home + .footer {
   &::after {
     position: absolute;
     inset: 0;
@@ -325,7 +326,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-page + .footer::after {
+  .home-page + .footer::after,
+  .page-transition--home + .footer::after {
     animation: none;
   }
 }
@@ -350,5 +352,91 @@
       vertical-align: middle;
       line-height: 0.8;
     }
+  }
+}
+
+.footer__back-to-top {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid rgba($brand-orange, 0.45);
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.82);
+  color: $brand-orange;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.35),
+    0 0 0 4px rgba($brand-orange, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease,
+    visibility 0s linear 260ms,
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    box-shadow 220ms ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 260ms ease;
+  }
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      opacity 260ms ease,
+      transform 260ms ease,
+      visibility 0s linear 0s,
+      background 220ms ease,
+      border-color 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  &:hover {
+    background: $brand-orange;
+    border-color: $brand-orange;
+    color: #ffffff;
+    box-shadow:
+      0 14px 32px rgba($brand-orange, 0.45),
+      0 0 0 6px rgba($brand-orange, 0.14);
+
+    svg {
+      transform: translateY(-2px);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $brand-orange;
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__back-to-top,
+  .footer__back-to-top svg {
+    transition: opacity 0s, visibility 0s;
+  }
+
+  .footer__back-to-top {
+    transform: none;
+  }
+
+  .footer__back-to-top:hover svg {
+    transform: none;
   }
 }

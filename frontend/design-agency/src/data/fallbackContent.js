@@ -29,15 +29,16 @@ export const fallbackContent = {
       subtitle: 'UX Case Study',
       year: '2022',
       heroEyebrow: 'Case study · UX & UI · 2022',
-      heroHeadline: 'A calmer way to order a coffee.',
-      heroSubhead: 'Research, persona, information architecture, wireframes and final UI for a specialty café ordering app — built around fast reorder, detailed customisation, and scheduled pickup.',
+      heroHeadline: 'A UX case study for a calmer way to order coffee.',
+      heroSubhead: 'We delivered an end-to-end UX case study for Whitetown Café — research, persona, information architecture, wireframes, and final UI for their specialty café ordering app, built around fast reorder, detailed customisation, and scheduled pickup.',
       heroMeta: [
-        { label: 'Role', value: 'UX Research · UI Design' },
+        { label: 'Engagement', value: 'UX case study · UI design' },
+        { label: 'Client', value: 'Whitetown Café' },
         { label: 'Timeline', value: '16 weeks' },
         { label: 'Platform', value: 'iOS · Android' },
       ],
-      excerpt: 'Whitetown Café is a platform for coffee lovers and Whitetown Café restaurant customers to order customized coffee with scheduled delivery.',
-      body: 'An end-to-end UX case study covering research, persona, IA, wireframes, and final UI for the Whitetown Café ordering app.',
+      excerpt: 'An end-to-end UX case study we delivered for Whitetown Café — a specialty café ordering app built around fast reorder, detailed customisation, and scheduled pickup.',
+      body: 'We delivered an end-to-end UX case study for Whitetown Café — covering research, persona, information architecture, wireframes, and final UI for their ordering app.',
       heroImage: 'https://res.cloudinary.com/dofapr3pk/image/upload/f_auto,q_auto:best,w_1600,h_1000,c_fill,g_north/v1778581977/a33ced160959591.63bd7c1f71df2_xvudx2.png',
       deckImages: [
         {

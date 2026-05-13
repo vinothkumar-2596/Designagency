@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ArrowUpRight, Code2, LayoutGrid, Palette, PenTool, Smartphone } from 'lucide-react'
 import { siteConfig } from '../../config/site'
 import { prefetchRoute, warmIdleRoutes } from '../../app/routePrefetch'
 import Footer from '../Footer/Footer'
+import CommandPalette from '../CommandPalette/CommandPalette'
 
 const NAV_ICONS = {
   penTool: PenTool,
@@ -27,6 +28,16 @@ function prefetchHandlers(path) {
 
 function Layout() {
   const location = useLocation()
+  const navRef = useRef(null)
+  const indicatorRef = useRef(null)
+  // True only for the very first paint after a hard refresh. The bootloader
+  // already handles that transition, so we suppress the page-transition
+  // fade-in on initial mount to avoid a flash of the body's cream background
+  // behind the dark header.
+  const isInitialMountRef = useRef(true)
+  useEffect(() => {
+    isInitialMountRef.current = false
+  }, [])
 
   // Close any open dropdown after route changes (release :focus-within).
   useEffect(() => {
@@ -39,12 +50,60 @@ function Layout() {
     }
   }, [location.pathname])
 
+  // Slide a single shared dot to whichever nav link is active. Measuring in a
+  // layout effect (before paint) lets the indicator move smoothly without a
+  // visible flash between the old position and the new one.
+  useLayoutEffect(() => {
+    const nav = navRef.current
+    const indicator = indicatorRef.current
+    if (!nav || !indicator) return undefined
+
+    const measure = () => {
+      const active = nav.querySelector('.site-header__nav-link.active, a.active')
+      if (!active) {
+        indicator.style.opacity = '0'
+        return
+      }
+      const navRect = nav.getBoundingClientRect()
+      const linkRect = active.getBoundingClientRect()
+      const centerX = linkRect.left - navRect.left + linkRect.width / 2
+      indicator.style.transform = `translate3d(${centerX}px, 0, 0) translateX(-50%)`
+      indicator.style.opacity = '1'
+    }
+
+    measure()
+
+    // Recompute on font-load, image-load, or wrap changes so the dot tracks
+    // the link if widths shift after first paint.
+    const resizeObserver = new ResizeObserver(measure)
+    resizeObserver.observe(nav)
+    window.addEventListener('resize', measure)
+
+    return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [location.pathname])
+
   // After the page is interactive, warm the chunks for the rest of the nav
   // during browser idle time. Every primary route ends up pre-cached without
   // blocking the first-paint critical path.
   useEffect(() => {
     warmIdleRoutes(location.pathname)
   }, [location.pathname])
+
+  // Reset scroll on route change. We always jump to the top instantly (rather
+  // than animating) so the new page's hero is visible immediately — smooth
+  // scrolling here would let the user watch fresh content slide past while
+  // they're trying to read it. The fade-in below handles the "smooth" feel.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    // Hash-link navigation (e.g. #section) should still anchor-jump.
+    if (location.hash) return
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [location.pathname, location.hash])
+
+  const isHomeRoute = location.pathname === '/'
 
   return (
     <>
@@ -64,7 +123,7 @@ function Layout() {
             <span>{siteConfig.name}</span>
           </NavLink>
 
-          <nav className="site-header__nav" aria-label="Primary navigation">
+          <nav className="site-header__nav" aria-label="Primary navigation" ref={navRef}>
             {siteConfig.navItems.map((item) => {
               if (item.children?.length) {
                 return (
@@ -139,6 +198,11 @@ function Layout() {
                 </NavLink>
               )
             })}
+            <span
+              ref={indicatorRef}
+              className="site-header__nav-indicator"
+              aria-hidden="true"
+            />
           </nav>
 
           <NavLink
@@ -157,9 +221,18 @@ function Layout() {
         </div>
       </header>
 
-      <Outlet />
+      <div
+        key={location.pathname}
+        className={`page-transition${isHomeRoute ? ' page-transition--home' : ''}${
+          isInitialMountRef.current ? ' page-transition--initial' : ''
+        }`}
+      >
+        <Outlet />
+      </div>
 
       <Footer />
+
+      <CommandPalette />
     </>
   )
 }

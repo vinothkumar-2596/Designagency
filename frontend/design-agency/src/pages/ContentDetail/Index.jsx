@@ -157,8 +157,8 @@ function ContentDetail({ type }) {
 
   if (loading) {
     return (
-      <main className="content-detail" id="main-content">
-        <p className="page-loading">Loading</p>
+      <main className="content-detail" id="main-content" aria-hidden="true">
+        <div style={{ minHeight: '100vh' }} />
       </main>
     )
   }
@@ -424,24 +424,12 @@ function ContentDetail({ type }) {
             <Link to="/case-studies" className="case-study__crumb">
               <ArrowLeft size={14} strokeWidth={2.2} aria-hidden="true" /> All case studies
             </Link>
-            {item.externalLink ? (
-              <a
-                href={item.externalLink.url}
-                className="case-study__external"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item.externalLink.label}
-                <ArrowUpRight size={13} strokeWidth={2.2} aria-hidden="true" />
-              </a>
-            ) : null}
           </div>
         </nav>
 
         {item.heroHeadline || item.heroSubhead ? (
           <header className="case-study__hero">
             <div className="case-study__hero-inner">
-              {item.year ? <span className="case-study__hero-year">© {item.year}</span> : null}
               {item.heroEyebrow ? <p className="case-study__hero-eyebrow">{item.heroEyebrow}</p> : null}
               {item.heroHeadline ? <p className="case-study__hero-headline">{item.heroHeadline}</p> : null}
               {item.heroSubhead ? <p className="case-study__hero-subhead">{item.heroSubhead}</p> : null}

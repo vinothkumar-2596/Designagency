@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Gauge, Sparkles, Users } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import SEO from '../../components/SEO/SEO'
 import { siteConfig } from '../../config/site'
@@ -159,6 +159,146 @@ function ServiceDetail() {
         lede={`Recent ${service.title.toLowerCase()} projects we've shipped for ambitious teams.`}
         activeSlug={slug}
       />
+
+      {service.measuredInTrust ? (
+        <section className="about-stats" aria-label={service.measuredInTrust.eyebrow}>
+          <div className="about-stats__paper" aria-hidden="true" />
+          <svg className="about-stats__doodle about-stats__doodle--tl" viewBox="0 0 110 70" aria-hidden="true">
+            <path
+              d="M6 52 C 24 10, 58 4, 100 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+            <path
+              d="M88 10 L100 16 L94 28"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <svg className="about-stats__doodle about-stats__doodle--br" viewBox="0 0 140 70" aria-hidden="true">
+            <path
+              d="M6 20 C 34 8, 70 46, 134 32"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+            />
+            <circle cx="12" cy="52" r="1.8" fill="currentColor" />
+            <circle cx="28" cy="58" r="1.4" fill="currentColor" opacity="0.7" />
+          </svg>
+
+          <div className="about-stats__inner">
+            <header className="about-stats__lead">
+              <p className="about-stats__eyebrow">
+                <span className="about-stats__eyebrow-rule" aria-hidden="true" />
+                {service.measuredInTrust.eyebrow}
+                <span className="about-stats__eyebrow-mark" aria-hidden="true">✶</span>
+              </p>
+
+              <h2 className="about-stats__title">
+                {service.measuredInTrust.before}{' '}
+                <span className="about-stats__chip about-stats__chip--users" aria-hidden="true">
+                  <Users strokeWidth={1.6} />
+                </span>{' '}
+                {service.measuredInTrust.middle}{' '}
+                <span className="about-stats__highlight">
+                  {service.measuredInTrust.highlight}
+                  <svg className="about-stats__swoosh" viewBox="0 0 160 26" aria-hidden="true">
+                    <path
+                      d="M4 18 C 30 6, 72 24, 118 10 C 132 5, 144 8, 156 14"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>{' '}
+                <span className="about-stats__chip about-stats__chip--gauge" aria-hidden="true">
+                  <Gauge strokeWidth={1.6} />
+                </span>{' '}
+                {service.measuredInTrust.after}
+                <span className="about-stats__chip about-stats__chip--spark" aria-hidden="true">
+                  <Sparkles strokeWidth={1.6} />
+                </span>
+                .
+              </h2>
+
+              <p className="about-stats__copy">{service.measuredInTrust.copy}</p>
+            </header>
+
+            <div className="about-stats__visual" aria-hidden="true">
+              <svg
+                className="about-stats__poster"
+                viewBox="0 0 560 560"
+                fill="none"
+                role="img"
+              >
+                <defs>
+                  <pattern id="serviceStatsDots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1.1" fill="rgba(10,13,18,0.11)" />
+                  </pattern>
+                  <clipPath id="serviceStatsCircleClip">
+                    <circle cx="200" cy="270" r="180" />
+                  </clipPath>
+                </defs>
+
+                <rect x="0" y="0" width="560" height="560" fill="url(#serviceStatsDots)" />
+
+                <image
+                  href="https://res.cloudinary.com/dofapr3pk/image/upload/v1777996089/Untitled-2_zhtqot.jpg"
+                  x="20"
+                  y="90"
+                  width="360"
+                  height="360"
+                  preserveAspectRatio="xMidYMid slice"
+                  clipPath="url(#serviceStatsCircleClip)"
+                />
+                <circle cx="200" cy="270" r="180" fill="#ff6a00" fillOpacity="0.045" clipPath="url(#serviceStatsCircleClip)" />
+
+                <g transform="rotate(5 280 460)">
+                  <rect x="128" y="426" width="300" height="72" rx="14" fill="#0a0d12" />
+                  <rect className="about-stats__bar about-stats__bar--1" x="154" y="454" width="50" height="7" rx="3.5" fill="#ff6a00" />
+                  <rect className="about-stats__bar about-stats__bar--2" x="218" y="454" width="128" height="7" rx="3.5" fill="rgba(255,255,255,0.34)" />
+                  <rect className="about-stats__bar about-stats__bar--3" x="360" y="454" width="38" height="7" rx="3.5" fill="rgba(255,255,255,0.18)" />
+                </g>
+
+                <path
+                  d="M40 70 C 130 36, 250 44, 330 80"
+                  stroke="#0a0d12"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+
+                <g stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" strokeOpacity="0.84" transform="translate(478 80)">
+                  <line x1="0" y1="-32" x2="0" y2="32" />
+                  <line x1="-32" y1="0" x2="32" y2="0" />
+                  <line x1="-23" y1="-23" x2="23" y2="23" />
+                  <line x1="23" y1="-23" x2="-23" y2="23" />
+                </g>
+
+                <g transform="translate(46 522)">
+                  <circle cx="0" cy="0" r="13" fill="#ff6a00" />
+                  <circle cx="32" cy="0" r="13" fill="#f4e58a" />
+                  <circle cx="64" cy="0" r="13" fill="#0a0d12" />
+                  <circle cx="96" cy="0" r="13" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="2" />
+                </g>
+
+                <g fill="#0a0d12">
+                  <circle cx="498" cy="514" r="5" />
+                  <circle cx="516" cy="514" r="5" />
+                  <circle cx="534" cy="514" r="5" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
   )
 }

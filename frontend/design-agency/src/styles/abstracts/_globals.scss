@@ -15,6 +15,18 @@
 
 html {
   scroll-behavior: smooth;
+
+  /* Hide the native scrollbar (Firefox + IE/Edge legacy) — scrolling still works */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Hide the native scrollbar (Chromium / WebKit) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 ::selection {

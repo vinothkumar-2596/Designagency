@@ -36,6 +36,26 @@ import SEO from '../../components/SEO/SEO'
 import { getSeo } from '../../services/contentService'
 import { resolveRegionalGreeting, splitGreetingText } from '../../utils/regionalGreeting'
 
+const GREETING_PLAYED_KEY = 'brandvue_greeting_played'
+
+function hasPlayedGreetingThisSession() {
+  if (typeof window === 'undefined') return true
+  try {
+    return window.localStorage.getItem(GREETING_PLAYED_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+function markGreetingPlayed() {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.setItem(GREETING_PLAYED_KEY, '1')
+  } catch {
+    /* storage unavailable — fine, we'll just play it again next mount */
+  }
+}
+
 const whyStats = [
   {
     label: 'Experience',
@@ -158,9 +178,9 @@ function Home() {
   const [openFaq, setOpenFaq] = useState(0)
   const [regionalGreeting, setRegionalGreeting] = useState(null)
   const [typedGreeting, setTypedGreeting] = useState('')
-  const [isGreetingVisible, setIsGreetingVisible] = useState(true)
+  const [isGreetingVisible, setIsGreetingVisible] = useState(() => !hasPlayedGreetingThisSession())
   const [isGreetingLeaving, setIsGreetingLeaving] = useState(false)
-  const [isIntroComplete, setIsIntroComplete] = useState(false)
+  const [isIntroComplete, setIsIntroComplete] = useState(() => hasPlayedGreetingThisSession())
 
   useEffect(() => {
     let isMounted = true
@@ -169,11 +189,15 @@ function Home() {
       setMeta(seo)
     })
 
-    resolveRegionalGreeting().then((greeting) => {
-      if (isMounted) {
-        setRegionalGreeting(greeting)
-      }
-    })
+    // Only resolve the regional greeting on a fresh session — on subsequent
+    // mounts (navigating About → Home, etc.) we skip the intro entirely.
+    if (!hasPlayedGreetingThisSession()) {
+      resolveRegionalGreeting().then((greeting) => {
+        if (isMounted) {
+          setRegionalGreeting(greeting)
+        }
+      })
+    }
 
     return () => {
       isMounted = false
@@ -228,6 +252,12 @@ function Home() {
       window.clearTimeout(removeTimer)
     }
   }, [regionalGreeting])
+
+  useEffect(() => {
+    if (isIntroComplete) {
+      markGreetingPlayed()
+    }
+  }, [isIntroComplete])
 
   return (
     <main className="home-page" id="main-content">
