@@ -379,27 +379,6 @@
   }
 }
 
-.blog-toolbar__kbd {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  height: 1.65rem;
-  padding: 0 0.48rem;
-  border: 1px solid rgba($text-primary, 0.14);
-  border-radius: 0;
-  background: #f6f3ec;
-  color: rgba($text-primary, 0.8);
-  font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  flex-shrink: 0;
-
-  svg {
-    opacity: 0.85;
-  }
-}
-
 .blog-toolbar__search-clear {
   @include button-reset;
   display: inline-grid;

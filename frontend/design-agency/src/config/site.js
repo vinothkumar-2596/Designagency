@@ -23,6 +23,7 @@ export const siteConfig = {
         { label: 'Web Design & Development', path: '/services/web', icon: 'code2', description: 'Responsive websites that convert' },
         { label: 'Mobile App Development', path: '/services/app', icon: 'smartphone', description: 'Product design and app builds' },
         { label: 'Creative & Social Media', path: '/services/creative', icon: 'palette', description: 'Campaign and content creatives' },
+        { label: 'Packaging Design', path: '/services/packaging', icon: 'package', description: 'Shelf-ready packaging and labels' },
       ],
     },
     { label: 'Case Studies', path: '/case-studies' },

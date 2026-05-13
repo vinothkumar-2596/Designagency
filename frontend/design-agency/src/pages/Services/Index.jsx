@@ -11,7 +11,7 @@ import ServicesPortfolio from './ServicesPortfolio.jsx'
 const brandName = siteConfig.name
 
 const heroFacts = [
-  { value: '05', label: 'Disciplines in studio' },
+  { value: '06', label: 'Disciplines in studio' },
   { value: '15+', label: 'Years in practice' },
   { value: '150+', label: 'Brands shipped' },
   { value: '300+', label: 'Projects delivered' },
@@ -21,8 +21,8 @@ const heroGridLines = Array.from({ length: 12 }, (_, index) => index)
 
 
 const serviceMeta = {
-  title: `Branding, UI/UX, Web & App Development Services in India | ${brandName}`,
-  description: `${brandName} offers branding, UI/UX design, web development, app development, and creative design services for businesses that want a professional digital presence built with strategy, emotion, and impact.`,
+  title: `Branding, UI/UX, Web, App & Packaging Design Services in India | ${brandName}`,
+  description: `${brandName} offers branding, UI/UX design, web development, app development, creative design, and packaging design services for businesses that want a professional digital presence built with strategy, emotion, and impact.`,
   canonicalPath: '/services',
   schemaType: 'CollectionPage',
 }
@@ -44,6 +44,7 @@ const outcomes = [
   'User-Friendly Interface',
   'Brand Consistency',
   'Conversion-Focused Layouts',
+  'Shelf-Ready Packaging',
   'Launch-Ready Delivery',
   'Ongoing Support Options',
 ]
@@ -54,22 +55,25 @@ const audiences = [
   'Personal brands improving their presence',
   'Companies redesigning their website',
   'Brands preparing for campaigns',
+  'D2C brands launching a new product',
   'Businesses needing creative support',
 ]
 
 const faqs = [
-  ['What services does BrandView India offer?', 'BrandView India offers branding, UI/UX design, web design and development, app development, and creative design services for businesses that want a stronger digital presence.'],
+  ['What services does BrandView India offer?', 'BrandView India offers branding and identity, UI/UX design, web design and development, mobile app development, creative and social media design, and packaging design — six disciplines under one studio roof.'],
   ['Do you design websites for small businesses?', 'Yes. We create professional, responsive, and SEO-ready websites for startups, small businesses, personal brands, and growing companies.'],
   ['Can you handle both design and development?', 'Yes. We support projects from strategy and design to development, testing, and launch, so the final output feels consistent and complete.'],
   ['Do you provide brand identity design?', 'Yes. We create logos, color palettes, typography systems, social media brand kits, and brand guidelines to help businesses look clear and professional.'],
   ['Do you offer custom app development?', 'Yes. We design and develop practical mobile app experiences based on your idea, audience, features, and growth goals.'],
   ['Do you provide social media creative designs?', 'Yes. We create social media posts, ad banners, posters, campaign visuals, pitch decks, brochures, and other marketing creatives.'],
+  ['Do you design product packaging?', 'Yes. We handle label and graphic design, dieline and structural work, material and finish specification, and print-ready artwork — built to stand out on shelf and survive real production.'],
   ['Can you help if I do not know which service I need?', 'Yes. Share your goal with us, and we will help you understand what your brand needs first.'],
 ]
 
 function Services() {
   const [meta, setMeta] = useState(serviceMeta)
   const [openService, setOpenService] = useState(services[0].number)
+  const [openFaq, setOpenFaq] = useState(0)
 
   const activeSketchId = SERVICE_SKETCH_MAP[openService] || heroSketches[0].id
   const activeSketch =
@@ -83,6 +87,10 @@ function Services() {
 
   const toggleService = (number) => {
     setOpenService((current) => (current === number ? null : number))
+  }
+
+  const toggleFaq = (index) => {
+    setOpenFaq((current) => (current === index ? -1 : index))
   }
 
   return (
@@ -120,7 +128,7 @@ function Services() {
 
           <div className="services-hero__support">
             <p className="services-hero__subtitle">
-              Five disciplines, one studio — strategy, identity, UI/UX, web, and apps under one roof.
+              Six specialist disciplines, one studio — strategy, identity, UI/UX, web, apps, and packaging under one roof.
             </p>
 
             <div className="services-hero__actions">
@@ -277,16 +285,38 @@ function Services() {
           <h2>Questions before we start.</h2>
         </header>
         <div className="services-faq__list">
-          {faqs.map(([question, answer], index) => (
-            <article className="faq-item" key={question}>
-              <span className="faq-item__num">{`0${index + 1}`}</span>
-              <div className="faq-item__body">
-                <h3>{question}</h3>
-                <p>{answer}</p>
-              </div>
-              <span className="faq-item__plus" aria-hidden="true">+</span>
-            </article>
-          ))}
+          {faqs.map(([question, answer], index) => {
+            const isOpen = openFaq === index
+            const panelId = `faq-panel-${index}`
+            return (
+              <article
+                className={`faq-item${isOpen ? ' faq-item--open' : ''}`}
+                key={question}
+              >
+                <button
+                  type="button"
+                  className="faq-item__trigger"
+                  onClick={() => toggleFaq(index)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                >
+                  <span className="faq-item__num">{`0${index + 1}`}</span>
+                  <span className="faq-item__question">{question}</span>
+                  <span className="faq-item__plus" aria-hidden="true">+</span>
+                </button>
+                <div
+                  id={panelId}
+                  className="faq-item__answer"
+                  role="region"
+                  aria-hidden={!isOpen}
+                >
+                  <div className="faq-item__answer-inner">
+                    <p>{answer}</p>
+                  </div>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </section>
 
@@ -304,8 +334,8 @@ function Services() {
               <span>Start a conversation</span>
               <ArrowRight size={18} />
             </Link>
-            <a className="services-final-cta__link" href="mailto:hello@brandvue.com">
-              <span>hello@brandvue.com</span>
+            <a className="services-final-cta__link" href={`mailto:${siteConfig.email}`}>
+              <span>{siteConfig.email}</span>
             </a>
           </div>
         </div>

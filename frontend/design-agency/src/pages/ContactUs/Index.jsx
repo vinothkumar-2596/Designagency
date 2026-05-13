@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -31,6 +31,7 @@ import {
 import { FaWhatsapp } from 'react-icons/fa'
 import SEO from '../../components/SEO/SEO'
 import { getSeo, submitLead } from '../../services/contentService'
+import { siteConfig } from '../../config/site'
 
 const SERVICE_OPTIONS = [
   'Brand identity',
@@ -121,6 +122,7 @@ function ContactUs() {
   const [activeField, setActiveField] = useState('')
   const [flowPosition, setFlowPosition] = useState(null)
   const [flowDrag, setFlowDrag] = useState({ isDragging: false, offsetX: 0, offsetY: 0 })
+  const flowRef = useRef(null)
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -145,6 +147,32 @@ function ContactUs() {
     }, 5000)
     return () => clearTimeout(id)
   }, [openFaq])
+
+  // Publish the floating brief widget's height to the body as a CSS variable
+  // so the global back-to-top button can offset itself above the widget
+  // (otherwise the two fixed elements stack on top of each other in the
+  // bottom-right). Cleared on unmount so other routes get their normal
+  // bottom anchor back.
+  useEffect(() => {
+    const node = flowRef.current
+    if (!node || typeof window === 'undefined') return undefined
+
+    const write = () => {
+      document.body.style.setProperty(
+        '--contact-flow-height',
+        `${node.offsetHeight}px`,
+      )
+    }
+
+    write()
+    const observer = new ResizeObserver(write)
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+      document.body.style.removeProperty('--contact-flow-height')
+    }
+  }, [])
 
   function handleChange(event) {
     setForm((current) => ({
@@ -220,6 +248,24 @@ function ContactUs() {
     }
   }, [activeField, form])
 
+  function openMailtoFallback() {
+    const subject = `Project brief from ${form.name || 'a new visitor'}`
+    const lines = [
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      form.company ? `Company: ${form.company}` : null,
+      form.service.length ? `Services: ${form.service.join(', ')}` : null,
+      form.budget ? `Budget: ${form.budget}` : null,
+      form.timeline ? `Timeline: ${form.timeline}` : null,
+      '',
+      form.message,
+    ].filter(Boolean)
+    const body = lines.join('\n')
+    window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`
+  }
+
   async function handleSubmit(event) {
     event.preventDefault()
     setStatus('submitting')
@@ -238,6 +284,10 @@ function ContactUs() {
       })
       setActiveField('')
     } catch {
+      // No backend reachable — fall back to opening the user's mail client
+      // with the brief pre-filled, so the form is still useful in static
+      // deploys or local dev.
+      openMailtoFallback()
       setStatus('error')
     }
   }
@@ -328,6 +378,7 @@ function ContactUs() {
       </section>
 
       <div
+        ref={flowRef}
         className={`contact-flow${briefFlow.hasStarted ? '' : ' contact-flow--idle'}${flowDrag.isDragging ? ' is-dragging' : ''}`}
         style={flowStyle}
         aria-label="Brief completion progress"
@@ -568,7 +619,8 @@ function ContactUs() {
                 ) : null}
                 {status === 'error' ? (
                   <p className="contact-form__alert contact-form__alert--error">
-                    Something went wrong. Please email us at hello@designagency.local and we&apos;ll jump in.
+                    We opened your mail client with the brief pre-filled. If that didn&apos;t happen, email us at{' '}
+                    <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a> and we&apos;ll jump in.
                   </p>
                 ) : null}
               </div>
@@ -585,8 +637,8 @@ function ContactUs() {
                 We read every brief personally. If you&apos;d rather have a 20-minute call, drop a note and we&apos;ll
                 put time on the calendar.
               </p>
-              <a className="contact-card__cta" href="mailto:hello@designagency.local">
-                hello@designagency.local
+              <a className="contact-card__cta" href={`mailto:${siteConfig.email}`}>
+                {siteConfig.email}
                 <ArrowUpRight size={15} strokeWidth={2.2} aria-hidden="true" />
               </a>
             </div>

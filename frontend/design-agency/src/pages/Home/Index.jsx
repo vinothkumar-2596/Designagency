@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
   ArrowRight,
+  ArrowUpRight,
   Award,
   Briefcase,
   Blocks,
@@ -8,6 +9,8 @@ import {
   TrendingUp,
   Smartphone,
   Sparkles,
+  Package,
+  Palette,
   Trophy,
   Star,
   Users,
@@ -91,21 +94,43 @@ const serviceHighlights = [
     title: 'Branding & Identity',
     copy: 'We craft bold, memorable brand systems that set you apart and build trust.',
     icon: Sparkles,
+    chips: ['Logo', 'Identity', 'Guidelines'],
+    href: '/services',
   },
   {
     title: 'UI/UX Design',
     copy: 'User-first experiences that feel intuitive, elegant, and conversion-ready.',
     icon: Blocks,
+    chips: ['Research', 'Wireframes', 'Prototypes'],
+    href: '/services',
   },
   {
     title: 'Web Development',
     copy: 'Modern, high-performance websites built for speed, SEO, and scalability.',
     icon: Code2,
+    chips: ['React', 'Next.js', 'Performance'],
+    href: '/services',
   },
   {
     title: 'App Development',
     copy: 'Cross-platform apps designed to deliver seamless, engaging experiences.',
     icon: Smartphone,
+    chips: ['iOS', 'Android', 'React Native'],
+    href: '/services',
+  },
+  {
+    title: 'Creative & Social',
+    copy: 'Campaigns, content, and motion built to make your brand impossible to scroll past.',
+    icon: Palette,
+    chips: ['Campaigns', 'Motion', 'Content'],
+    href: '/services',
+  },
+  {
+    title: 'Packaging Design',
+    copy: 'Tactile, on-shelf packaging that turns first glance into a buying decision.',
+    icon: Package,
+    chips: ['Structural', 'Label', 'Print-Ready'],
+    href: '/services/packaging',
   },
 ]
 
@@ -402,23 +427,59 @@ function Home() {
       <section className="home-services" aria-labelledby="services-heading">
         <div className="home-services__inner">
           <div className="home-services__heading">
-            <p className="eyebrow">Our services</p>
-            <h2 id="services-heading">What we do best</h2>
+            <p className="eyebrow">
+              <span className="home-services__eyebrow-rule" aria-hidden="true" />
+              ( 01 ) &nbsp;Our services
+            </p>
+            <h2 id="services-heading">
+              What we <em>do best.</em>
+            </h2>
             <p>
-              We are a full-service creative agency built for bold brands and ambitious ideas.
+              A full-service creative studio for bold brands and ambitious ideas — from strategy and identity through to motion, web, and product.
             </p>
           </div>
 
           <div className="home-services__list" role="list">
-            {serviceHighlights.map((service) => (
-              <article className="home-service" key={service.title} role="listitem">
-                <span className="home-service__icon" aria-hidden="true">
-                  <service.icon strokeWidth={1.8} />
+            {serviceHighlights.map((service, idx) => (
+              <Link
+                to={service.href}
+                key={service.title}
+                className="home-service"
+                role="listitem"
+                aria-label={`${service.title} — learn more`}
+              >
+                <span className="home-service__index" aria-hidden="true">
+                  / {String(idx + 1).padStart(2, '0')}
                 </span>
+
+                <span className="home-service__icon" aria-hidden="true">
+                  <service.icon strokeWidth={1.6} />
+                </span>
+
                 <h3>{service.title}</h3>
                 <p>{service.copy}</p>
-              </article>
+
+                {service.chips ? (
+                  <ul className="home-service__chips" aria-hidden="true">
+                    {service.chips.map((chip) => (
+                      <li key={chip}>{chip}</li>
+                    ))}
+                  </ul>
+                ) : null}
+
+                <span className="home-service__arrow" aria-hidden="true">
+                  <ArrowUpRight size={14} strokeWidth={2.2} />
+                </span>
+              </Link>
             ))}
+          </div>
+
+          <div className="home-services__cta">
+            <Link to="/services" className="home-services__cta-link">
+              <span className="home-services__cta-dot" aria-hidden="true" />
+              Explore the full studio
+              <ArrowRight size={15} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>

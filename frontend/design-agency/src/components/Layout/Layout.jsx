@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowUpRight, Code2, LayoutGrid, Palette, PenTool, Smartphone } from 'lucide-react'
+import { ArrowUpRight, Code2, LayoutGrid, Package, Palette, PenTool, Smartphone } from 'lucide-react'
 import { siteConfig } from '../../config/site'
 import { prefetchRoute, warmIdleRoutes } from '../../app/routePrefetch'
 import Footer from '../Footer/Footer'
@@ -12,6 +12,7 @@ const NAV_ICONS = {
   code2: Code2,
   smartphone: Smartphone,
   palette: Palette,
+  package: Package,
 }
 
 // Shared handlers — wire hover/focus/touchstart to start the chunk download
@@ -92,15 +93,19 @@ function Layout() {
     warmIdleRoutes(location.pathname)
   }, [location.pathname])
 
-  // Reset scroll on route change. We always jump to the top instantly (rather
-  // than animating) so the new page's hero is visible immediately — smooth
-  // scrolling here would let the user watch fresh content slide past while
-  // they're trying to read it. The fade-in below handles the "smooth" feel.
-  useEffect(() => {
+  // Reset scroll on route change. This runs in `useLayoutEffect` (not
+  // `useEffect`) so the jump happens after the DOM is updated but BEFORE the
+  // browser paints — otherwise the user sees one frame of the new page at the
+  // old scroll position, which reads as a glitch.
+  //
+  // `behavior: 'instant'` is required because the html element has
+  // `scroll-behavior: smooth` globally for anchor links; `'auto'` would defer
+  // to that CSS and animate the scroll.
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return
     // Hash-link navigation (e.g. #section) should still anchor-jump.
     if (location.hash) return
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [location.pathname, location.hash])
 
   const isHomeRoute = location.pathname === '/'

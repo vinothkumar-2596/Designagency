@@ -4,6 +4,7 @@ export const SERVICE_SLUGS = {
   '03': 'web',
   '04': 'app',
   '05': 'creative',
+  '06': 'packaging',
 }
 
 export const SLUG_TO_NUMBER = Object.fromEntries(
@@ -15,5 +16,6 @@ export const SERVICE_SKETCH_MAP = {
   '02': 'ux',
   '03': 'web',
   '04': 'app',
-  '05': 'brand',
+  '05': 'social',
+  '06': 'packaging',
 }

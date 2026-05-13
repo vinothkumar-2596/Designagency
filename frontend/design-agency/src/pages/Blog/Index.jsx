@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, Clock, Command, Mail, Search, Shield, SlidersHorizontal, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, Clock, Search, Shield, SlidersHorizontal, X } from 'lucide-react'
 import SEO from '../../components/SEO/SEO'
 import Button from '../../components/Button/Button'
 import BlogDoodle from '../../components/BlogDoodle/BlogDoodle'
@@ -201,11 +201,7 @@ function Blog() {
                   >
                     <X size={14} strokeWidth={2.2} aria-hidden="true" />
                   </button>
-                ) : (
-                  <span className="blog-toolbar__kbd" aria-hidden="true">
-                    <Command size={11} strokeWidth={2.4} />K
-                  </span>
-                )}
+                ) : null}
               </label>
 
               <div className="blog-toolbar__sort" ref={sortRef}>

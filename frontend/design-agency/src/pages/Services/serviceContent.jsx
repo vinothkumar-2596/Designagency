@@ -68,59 +68,58 @@ export const heroSketches = [
     label: 'Branding',
     render: () => (
       <>
+        {/* Outer ring (subtle stack) */}
         <circle
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
-          cx="180" cy="170" r="98"
+          cx="180" cy="160" r="88"
           stroke="#f4e58a" strokeWidth="3" fill="none"
-          transform="rotate(-6 180 170)"
         />
+
+        {/* Big orange logo disc — the brand mark */}
         <circle
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
-          cx="180" cy="170" r="86"
-          stroke="#ff6a00" strokeWidth="12" fill="none"
+          cx="180" cy="160" r="74"
+          fill="#ff6a00"
         />
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--lines"
-          d="M132 168 L 158 192 L 224 144"
-          stroke="#ffffff" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none"
-        />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="76" cy="270" r="14" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="108" cy="270" r="14" fill="#f4e58a" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="140" cy="270" r="14" fill="#ffffff" opacity="0.55" />
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--ribbon"
-          d="M210 250 L 320 252"
-          stroke="#f4e58a" strokeWidth="14" strokeLinecap="round" fill="none"
-        />
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--pen"
-          d="M298 60 L 318 70 L 268 130 L 252 122 Z"
-          fill="#ffffff" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
-        />
+
+        {/* White star/asterisk mark inside */}
+        <g stroke="#ffffff" strokeWidth="6" strokeLinecap="round" fill="none">
+          <line x1="180" y1="124" x2="180" y2="196" />
+          <line x1="144" y1="160" x2="216" y2="160" />
+          <line x1="155" y1="135" x2="205" y2="185" />
+          <line x1="205" y1="135" x2="155" y2="185" />
+        </g>
+
+        {/* Color palette row below */}
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="114" cy="290" r="14" fill="#ff6a00" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="152" cy="290" r="14" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="190" cy="290" r="14" fill="#ffffff" opacity="0.6" />
+        <circle cx="228" cy="290" r="14" fill="#0a0d12" stroke="#ffffff" strokeWidth="1.5" />
+
+        {/* Spark top-left */}
         <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
-          <line x1="48" y1="58" x2="48" y2="92" />
-          <line x1="32" y1="74" x2="64" y2="74" />
-          <line x1="36" y1="62" x2="60" y2="86" />
-          <line x1="60" y1="62" x2="36" y2="86" />
+          <line x1="44" y1="56" x2="44" y2="90" />
+          <line x1="28" y1="72" x2="60" y2="72" />
+          <line x1="32" y1="60" x2="56" y2="84" />
+          <line x1="56" y1="60" x2="32" y2="84" />
         </g>
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#ff6a00" strokeWidth="2.5" strokeLinecap="round">
-          <line x1="280" y1="180" x2="298" y2="174" />
-          <line x1="282" y1="200" x2="302" y2="206" />
-          <line x1="278" y1="220" x2="296" y2="232" />
-        </g>
+
+        {/* Bottom swoosh */}
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
-          d="M30 318 C 100 304, 180 332, 332 308"
+          d="M30 340 C 100 326, 200 352, 332 328"
           stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
         />
+
+        {/* Bottom arrow */}
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
-          d="M60 352 C 140 362, 220 350, 304 338"
+          d="M60 366 C 140 372, 220 362, 304 350"
           stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.5" fill="none"
         />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--arrowhead"
-          d="M288 326 L 308 338 L 294 354"
+          d="M288 338 L 308 350 L 294 366"
           stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" fill="none"
         />
       </>
@@ -188,6 +187,218 @@ export const heroSketches = [
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--arrowhead"
           d="M288 326 L 308 338 L 294 354"
+          stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" fill="none"
+        />
+      </>
+    ),
+  },
+  {
+    id: 'social',
+    label: 'Social',
+    render: () => (
+      <>
+        {/* Stacked card behind */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
+          x="60" y="80" width="180" height="220" rx="14"
+          stroke="#f4e58a" strokeWidth="3" fill="none"
+          transform="rotate(-7 150 190)"
+        />
+
+        {/* Main post card */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
+          x="80" y="90" width="180" height="220" rx="14"
+          stroke="#ff6a00" strokeWidth="11" strokeLinejoin="round" fill="none"
+        />
+
+        {/* Photo placeholder inside the post */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-mid"
+          x="98" y="108" width="144" height="118" rx="6"
+          fill="#ffffff" opacity="0.06" stroke="#ffffff" strokeWidth="2" strokeOpacity="0.4"
+        />
+
+        {/* Sun inside the photo */}
+        <circle cx="125" cy="148" r="11" fill="#f4e58a" />
+
+        {/* Mountain silhouette inside the photo */}
+        <path
+          d="M 100 224 L 140 174 L 168 196 L 196 168 L 222 200 L 240 224 Z"
+          fill="#ff6a00" opacity="0.55"
+        />
+
+        {/* Caption lines below the photo */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--lines" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.7">
+          <line x1="100" y1="246" x2="220" y2="246" />
+          <line x1="100" y1="262" x2="180" y2="262" />
+        </g>
+
+        {/* Engagement: heart icon */}
+        <g transform="translate(102 281) scale(0.7)">
+          <path
+            d="M 12 21.35 l -1.45 -1.32 C 5.4 16.36 2 13.28 2 9.5 C 2 6.42 4.42 4 7.5 4 c 1.74 0 3.41 0.81 4.5 2.09 C 13.09 4.81 14.76 4 16.5 4 C 19.58 4 22 6.42 22 9.5 c 0 3.78 -3.4 6.86 -8.55 11.54 L 12 21.35 z"
+            fill="#ff6a00" stroke="#ffffff" strokeWidth="1.5" strokeLinejoin="round"
+          />
+        </g>
+
+        {/* Engagement: comment bubble */}
+        <g fill="none" stroke="#ffffff" strokeWidth="2" opacity="0.7" strokeLinejoin="round" strokeLinecap="round">
+          <rect x="140" y="282" width="32" height="18" rx="4" />
+          <path d="M 148 300 L 148 305 L 156 300" />
+        </g>
+
+        {/* Engagement count dots */}
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="206" cy="291" r="4" fill="#ff6a00" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="218" cy="291" r="4" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="230" cy="291" r="4" fill="#ffffff" opacity="0.6" />
+
+        {/* Floating heart popping out top-right */}
+        <g
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--pen"
+          transform="translate(282 84) scale(1.4)"
+        >
+          <path
+            d="M 12 21.35 l -1.45 -1.32 C 5.4 16.36 2 13.28 2 9.5 C 2 6.42 4.42 4 7.5 4 c 1.74 0 3.41 0.81 4.5 2.09 C 13.09 4.81 14.76 4 16.5 4 C 19.58 4 22 6.42 22 9.5 c 0 3.78 -3.4 6.86 -8.55 11.54 L 12 21.35 z"
+            fill="#ff6a00" stroke="#0a0d12" strokeWidth="1.6" strokeLinejoin="round"
+          />
+        </g>
+
+        {/* Sparkle bursts around floating heart */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#f4e58a" strokeWidth="2.5" strokeLinecap="round">
+          <line x1="328" y1="88" x2="338" y2="84" />
+          <line x1="330" y1="106" x2="342" y2="110" />
+          <line x1="262" y1="80" x2="256" y2="74" />
+        </g>
+
+        {/* Spark top-left */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+          <line x1="34" y1="48" x2="34" y2="82" />
+          <line x1="18" y1="64" x2="50" y2="64" />
+          <line x1="22" y1="52" x2="46" y2="76" />
+          <line x1="46" y1="52" x2="22" y2="76" />
+        </g>
+
+        {/* Tiny spark bottom-left */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark2" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.55">
+          <line x1="40" y1="320" x2="40" y2="348" />
+          <line x1="28" y1="334" x2="52" y2="334" />
+        </g>
+
+        {/* Bottom swoosh */}
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
+          d="M30 350 C 100 338, 200 362, 332 340"
+          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+        />
+      </>
+    ),
+  },
+  {
+    id: 'packaging',
+    label: 'Packaging',
+    render: () => (
+      <>
+        {/* Spark top-left (matches other sketches' vocabulary) */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+          <line x1="46" y1="50" x2="46" y2="86" />
+          <line x1="28" y1="68" x2="64" y2="68" />
+          <line x1="32" y1="54" x2="60" y2="82" />
+          <line x1="60" y1="54" x2="32" y2="82" />
+        </g>
+
+        {/* Small white twinkle top-right */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark2" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" opacity="0.55">
+          <line x1="316" y1="56" x2="316" y2="84" />
+          <line x1="302" y1="70" x2="330" y2="70" />
+        </g>
+
+        {/* Yellow back-card (offset, rotated) — same depth trick as other sketches */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
+          x="68" y="86" width="220" height="220" rx="4"
+          stroke="#f4e58a" strokeWidth="3" fill="none"
+          transform="rotate(-5 178 196)"
+        />
+
+        {/* The package itself — bold orange front face */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
+          x="78" y="96" width="220" height="220" rx="4"
+          stroke="#ff6a00" strokeWidth="12" strokeLinejoin="round" fill="none"
+        />
+
+        {/* Yellow tape strip across the top — the signature packaging cue */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--tape"
+          x="78" y="124" width="220" height="24"
+          fill="#f4e58a"
+        />
+        <line
+          x1="86" y1="136" x2="290" y2="136"
+          stroke="#0a0d12" strokeWidth="1.6" strokeDasharray="5 5" strokeLinecap="round" opacity="0.55"
+        />
+
+        {/* Product silhouette inside (a stylised bottle/jar) */}
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--product"
+           stroke="#ffffff" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round" fill="none" opacity="0.55">
+          <rect x="172" y="166" width="32" height="14" rx="2" />
+          <path d="M168 180 L 172 196 L 172 250 C 172 258, 178 264, 188 264 C 198 264, 204 258, 204 250 L 204 196 L 208 180 Z" />
+          <line x1="178" y1="216" x2="198" y2="216" />
+        </g>
+
+        {/* White product-label on the package, with barcode */}
+        <rect
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--label"
+          x="100" y="276" width="176" height="34" rx="4"
+          fill="#ffffff" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+        />
+        <g stroke="#0a0d12" strokeWidth="2" strokeLinecap="round">
+          <line x1="110" y1="284" x2="110" y2="302" />
+          <line x1="116" y1="284" x2="116" y2="302" />
+          <line x1="121" y1="286" x2="121" y2="300" />
+          <line x1="128" y1="284" x2="128" y2="302" />
+          <line x1="135" y1="286" x2="135" y2="300" />
+          <line x1="141" y1="284" x2="141" y2="302" />
+          <line x1="149" y1="284" x2="149" y2="302" />
+          <line x1="156" y1="286" x2="156" y2="300" />
+          <line x1="163" y1="284" x2="163" y2="302" />
+          <line x1="171" y1="286" x2="171" y2="300" />
+          <line x1="178" y1="284" x2="178" y2="302" />
+          <line x1="186" y1="284" x2="186" y2="302" />
+          <line x1="193" y1="286" x2="193" y2="300" />
+          <line x1="201" y1="284" x2="201" y2="302" />
+          <line x1="208" y1="286" x2="208" y2="300" />
+          <line x1="216" y1="284" x2="216" y2="302" />
+          <line x1="224" y1="286" x2="224" y2="300" />
+          <line x1="232" y1="284" x2="232" y2="302" />
+          <line x1="240" y1="286" x2="240" y2="300" />
+          <line x1="248" y1="284" x2="248" y2="302" />
+          <line x1="256" y1="284" x2="256" y2="302" />
+          <line x1="264" y1="286" x2="264" y2="300" />
+        </g>
+
+        {/* Color swatch dots bottom-left (consistent across sketches) */}
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="60" cy="346" r="12" fill="#ff6a00" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="92" cy="346" r="12" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="124" cy="346" r="12" fill="#ffffff" opacity="0.55" />
+
+        {/* Bottom orange swoosh */}
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
+          d="M160 354 C 222 344, 268 366, 332 348"
+          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+        />
+
+        {/* Bottom arrow */}
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
+          d="M168 372 C 220 374, 260 366, 304 358"
+          stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.5" fill="none"
+        />
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--arrowhead"
+          d="M288 346 L 308 358 L 294 374"
           stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" fill="none"
         />
       </>
@@ -417,6 +628,35 @@ export const services = [
       highlight: 'unmistakable',
       after: 'voice across every feed',
       copy: 'Campaign-ready assets that earn the scroll and keep your brand instantly recognizable, post after post.',
+    },
+  },
+  {
+    number: '06',
+    title: 'Packaging Design',
+    heading: 'Create packaging that earns the first pickup and the second purchase.',
+    body: [
+      'Packaging is the first product your customer holds. It has to communicate the brand, the promise, and the personality in a fraction of a second on a crowded shelf.',
+      'We design packaging that balances structural craft with visual storytelling. From label systems and dieline engineering to material choices and finishing details, every element is built to look premium, feel right in the hand, and survive real-world print production.',
+      'Whether it is a single SKU, a full product line, or a seasonal range, our packaging work helps your brand feel intentional, consistent, and ready for retail.',
+    ],
+    items: [
+      'Packaging Strategy',
+      'Label & Graphic Design',
+      'Dieline & Structural Design',
+      'Material & Finish Specification',
+      'Mockups & Print Files',
+      'Brand-Consistent Visual System',
+      'Multi-SKU Family Design',
+      'Production-Ready Artwork',
+    ],
+    cta: 'Design My Packaging',
+    measuredInTrust: {
+      eyebrow: 'Made for the shelf',
+      before: 'On-shelf packaging',
+      middle: 'still needs to be',
+      highlight: 'instantly',
+      after: 'recognizable in the hand',
+      copy: 'Structural craft, brand-true visuals, and print-ready files that survive every retail surface and finish.',
     },
   },
 ]

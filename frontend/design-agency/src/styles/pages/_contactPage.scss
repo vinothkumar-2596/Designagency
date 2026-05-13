@@ -671,6 +671,18 @@
   }
 }
 
+/* Lift the global footer back-to-top button above the floating contact-flow
+   widget so they stop overlapping in the bottom-right corner. The widget
+   reports its own height via JS into `--contact-flow-height`; we fall back
+   to a sane idle-state value so the rule works before that lands. */
+body:has(.contact-flow) .footer__back-to-top {
+  bottom: calc(1.25rem + var(--contact-flow-height, 3.25rem) + 0.6rem);
+
+  @media (max-width: 640px) {
+    bottom: calc(0.75rem + var(--contact-flow-height, 3rem) + 0.5rem);
+  }
+}
+
 .contact-flow {
   position: fixed;
   top: auto;

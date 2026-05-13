@@ -43,94 +43,74 @@
     />
 
     <style>
-      /* Pre-React boot loader — shown before the first route chunk paints.
-         Hidden by inline script the moment <header class="site-header"> appears. */
+      /* ============================================================
+         Pre-React boot loader — clean, minimal, professional.
+         Single brand tile, brand name, one thin progress rail.
+         Hidden by inline script when <header class="site-header">
+         appears in the DOM.
+         ============================================================ */
+
       #bootloader {
         position: fixed;
         inset: 0;
         z-index: 9999;
-        background: #e7e5df;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(ellipse at 50% 48%, rgba(255, 106, 0, 0.09), transparent 55%),
+          #0a0a0a;
         font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        color: rgba(255, 255, 255, 0.92);
         opacity: 1;
         visibility: visible;
         transition:
-          opacity 0.6s cubic-bezier(0.65, 0.05, 0.36, 1),
-          visibility 0s linear 0.6s;
+          opacity 0.55s cubic-bezier(0.65, 0.05, 0.36, 1),
+          visibility 0s linear 0.55s;
       }
       #bootloader.bootloader--hidden {
         opacity: 0;
         visibility: hidden;
       }
 
-      /* gentle texture so the empty space doesn't feel flat */
-      #bootloader::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image:
-          linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-        background-size: 88px 88px;
-        -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
-        mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
-        pointer-events: none;
-      }
-      #bootloader::after {
-        content: '';
-        position: absolute;
-        top: -180px;
-        right: -180px;
-        width: 520px;
-        height: 520px;
-        background: radial-gradient(circle, rgba(255, 106, 0, 0.16), transparent 60%);
-        pointer-events: none;
+      .bootloader__stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+        padding: 0 24px;
       }
 
-      .bootloader__logo {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        position: relative;
-        z-index: 1;
-      }
+      /* The brand tile — a single 36px square, gentle pulse. */
       .bootloader__mark {
-        width: 22px;
-        height: 22px;
-        border-radius: 5px;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
         background: linear-gradient(135deg, #ffc28a 0%, #ff6a00 100%);
         box-shadow:
-          0 0 0 1px rgba(255, 165, 90, 0.4),
-          0 0 24px rgba(255, 106, 0, 0.35),
-          inset 0 0 8px rgba(255, 210, 170, 0.6);
-        position: relative;
+          0 0 0 1px rgba(255, 165, 90, 0.35),
+          0 0 28px rgba(255, 106, 0, 0.38),
+          inset 0 0 10px rgba(255, 210, 170, 0.5);
+        animation: bootloader-pulse 2.2s ease-in-out infinite;
       }
-      .bootloader__mark::after {
-        content: '';
-        position: absolute;
-        inset: 3px;
-        border-radius: 2px;
-        background: linear-gradient(135deg, #ffd4a8 0%, #ff6a00 80%);
-        opacity: 0.7;
-      }
-      .bootloader__name {
-        font-size: 1.1rem;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        color: #14110d;
+      @keyframes bootloader-pulse {
+        0%, 100% { transform: scale(1);    box-shadow: 0 0 0 1px rgba(255, 165, 90, 0.35), 0 0 24px rgba(255, 106, 0, 0.32), inset 0 0 10px rgba(255, 210, 170, 0.5); }
+        50%      { transform: scale(1.04); box-shadow: 0 0 0 1px rgba(255, 165, 90, 0.5),  0 0 38px rgba(255, 106, 0, 0.55), inset 0 0 10px rgba(255, 210, 170, 0.5); }
       }
 
+      .bootloader__name {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      /* Thin progress rail with shimmer. */
       .bootloader__bar {
-        width: 220px;
-        height: 1px;
-        background: rgba(20, 17, 13, 0.08);
-        overflow: hidden;
         position: relative;
-        z-index: 1;
+        width: 180px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
       }
       .bootloader__bar::before {
         content: '';
@@ -138,43 +118,27 @@
         inset: 0;
         width: 40%;
         background: linear-gradient(90deg, transparent, #ff6a00 50%, transparent);
-        box-shadow: 0 0 18px rgba(255, 106, 0, 0.45);
-        animation: bootloader-shimmer 1.6s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+        animation: bootloader-shimmer 1.5s ease-in-out infinite;
       }
       @keyframes bootloader-shimmer {
-        0% {
-          transform: translateX(-100%);
-        }
-        100% {
-          transform: translateX(350%);
-        }
-      }
-
-      .bootloader__caption {
-        font-size: 0.7rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: rgba(20, 17, 13, 0.5);
-        position: relative;
-        z-index: 1;
+        0%   { transform: translateX(-100%); }
+        100% { transform: translateX(350%); }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .bootloader__bar::before {
-          animation: none;
-          width: 60%;
-        }
+        .bootloader__mark,
+        .bootloader__bar::before { animation: none; }
+        .bootloader__bar::before { width: 60%; }
       }
     </style>
   </head>
   <body>
     <div id="bootloader" role="status" aria-live="polite" aria-label="Loading BrandView India">
-      <div class="bootloader__logo">
+      <div class="bootloader__stage">
         <span class="bootloader__mark" aria-hidden="true"></span>
         <span class="bootloader__name">BrandView India</span>
+        <span class="bootloader__bar" aria-hidden="true"></span>
       </div>
-      <div class="bootloader__bar" aria-hidden="true"></div>
-      <div class="bootloader__caption">Preparing the studio</div>
     </div>
 
     <div id="root"></div>
@@ -194,19 +158,18 @@
           loader.classList.add('bootloader--hidden');
           setTimeout(function () {
             if (loader.parentNode) loader.parentNode.removeChild(loader);
-          }, 700);
+          }, 650);
         }
 
         var observer = new MutationObserver(function () {
           if (document.querySelector('.site-header')) {
             observer.disconnect();
-            // small grace period so the first paint settles before the fade
-            setTimeout(hide, 120);
+            setTimeout(hide, 140);
           }
         });
         observer.observe(document.body, { childList: true, subtree: true });
 
-        // Safety net — never block the page for more than 6s
+        // Safety net — never block the page for more than 6 seconds.
         setTimeout(function () {
           observer.disconnect();
           hide();

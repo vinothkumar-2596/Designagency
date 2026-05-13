@@ -136,8 +136,15 @@ function CommandPalette() {
         close()
       }
     }
+    function openEvent() {
+      setOpen(true)
+    }
     window.addEventListener('keydown', handle)
-    return () => window.removeEventListener('keydown', handle)
+    window.addEventListener('open-command-palette', openEvent)
+    return () => {
+      window.removeEventListener('keydown', handle)
+      window.removeEventListener('open-command-palette', openEvent)
+    }
   }, [open, close])
 
   // Close palette automatically on route change (in case navigate() didn't

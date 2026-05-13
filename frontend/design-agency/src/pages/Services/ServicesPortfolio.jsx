@@ -17,6 +17,7 @@ const SIDEBAR_LINKS = [
   { label: 'Web Design & Development', slug: SERVICE_SLUGS['03'] },
   { label: 'Mobile App Development', slug: SERVICE_SLUGS['04'] },
   { label: 'Creative & Social Media', slug: SERVICE_SLUGS['05'] },
+  { label: 'Packaging Design', slug: SERVICE_SLUGS['06'] },
 ]
 
 function ServicesPortfolio({ heading = 'Branding Portfolio', lede = "A glimpse of recent identity and brand systems we've shipped for ambitious teams.", activeSlug }) {

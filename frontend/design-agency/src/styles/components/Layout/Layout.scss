@@ -146,9 +146,11 @@
 .site-header__nav-caret {
   flex: 0 0 auto;
   color: currentColor;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .site-header__nav-item--has-menu {
+
   &:hover,
   &:focus-within {
     > .site-header__nav-link {
@@ -163,6 +165,13 @@
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+      /* On the way in we want visibility to flip immediately so the
+         entrance can animate, then opacity + transform tween. */
+      transition:
+        opacity   240ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0s;
     }
   }
 }
@@ -171,25 +180,36 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  /* Resting state: translated up a few px and faded out. The browser
+     pre-computes layout + paint at this state, so the first reveal is
+     a cheap transform/opacity tween instead of a fresh paint. */
+  transform: translateX(-50%) translateY(-6px);
   display: flex;
   flex-direction: column;
   width: 21rem;
   padding: 0.65rem;
   border: 1px solid rgba($white, 0.14);
   border-radius: 0;
-  background:
-    radial-gradient(circle at 16% 0%, rgba($brand-orange, 0.16), transparent 34%),
-    linear-gradient(180deg, rgba(#151a22, 0.98), rgba(#07090d, 0.98));
+  background: linear-gradient(180deg, rgba(#151a22, 0.98), rgba(#07090d, 0.98));
   box-shadow:
     0 28px 70px rgba(#000, 0.5),
     inset 0 1px 0 rgba($white, 0.08);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: none;
   z-index: 30;
+  /* Permanently promote to a compositor layer so backdrop-filter,
+     gradient, and box-shadow are ALREADY composited before the user
+     hovers — eliminates the first-open paint stutter. */
+  will-change: opacity, transform;
+  /* Visibility flips after the fade-out finishes so the menu doesn't
+     disappear mid-transition; opacity + transform animate normally. */
+  transition:
+    opacity   220ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 260ms;
 
   &::before {
     content: '';
@@ -197,16 +217,6 @@
     inset: -0.7rem 0 auto;
     height: 0.7rem;
     background: transparent;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 1rem;
-    right: 1rem;
-    top: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba($brand-orange, 0.8), transparent);
   }
 }
 
@@ -225,6 +235,10 @@
   font-weight: 650;
   letter-spacing: 0.01em;
   text-decoration: none;
+  transition:
+    color           180ms ease,
+    background      180ms ease,
+    border-color    180ms ease;
 
   & + & {
     margin-top: 0.18rem;
@@ -273,6 +287,7 @@
   background: transparent;
   border: 0;
   box-shadow: none;
+  transition: color 180ms ease;
 }
 
 .site-header__nav-menu-copy {
@@ -298,6 +313,11 @@
 .site-header__nav-menu-arrow {
   color: rgba($white, 0.34);
   opacity: 0;
+  transform: translate(-3px, 3px);
+  transition:
+    opacity   200ms ease,
+    color     180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .site-header__nav-menu-link:hover .site-header__nav-menu-icon,
@@ -309,6 +329,7 @@
 .site-header__nav-menu-link:focus-visible .site-header__nav-menu-arrow {
   color: $brand-orange;
   opacity: 1;
+  transform: translate(0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,21 +1,17 @@
-import { lazy, Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { SLUG_TO_NUMBER } from './serviceSlugs'
+import ServiceDetail from './ServiceDetail.jsx'
+import ContentDetail from '../ContentDetail/Index.jsx'
 
-const ServiceDetail = lazy(() => import('./ServiceDetail.jsx'))
-const ContentDetail = lazy(() => import('../ContentDetail/Index.jsx'))
-
+// Both children are imported eagerly so the dropdown-click → service-page
+// transition never has to wait on a second async chunk. The outer
+// `/services/:slug` route is already hover-prefetched in Layout, so by the
+// time the user clicks the chunk for ServiceRouter is already in cache —
+// and now everything it renders is too. No nested Suspense, no blank gap.
 function ServiceRouter() {
   const { slug } = useParams()
-  const Component = SLUG_TO_NUMBER[slug]
-    ? ServiceDetail
-    : () => <ContentDetail type="services" />
 
-  return (
-    <Suspense fallback={<div aria-hidden="true" style={{ minHeight: '100vh' }} />}>
-      <Component />
-    </Suspense>
-  )
+  return SLUG_TO_NUMBER[slug] ? <ServiceDetail /> : <ContentDetail type="services" />
 }
 
 export default ServiceRouter

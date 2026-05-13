@@ -118,10 +118,6 @@ function ServiceDetail() {
               <span className="service-banner__tag-dot" />
               Research
             </div>
-            <div className="service-banner__tag service-banner__tag--wireframe">
-              <span className="service-banner__tag-dot" />
-              Wireframes
-            </div>
           </div>
 
           <div className="service-banner__inner">
@@ -249,15 +245,107 @@ function ServiceDetail() {
 
                 <rect x="0" y="0" width="560" height="560" fill="url(#serviceStatsDots)" />
 
-                <image
-                  href="https://res.cloudinary.com/dofapr3pk/image/upload/v1777996089/Untitled-2_zhtqot.jpg"
-                  x="20"
-                  y="90"
-                  width="360"
-                  height="360"
-                  preserveAspectRatio="xMidYMid slice"
-                  clipPath="url(#serviceStatsCircleClip)"
-                />
+                {slug === 'packaging' ? (
+                  <g clipPath="url(#serviceStatsCircleClip)">
+                    {/* Warm cream wash inside the circle to match the section background */}
+                    <rect x="20" y="90" width="360" height="360" fill="#fff4e7" />
+
+                    {/* Tiny doodle: stitches on the left */}
+                    <g stroke="#0a0d12" strokeWidth="1.6" strokeLinecap="round" fill="none" opacity="0.5">
+                      <path d="M58 220 q8 -6 16 0" />
+                      <path d="M58 236 q8 -6 16 0" />
+                      <circle cx="346" cy="244" r="2" fill="#0a0d12" />
+                      <circle cx="354" cy="262" r="2" fill="#0a0d12" />
+                    </g>
+
+                    {/* Main isometric gift box */}
+                    {/* Top face (light butter) */}
+                    <path
+                      d="M90 210 L160 160 L320 160 L250 210 Z"
+                      stroke="#0a0d12" strokeWidth="3" fill="#fde6b6" strokeLinejoin="round"
+                    />
+                    {/* Right side face (peach) */}
+                    <path
+                      d="M250 210 L320 160 L320 320 L250 370 Z"
+                      stroke="#0a0d12" strokeWidth="3" fill="#f9c897" strokeLinejoin="round"
+                    />
+                    {/* Front face (orange) */}
+                    <rect
+                      x="90" y="210" width="160" height="160" rx="3"
+                      stroke="#0a0d12" strokeWidth="3" fill="#ff8c4a"
+                    />
+
+                    {/* Vertical ribbon — front strip */}
+                    <rect x="160" y="210" width="20" height="160" fill="#ff6a00" />
+                    <line x1="160" y1="210" x2="160" y2="370" stroke="#0a0d12" strokeWidth="2" />
+                    <line x1="180" y1="210" x2="180" y2="370" stroke="#0a0d12" strokeWidth="2" />
+                    {/* Vertical ribbon — top strip (over top face) */}
+                    <path
+                      d="M160 210 L230 160 L250 160 L180 210 Z"
+                      fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                    />
+                    {/* Vertical ribbon — edge shadow on the side */}
+                    <path d="M180 210 L250 160 L250 168 L180 218 Z" fill="#cc4f00" opacity="0.55" />
+
+                    {/* Bow on top of box */}
+                    <g transform="translate(220, 162)">
+                      {/* Left loop */}
+                      <path
+                        d="M0 0 C -26 -22, -42 -8, -28 7 L -6 5 Z"
+                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                      />
+                      {/* Right loop */}
+                      <path
+                        d="M0 0 C 26 -22, 42 -8, 28 7 L 6 5 Z"
+                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                      />
+                      {/* Tails */}
+                      <path
+                        d="M -3 6 L -8 24 L -2 22 L -2 8 Z"
+                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                      />
+                      <path
+                        d="M 3 6 L 8 24 L 2 22 L 2 8 Z"
+                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                      />
+                      {/* Knot */}
+                      <ellipse cx="0" cy="3" rx="8" ry="6" fill="#cc4f00" stroke="#0a0d12" strokeWidth="2" />
+                    </g>
+
+                    {/* Small brand label / check sticker on the front face */}
+                    <g transform="translate(108, 318)">
+                      <rect x="0" y="0" width="42" height="40" rx="4" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="2" />
+                      <path
+                        d="M9 16 L18 24 L34 8"
+                        stroke="#ff6a00" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none"
+                      />
+                    </g>
+
+                    {/* Decorative sparkles around the scene */}
+                    <g stroke="#ff6a00" strokeWidth="3" strokeLinecap="round" fill="none">
+                      <g transform="translate(58, 170)">
+                        <line x1="0" y1="-11" x2="0" y2="11" />
+                        <line x1="-11" y1="0" x2="11" y2="0" />
+                        <line x1="-8" y1="-8" x2="8" y2="8" />
+                        <line x1="8" y1="-8" x2="-8" y2="8" />
+                      </g>
+                      <g transform="translate(346, 388)">
+                        <line x1="0" y1="-9" x2="0" y2="9" />
+                        <line x1="-9" y1="0" x2="9" y2="0" />
+                      </g>
+                    </g>
+                  </g>
+                ) : (
+                  <image
+                    href="https://res.cloudinary.com/dofapr3pk/image/upload/v1777996089/Untitled-2_zhtqot.jpg"
+                    x="20"
+                    y="90"
+                    width="360"
+                    height="360"
+                    preserveAspectRatio="xMidYMid slice"
+                    clipPath="url(#serviceStatsCircleClip)"
+                  />
+                )}
                 <circle cx="200" cy="270" r="180" fill="#ff6a00" fillOpacity="0.045" clipPath="url(#serviceStatsCircleClip)" />
 
                 <g transform="rotate(5 280 460)">
