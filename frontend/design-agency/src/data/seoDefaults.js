@@ -18,8 +18,8 @@ export const seoDefaults = {
     schemaType: 'ContactPage',
   },
   '/services': {
-    title: 'Branding, UI/UX, Web & App Development Services in India | BrandView India',
-    description: 'BrandView India offers branding, UI/UX design, web development, app development, and creative design services for businesses that want a professional digital presence built with strategy, emotion, and impact.',
+    title: 'Branding, UI/UX, Web & App Development Services in India | BrandViora India',
+    description: 'BrandViora India offers branding, UI/UX design, web development, app development, and creative design services for businesses that want a professional digital presence built with strategy, emotion, and impact.',
     canonicalPath: '/services',
     schemaType: 'CollectionPage',
   },

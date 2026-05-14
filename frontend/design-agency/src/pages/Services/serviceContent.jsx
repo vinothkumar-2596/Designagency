@@ -68,60 +68,37 @@ export const heroSketches = [
     label: 'Branding',
     render: () => (
       <>
-        {/* Outer ring (subtle stack) */}
-        <circle
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
-          cx="180" cy="160" r="88"
-          stroke="#f4e58a" strokeWidth="3" fill="none"
-        />
-
-        {/* Big orange logo disc — the brand mark */}
-        <circle
+        {/* Single brand sheet card */}
+        <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
-          cx="180" cy="160" r="74"
-          fill="#ff6a00"
+          x="68" y="98" width="260" height="232" rx="14"
+          stroke="#ff6a00" strokeWidth="10" strokeLinejoin="round" fill="none"
         />
 
-        {/* White star/asterisk mark inside */}
-        <g stroke="#ffffff" strokeWidth="6" strokeLinecap="round" fill="none">
-          <line x1="180" y1="124" x2="180" y2="196" />
-          <line x1="144" y1="160" x2="216" y2="160" />
-          <line x1="155" y1="135" x2="205" y2="185" />
-          <line x1="205" y1="135" x2="155" y2="185" />
+        {/* Logo mark — orange disc with asterisk */}
+        <circle cx="128" cy="158" r="26" fill="#ff6a00" />
+        <g stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" fill="none">
+          <line x1="128" y1="142" x2="128" y2="174" />
+          <line x1="112" y1="158" x2="144" y2="158" />
+          <line x1="116" y1="146" x2="140" y2="170" />
+          <line x1="140" y1="146" x2="116" y2="170" />
         </g>
 
-        {/* Color palette row below */}
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="114" cy="290" r="14" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="152" cy="290" r="14" fill="#f4e58a" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="190" cy="290" r="14" fill="#ffffff" opacity="0.6" />
-        <circle cx="228" cy="290" r="14" fill="#0a0d12" stroke="#ffffff" strokeWidth="1.5" />
-
-        {/* Spark top-left */}
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
-          <line x1="44" y1="56" x2="44" y2="90" />
-          <line x1="28" y1="72" x2="60" y2="72" />
-          <line x1="32" y1="60" x2="56" y2="84" />
-          <line x1="56" y1="60" x2="32" y2="84" />
-        </g>
-
-        {/* Bottom swoosh */}
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
-          d="M30 340 C 100 326, 200 352, 332 328"
-          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+        {/* Wordmark line beside logo */}
+        <line
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--lines"
+          x1="172" y1="158" x2="296" y2="158"
+          stroke="#ffffff" strokeWidth="4" strokeLinecap="round"
         />
 
-        {/* Bottom arrow */}
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
-          d="M60 366 C 140 372, 220 362, 304 350"
-          stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.5" fill="none"
-        />
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--arrowhead"
-          d="M288 338 L 308 350 L 294 366"
-          stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" fill="none"
-        />
+        {/* Type sample */}
+        <text x="100" y="266" fontFamily="'Manrope', system-ui, sans-serif" fontSize="44" fontWeight="700" letterSpacing="-0.03em" fill="#ffffff">Aa</text>
+
+        {/* Palette swatches */}
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="200" cy="252" r="11" fill="#ff6a00" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="228" cy="252" r="11" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="256" cy="252" r="11" fill="#ffffff" opacity="0.85" />
+        <circle cx="284" cy="252" r="11" fill="#0a0d12" stroke="#ffffff" strokeWidth="1.5" />
       </>
     ),
   },

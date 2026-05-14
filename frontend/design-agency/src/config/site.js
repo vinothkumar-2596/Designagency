@@ -1,10 +1,10 @@
 const env = import.meta.env
 
 export const siteConfig = {
-  name: 'BrandView India',
+  name: 'BrandViora India',
   url: env.VITE_SITE_URL || (typeof window !== 'undefined' ? window.location.origin : ''),
   description: 'Creative design solutions for brands, websites, and digital products.',
-  email: env.VITE_SITE_EMAIL || 'hello@brandview.in',
+  email: env.VITE_SITE_EMAIL || 'hello@brandviora.in',
   social: {
     twitter: env.VITE_SOCIAL_TWITTER || '',
     linkedin: env.VITE_SOCIAL_LINKEDIN || '',

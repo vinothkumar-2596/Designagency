@@ -161,7 +161,7 @@ function AboutUs() {
             </div>
           </div>
 
-          <dl className="about-hero__facts" aria-label="Brandvue at a glance">
+          <dl className="about-hero__facts" aria-label="BrandViora India at a glance">
             {heroFacts.map((fact) => (
               <div className="about-hero__fact" key={fact.label}>
                 <dt>{fact.label}</dt>
@@ -264,7 +264,7 @@ function AboutUs() {
         </div>
       </section>
 
-      <section className="about-stats" aria-label="Brandvue results">
+      <section className="about-stats" aria-label="BrandViora India results">
         <div className="about-stats__paper" aria-hidden="true" />
         <svg className="about-stats__doodle about-stats__doodle--tl" viewBox="0 0 110 70" aria-hidden="true">
           <path
@@ -388,7 +388,7 @@ function AboutUs() {
                   <rect x="9" y="9" width="38" height="38" rx="7" fill="#ffc28a" fillOpacity="0.55" />
                   <rect x="18" y="18" width="20" height="20" rx="3" fill="#ffffff" fillOpacity="0.9" />
                 </g>
-                <text x="190" y="196" fontFamily="'Manrope', system-ui, sans-serif" fontSize="17" fontWeight="700" letterSpacing="-0.025em" fill="#0a0d12">BrandView</text>
+                <text x="190" y="196" fontFamily="'Manrope', system-ui, sans-serif" fontSize="17" fontWeight="700" letterSpacing="-0.025em" fill="#0a0d12">BrandViora India</text>
                 <text x="190" y="215" fontFamily="'Manrope', system-ui, sans-serif" fontSize="9" fontWeight="600" letterSpacing="0.2em" fill="#0a0d12" fillOpacity="0.55">DESIGN · STRATEGY · TECH</text>
 
                 {/* divider */}
@@ -558,7 +558,7 @@ function AboutUs() {
 
             <p className="about-values__sign" aria-hidden="true">
               <span className="about-values__sign-rule" />
-              The Brandvue studio
+              It's BrandViora India
             </p>
           </div>
         </div>
@@ -637,7 +637,7 @@ function AboutUs() {
               Positioning first. Then design language, responsive patterns, and a system the in-house team can actually maintain. No bloat, no layers, no hand-offs to a delivery floor.
             </p>
 
-            <ol className="about-culture__steps" aria-label="How Brandvue works">
+            <ol className="about-culture__steps" aria-label="How BrandViora India works">
               {processSteps.map((item, index) => (
                 <li className="about-step" key={item.title}>
                   <span className="about-step__index">{`0${index + 1}`}</span>

@@ -60,7 +60,7 @@ const audiences = [
 ]
 
 const faqs = [
-  ['What services does BrandView India offer?', 'BrandView India offers branding and identity, UI/UX design, web design and development, mobile app development, creative and social media design, and packaging design — six disciplines under one studio roof.'],
+  ['What services does BrandViora India offer?', 'BrandViora India offers branding and identity, UI/UX design, web design and development, mobile app development, creative and social media design, and packaging design — six disciplines under one studio roof.'],
   ['Do you design websites for small businesses?', 'Yes. We create professional, responsive, and SEO-ready websites for startups, small businesses, personal brands, and growing companies.'],
   ['Can you handle both design and development?', 'Yes. We support projects from strategy and design to development, testing, and launch, so the final output feels consistent and complete.'],
   ['Do you provide brand identity design?', 'Yes. We create logos, color palettes, typography systems, social media brand kits, and brand guidelines to help businesses look clear and professional.'],

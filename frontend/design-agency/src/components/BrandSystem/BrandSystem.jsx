@@ -174,7 +174,7 @@ function BrandSystem() {
               ))}
             </svg>
 
-            <div className="brand-system__nodes" aria-label="Brandvue network services">
+            <div className="brand-system__nodes" aria-label="BrandViora India network services">
               {brandSystemNodes.map((item, index) => (
                 <article
                   className="brand-system__node"

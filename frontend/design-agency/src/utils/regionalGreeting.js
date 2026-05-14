@@ -91,7 +91,7 @@ function getGreetingByState(regionName) {
 }
 
 function getLocalGreetingOverride() {
-  const override = window.localStorage.getItem('brandvue_region')
+  const override = window.localStorage.getItem('brandviora_region')
 
   if (!override) {
     return null
@@ -220,14 +220,14 @@ async function fetchGpsGreeting() {
   if (!navigator.geolocation) return null
 
   // Skip GPS if user previously denied or we already cached a region
-  const gpsDenied = window.sessionStorage.getItem('brandvue_gps_denied')
+  const gpsDenied = window.sessionStorage.getItem('brandviora_gps_denied')
   if (gpsDenied) return null
 
   try {
     if (navigator.permissions) {
       const perm = await navigator.permissions.query({ name: 'geolocation' })
       if (perm.state === 'denied') {
-        window.sessionStorage.setItem('brandvue_gps_denied', '1')
+        window.sessionStorage.setItem('brandviora_gps_denied', '1')
         return null
       }
     }
@@ -264,7 +264,7 @@ async function fetchGpsGreeting() {
 
       // Cache the GPS-resolved region so we don't prompt again
       if (result && state) {
-        window.localStorage.setItem('brandvue_region', state.toLowerCase())
+        window.localStorage.setItem('brandviora_region', state.toLowerCase())
       }
 
       return result

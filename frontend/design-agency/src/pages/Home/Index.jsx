@@ -39,7 +39,7 @@ import SEO from '../../components/SEO/SEO'
 import { getSeo } from '../../services/contentService'
 import { resolveRegionalGreeting, splitGreetingText } from '../../utils/regionalGreeting'
 
-const GREETING_PLAYED_KEY = 'brandvue_greeting_played'
+const GREETING_PLAYED_KEY = 'brandviora_greeting_played'
 
 function hasPlayedGreetingThisSession() {
   if (typeof window === 'undefined') return true
@@ -138,7 +138,7 @@ const proofHighlights = [
   {
     icon: Briefcase,
     title: 'Strong design can outperform competitors',
-    copy: 'Companies that invest in design maturity have been shown to achieve significantly stronger revenue growth and shareholder returns. BrandVue helps businesses turn creative execution into measurable business value.',
+    copy: 'Companies that invest in design maturity have been shown to achieve significantly stronger revenue growth and shareholder returns. BrandViora India helps businesses turn creative execution into measurable business value.',
     source: 'McKinsey',
   },
   {
@@ -374,7 +374,7 @@ function Home() {
           <div className="why-panel">
             <div className="why-panel__intro">
               <p>
-                At Brandvue, we build brand experiences that do more than look good. We align
+                At BrandViora India, we build brand experiences that do more than look good. We align
                 strategy, identity, web design, content, and development to help businesses
                 launch stronger, grow faster, and stay consistent across every digital
                 touchpoint.
@@ -396,7 +396,7 @@ function Home() {
               />
             </figure>
 
-            <div className="why-panel__stats" aria-label="Brandvue India results">
+            <div className="why-panel__stats" aria-label="BrandViora India results">
               {whyStats.map((item) => (
                 <article className="why-stat" key={item.label}>
                   <h3>{item.label}</h3>
@@ -407,7 +407,7 @@ function Home() {
             </div>
           </div>
 
-          <div className="why-awards" aria-label="Brandvue India awards">
+          <div className="why-awards" aria-label="BrandViora India awards">
             <div className="why-awards__lead">
               <span aria-hidden="true" />
               <p>We have been awarded for the milestones our teams have achieved.</p>
@@ -513,7 +513,7 @@ function Home() {
           <div className="home-formula__header">
             <p className="eyebrow">Our formula</p>
             <h2 id="formula-heading">
-              The Brandvue <span>formula</span>
+              The BrandViora India <span>formula</span>
             </h2>
             <div className="home-formula__banner">
               Good Ideas + Good Vibes, <span>Equals US</span>
@@ -548,7 +548,7 @@ function Home() {
                   Premium delivery, <span>without generic output.</span>
                 </h3>
                 <p>
-                  Brandvue brings discipline to websites, campaigns, and digital systems while
+                  BrandViora India brings discipline to websites, campaigns, and digital systems while
                   keeping the final work expressive, sharp, and built to scale with confidence.
                 </p>
               </div>
@@ -605,7 +605,7 @@ function Home() {
                 <p className="home-faq__cta-eyebrow">( 03 ) FAQ</p>
                 <h3>Need a sharper answer?</h3>
                 <p className="home-faq__cta-description">
-                  Discuss scope, timelines, or collaboration details with the Brandvue team.
+                  Discuss scope, timelines, or collaboration details with the BrandViora India team.
                 </p>
               </div>
 
@@ -615,8 +615,8 @@ function Home() {
                 <span>Partnerships</span>
               </div>
 
-              <a href="mailto:hello@brandvue.com" className="home-faq__cta-email">
-                <span>hello@brandvue.com</span>
+              <a href="mailto:hello@brandviora.com" className="home-faq__cta-email">
+                <span>hello@brandviora.com</span>
                 <ArrowRight size={16} />
               </a>
 
