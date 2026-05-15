@@ -402,6 +402,23 @@ function Home() {
               <span className="home-hero__chip-meta">12k reviews</span>
             </div>
 
+            <div className="home-hero__chip home-hero__chip--growth">
+              <span className="home-hero__chip-growth-icon" aria-hidden="true">
+                <TrendingUp size={14} strokeWidth={2.4} />
+              </span>
+              <span className="home-hero__chip-body">
+                <span className="home-hero__chip-growth-label">Growth</span>
+                <strong>+24%</strong>
+              </span>
+              <span className="home-hero__chip-growth-bars" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </span>
+            </div>
+
           </div>
         </div>
 
