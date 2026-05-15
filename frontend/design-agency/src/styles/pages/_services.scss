@@ -306,6 +306,108 @@
   }
 }
 
+/* === Brand service futuristic FX === */
+.brand-fx__glow {
+  transform-origin: 161px 109px;
+  animation: services-brand-glow 3.6s ease-in-out infinite;
+}
+
+.brand-fx__orbit {
+  transform-origin: 161px 109px;
+}
+
+.brand-fx__orbit--outer {
+  animation: services-brand-spin 18s linear infinite;
+}
+
+.brand-fx__orbit--mid {
+  animation: services-brand-spin-reverse 12s linear infinite;
+}
+
+.brand-fx__satellite {
+  transform-origin: 161px 109px;
+  animation: services-brand-spin 7s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(254, 97, 2, 0.7));
+}
+
+.brand-fx__pulse {
+  transform-origin: 161px 109px;
+  animation: services-brand-pulse 2.8s ease-out infinite;
+}
+
+.brand-fx__scan {
+  opacity: 0;
+  animation: services-brand-scan 3.6s ease-in-out infinite;
+}
+
+.brand-fx__cardinal {
+  animation: services-brand-flicker 2.4s ease-in-out infinite;
+}
+
+.brand-fx__corners {
+  animation: services-brand-flicker 1.8s ease-in-out 0.4s infinite;
+}
+
+.brand-fx__emblem {
+  transform-origin: 161px 109px;
+  animation: services-brand-emblem-pulse 4s ease-in-out infinite;
+}
+
+@keyframes services-brand-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes services-brand-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes services-brand-pulse {
+  0% { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+@keyframes services-brand-glow {
+  0%, 100% { opacity: 0.65; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes services-brand-scan {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(108px); opacity: 0; }
+}
+
+@keyframes services-brand-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes services-brand-emblem-pulse {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(254, 97, 2, 0.35)); }
+  50% { filter: drop-shadow(0 0 22px rgba(254, 97, 2, 0.7)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-fx__glow,
+  .brand-fx__orbit,
+  .brand-fx__orbit--outer,
+  .brand-fx__orbit--mid,
+  .brand-fx__satellite,
+  .brand-fx__pulse,
+  .brand-fx__scan,
+  .brand-fx__cardinal,
+  .brand-fx__corners,
+  .brand-fx__emblem {
+    animation: none;
+    transform: none;
+  }
+
+  .brand-fx__scan {
+    opacity: 0.6;
+  }
+}
+
 .services-hero__support {
   display: grid;
   gap: 1.5rem;

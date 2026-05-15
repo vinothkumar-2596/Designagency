@@ -64,37 +64,78 @@
         opacity: 1;
         visibility: visible;
         transition:
-          opacity 0.55s cubic-bezier(0.65, 0.05, 0.36, 1),
-          visibility 0s linear 0.55s;
+          opacity 0.32s ease-in,
+          visibility 0s linear 0.32s;
       }
       #bootloader.bootloader--hidden {
         opacity: 0;
         visibility: hidden;
+        pointer-events: none;
       }
-
       .bootloader__stage {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 22px;
+        gap: 26px;
         padding: 0 24px;
+        transition: opacity 0.2s ease-in, transform 0.22s ease-in;
+      }
+      #bootloader.bootloader--hidden .bootloader__stage {
+        opacity: 0;
+        transform: scale(0.96);
       }
 
-      /* The brand tile — a single 36px square, gentle pulse. */
-      .bootloader__mark {
-        width: 36px;
-        height: 36px;
-        border-radius: 8px;
-        background: linear-gradient(135deg, #ffc28a 0%, #ff6a00 100%);
-        box-shadow:
-          0 0 0 1px rgba(255, 165, 90, 0.35),
-          0 0 28px rgba(255, 106, 0, 0.38),
-          inset 0 0 10px rgba(255, 210, 170, 0.5);
-        animation: bootloader-pulse 2.2s ease-in-out infinite;
+      /* The BrandViora emblem — fades in, then breathes. */
+      .bootloader__emblem {
+        position: relative;
+        width: 108px;
+        height: 108px;
+        display: grid;
+        place-items: center;
+        opacity: 0;
+        transform: scale(0.88);
+        animation:
+          bootloader-emblem-in 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.05s forwards,
+          bootloader-breathe 2.6s ease-in-out 0.95s infinite;
       }
-      @keyframes bootloader-pulse {
-        0%, 100% { transform: scale(1);    box-shadow: 0 0 0 1px rgba(255, 165, 90, 0.35), 0 0 24px rgba(255, 106, 0, 0.32), inset 0 0 10px rgba(255, 210, 170, 0.5); }
-        50%      { transform: scale(1.04); box-shadow: 0 0 0 1px rgba(255, 165, 90, 0.5),  0 0 38px rgba(255, 106, 0, 0.55), inset 0 0 10px rgba(255, 210, 170, 0.5); }
+      .bootloader__emblem::before {
+        content: '';
+        position: absolute;
+        inset: -28%;
+        background: radial-gradient(circle, rgba(255, 106, 0, 0.32), transparent 62%);
+        filter: blur(10px);
+        animation: bootloader-glow 2.6s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .bootloader__emblem svg {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .bootloader__emblem-accent,
+      .bootloader__emblem-body {
+        fill: none;
+        stroke-width: 2.4;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        vector-effect: non-scaling-stroke;
+      }
+      .bootloader__emblem-accent { stroke: #eda369; }
+      .bootloader__emblem-body   { stroke: #ffffff; }
+
+      @keyframes bootloader-emblem-in {
+        from { opacity: 0; transform: scale(0.88); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+      @keyframes bootloader-glow {
+        0%, 100% { opacity: 0.45; transform: scale(0.96); }
+        50%      { opacity: 1;    transform: scale(1.08); }
+      }
+      @keyframes bootloader-breathe {
+        0%, 100% { transform: scale(1); }
+        50%      { transform: scale(1.04); }
       }
 
       .bootloader__name {
@@ -102,6 +143,12 @@
         font-weight: 600;
         letter-spacing: -0.015em;
         color: rgba(255, 255, 255, 0.92);
+        opacity: 0;
+        animation: bootloader-fade-up 0.5s ease-out 0.55s forwards;
+      }
+      @keyframes bootloader-fade-up {
+        from { opacity: 0; transform: translateY(6px); }
+        to   { opacity: 1; transform: translateY(0); }
       }
 
       /* Thin progress rail with shimmer. */
@@ -111,6 +158,11 @@
         height: 1px;
         background: rgba(255, 255, 255, 0.08);
         overflow: hidden;
+        opacity: 0;
+        animation: bootloader-fade-in 0.45s ease-out 0.75s forwards;
+      }
+      @keyframes bootloader-fade-in {
+        to { opacity: 1; }
       }
       .bootloader__bar::before {
         content: '';
@@ -126,8 +178,12 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .bootloader__mark,
+        .bootloader__emblem,
+        .bootloader__emblem::before,
         .bootloader__bar::before { animation: none; }
+        .bootloader__emblem { opacity: 1; transform: none; }
+        .bootloader__name,
+        .bootloader__bar { opacity: 1; animation: none; }
         .bootloader__bar::before { width: 60%; }
       }
     </style>
@@ -135,7 +191,18 @@
   <body>
     <div id="bootloader" role="status" aria-live="polite" aria-label="Loading BrandViora India">
       <div class="bootloader__stage">
-        <span class="bootloader__mark" aria-hidden="true"></span>
+        <span class="bootloader__emblem" aria-hidden="true">
+          <svg viewBox="300 320 565 575" xmlns="http://www.w3.org/2000/svg">
+            <path
+              class="bootloader__emblem-accent"
+              d="M668.08,867.36l-206.16-334.57h-134.89l184.8,299.9c13.7,22.23,37.95,35.78,64.07,35.78h90.39l1.8-1.11Z"
+            />
+            <path
+              class="bootloader__emblem-body"
+              d="M828.67,605.73c12.69-25.45,19.84-54.15,19.84-84.52,0-34.61-9.28-67.06-25.47-94.99-32.82-56.61-94.07-94.69-164.21-94.69h-322.93v57.28c0,39.34,31.89,71.22,71.22,71.22h269.08c32.52,0,58.89,26.37,58.89,58.89v.52c0,37.95-30.76,68.71-68.71,68.71h-102.01l52.99,82.16,46.76,73.07,21.62-34.39,1.3-2.07,8.05-12.81c10.05-15.98,31.15-20.79,47.13-10.75,12.78,8.03,18.4,23.13,15.02,37.03-.75,4.08-2.26,8.09-4.61,11.81l-85.97,136.27h133.58l56.34-101.53c30.32-54.63,17.22-121.61-27.9-161.21Z"
+            />
+          </svg>
+        </span>
         <span class="bootloader__name">BrandViora India</span>
         <span class="bootloader__bar" aria-hidden="true"></span>
       </div>
@@ -158,13 +225,16 @@
           loader.classList.add('bootloader--hidden');
           setTimeout(function () {
             if (loader.parentNode) loader.parentNode.removeChild(loader);
-          }, 650);
+          }, 360);
         }
 
         var observer = new MutationObserver(function () {
           if (document.querySelector('.site-header')) {
             observer.disconnect();
-            setTimeout(hide, 140);
+            // Inner stage starts collapsing immediately; full backdrop fade
+            // begins one frame later so the emblem disappears first and we
+            // never see a translucent loader over the rendered page.
+            requestAnimationFrame(hide);
           }
         });
         observer.observe(document.body, { childList: true, subtree: true });

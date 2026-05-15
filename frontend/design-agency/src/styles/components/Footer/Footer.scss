@@ -144,17 +144,13 @@
 .footer__brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-size: 1.1rem;
-  font-weight: 700;
 }
 
-.footer__brand-mark {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  background: linear-gradient(135deg, #ffb463 0%, #ffca7b 100%);
-  clip-path: polygon(0 0, 50% 0, 100% 100%, 50% 100%);
+.footer__brand-lockup {
+  display: block;
+  height: 1.9rem;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .footer__description {
