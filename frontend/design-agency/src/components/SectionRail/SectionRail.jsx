@@ -75,8 +75,14 @@ function SectionRail({ items = defaultItems }) {
   const activeIndex = trackableIds.indexOf(activeId)
   const hudCode = String((activeIndex >= 0 ? activeIndex : 0) + 1).padStart(2, '0')
 
+  const isHidden = activeId === 'home-hero'
+
   return (
-    <aside className="section-rail" aria-label="Page sections">
+    <aside
+      className={`section-rail${isHidden ? ' is-hidden' : ''}`}
+      aria-label="Page sections"
+      aria-hidden={isHidden ? 'true' : undefined}
+    >
       <span className="section-rail__hud" aria-hidden="true">
         <span className="section-rail__hud-dot" />
         NAV / {hudCode}

@@ -21,7 +21,10 @@
 
 .site-header {
   position: relative;
-  z-index: 2;
+  /* Must sit above the home-hero's stacking context (which contains the phone
+     visual at z-index: 9999), otherwise the Services dropdown panel — when it
+     extends down past the header — gets swallowed by the hero on the Home page. */
+  z-index: 10001;
   width: 100%;
   margin: 0;
   background: $text-primary;

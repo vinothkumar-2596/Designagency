@@ -138,6 +138,15 @@ const serviceHighlights = [
   },
 ]
 
+const servicesStrip = [
+  { title: 'Branding & Identity', tagline: 'Logo, identity, visual systems', icon: Sparkles, href: '/services' },
+  { title: 'UI/UX Design', tagline: 'Interfaces, flows, prototypes', icon: Blocks, href: '/services' },
+  { title: 'Web Design & Development', tagline: 'Responsive websites that convert', icon: Code2, href: '/services' },
+  { title: 'Mobile App Development', tagline: 'Product design and app builds', icon: Smartphone, href: '/services' },
+  { title: 'Creative & Social Media', tagline: 'Campaign and content creatives', icon: Palette, href: '/services' },
+  { title: 'Packaging Design', tagline: 'Shelf-ready packaging and labels', icon: Package, href: '/services/packaging' },
+]
+
 const proofHighlights = [
   {
     icon: Briefcase,
@@ -305,24 +314,8 @@ function Home() {
           <svg className="home-hero__tech-svg" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid meet">
             <circle className="home-hero__tech-ring home-hero__tech-ring--outer" cx="600" cy="500" r="260" />
             <circle className="home-hero__tech-ring home-hero__tech-ring--mid" cx="600" cy="500" r="200" />
-            <g className="home-hero__tech-tick" transform="translate(300 220)">
-              <line x1="0" y1="10" x2="22" y2="10" />
-              <line x1="11" y1="0" x2="11" y2="22" />
-            </g>
-            <g className="home-hero__tech-tick" transform="translate(880 220)">
-              <line x1="0" y1="10" x2="22" y2="10" />
-              <line x1="11" y1="0" x2="11" y2="22" />
-            </g>
-            <circle className="home-hero__tech-dot home-hero__tech-dot--orange" cx="330" cy="420" r="3" />
-            <circle className="home-hero__tech-dot home-hero__tech-dot--yellow" cx="870" cy="360" r="2.5" />
-            <circle className="home-hero__tech-dot home-hero__tech-dot--white" cx="900" cy="600" r="2" />
-            <circle className="home-hero__tech-dot home-hero__tech-dot--white" cx="300" cy="600" r="2" />
           </svg>
 
-          <div className="home-hero__hud home-hero__hud--right">
-            <span className="home-hero__hud-dot" />
-            <span className="home-hero__hud-tag">LIVE · STUDIO</span>
-          </div>
         </div>
         {regionalGreeting && isGreetingVisible ? (
           <p
@@ -409,6 +402,36 @@ function Home() {
               <span className="home-hero__chip-meta">12k reviews</span>
             </div>
 
+          </div>
+        </div>
+
+        <div className="services-strip" aria-label="Services overview">
+          <div className="services-strip__marquee">
+            <div className="services-strip__track">
+              {[...servicesStrip, ...servicesStrip].map((service, idx) => {
+                const isClone = idx >= servicesStrip.length
+                return (
+                  <Link
+                    to={service.href}
+                    key={`${service.title}-${idx}`}
+                    className="services-strip__card"
+                    aria-hidden={isClone ? 'true' : undefined}
+                    tabIndex={isClone ? -1 : undefined}
+                  >
+                    <span className="services-strip__card-icon" aria-hidden="true">
+                      <service.icon strokeWidth={1.7} />
+                    </span>
+                    <span className="services-strip__card-body">
+                      <span className="services-strip__card-title">{service.title}</span>
+                      <span className="services-strip__card-tagline">{service.tagline}</span>
+                    </span>
+                    <span className="services-strip__card-arrow" aria-hidden="true">
+                      <ArrowUpRight size={13} strokeWidth={2.2} />
+                    </span>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>

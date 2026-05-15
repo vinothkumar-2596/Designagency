@@ -22,8 +22,18 @@
   justify-content: center;
   align-items: center;
 
+  /* Reserve room at the bottom for the absolutely-positioned services strip so
+     centered hero content (stats, CTA) doesn't sit under it. We grow the
+     container via min-height (not padding-bottom), so the flex-centered
+     content position stays put while extra space opens up below it. */
+  @include respond-up(md) {
+    min-height: 880px;
+    padding-bottom: 110px;
+  }
+
   @include respond-up(lg) {
-    min-height: 874px;
+    min-height: 1020px;
+    padding-bottom: 120px;
   }
 }
 
@@ -1182,6 +1192,202 @@
   .hero-stage__particle { animation: none; }
 }
 
+/* ============================================================
+   SERVICES STRIP — horizontal marquee under the hero
+   ============================================================ */
+.services-strip {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-block: 1.4rem;
+  background: transparent;
+  overflow: hidden;
+  isolation: isolate;
+  color: $white;
+
+  /* On md+, anchor to the bottom of the hero. Sit BELOW the phone mockup
+     (z-index 9999) so cards passing through the phone area are hidden by the
+     opaque mockup — only cards on either side of the phone remain visible. */
+  @include respond-up(md) {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 5;
+    pointer-events: none;
+
+    .services-strip__card {
+      pointer-events: auto;
+    }
+  }
+}
+
+.services-strip__marquee {
+  position: relative;
+  width: 100%;
+  --strip-fade: 80px;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--strip-fade),
+    #000 48%,
+    transparent 64%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--strip-fade),
+    #000 48%,
+    transparent 64%
+  );
+
+  @include respond-up(md) {
+    --strip-fade: 140px;
+  }
+
+  &:hover .services-strip__track,
+  &:focus-within .services-strip__track {
+    animation-play-state: paused;
+  }
+}
+
+.services-strip__track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.85rem;
+  width: max-content;
+  animation: servicesStripMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.services-strip__card {
+  flex: 0 0 auto;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 15rem;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba($white, 0.07);
+  background: rgba($white, 0.018);
+  backdrop-filter: blur(6px);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 260ms ease,
+    background 260ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: rgba($brand-orange, 0.3);
+    background: rgba($white, 0.035);
+
+    .services-strip__card-icon {
+      color: $brand-orange;
+      border-color: rgba($brand-orange, 0.32);
+      background: rgba($brand-orange, 0.08);
+    }
+
+    .services-strip__card-arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+      color: $brand-orange;
+      border-color: rgba($brand-orange, 0.32);
+      background: rgba($brand-orange, 0.08);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba($brand-orange, 0.5);
+    outline-offset: 3px;
+  }
+
+  @include respond-up(md) {
+    width: 16.5rem;
+    padding: 0.7rem 1rem;
+    gap: 0.75rem;
+  }
+}
+
+.services-strip__card-arrow {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.55rem;
+  height: 1.55rem;
+  margin-left: 0.15rem;
+  border: 1px solid rgba($white, 0.08);
+  background: rgba($white, 0.02);
+  color: rgba($white, 0.55);
+  opacity: 0;
+  transform: translate(-4px, 0);
+  transition:
+    opacity 260ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 260ms ease,
+    background 260ms ease,
+    border-color 260ms ease;
+}
+
+.services-strip__card-icon {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid rgba($white, 0.1);
+  background: transparent;
+  color: rgba($white, 0.72);
+  transition:
+    color 260ms ease,
+    background 260ms ease,
+    border-color 260ms ease;
+
+  svg {
+    width: 0.92rem;
+    height: 0.92rem;
+  }
+}
+
+.services-strip__card-body {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.services-strip__card-title {
+  color: $white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.003em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.services-strip__card-tagline {
+  color: rgba($white, 0.52);
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@keyframes servicesStripMarquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(-50% - 0.425rem), 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-strip__track {
+    animation: none;
+  }
+}
+
 .why-section {
   padding-block: 4.5rem 5rem;
   background: #fefff5;
@@ -2279,19 +2485,6 @@
   width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba($brand-orange, 0.4) 20%, rgba($brand-orange, 0.4) 80%, transparent 100%);
-    box-shadow: 0 0 16px rgba($brand-orange, 0.3), 0 0 32px rgba($brand-orange, 0.15);
-    z-index: 15;
-    pointer-events: none;
-  }
 
   &::after {
     content: '';
