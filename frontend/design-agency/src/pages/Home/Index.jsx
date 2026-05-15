@@ -360,7 +360,7 @@ function Home() {
               </div>
               <div>
                 <dt>Founder rating</dt>
-                <dd>4.9<span aria-hidden="true">★</span></dd>
+                <dd>4.9<span aria-hidden="true"><Star size={24} fill="currentColor" strokeWidth={0} /></span></dd>
               </div>
             </dl>
           </div>
@@ -454,6 +454,45 @@ function Home() {
       </section>
 
       <section className="why-section" id="why-section" aria-labelledby="why-heading">
+        <div className="why-section__decor" aria-hidden="true">
+          <svg viewBox="0 0 220 320" preserveAspectRatio="xMidYMid meet" fill="none">
+            <circle
+              className="why-section__decor-circle"
+              cx="120"
+              cy="68"
+              r="42"
+              strokeWidth="1.1"
+              strokeDasharray="2 5"
+            />
+            <path
+              className="why-section__decor-stroke"
+              d="M 24 158 Q 70 124, 122 152 T 210 172"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+            <path
+              className="why-section__decor-stroke why-section__decor-stroke--accent"
+              d="M 36 200 q 12 -10, 24 0 t 24 0 t 24 0 t 24 0"
+              strokeWidth="1.4"
+              strokeLinecap="round"
+            />
+            <g transform="translate(180, 230)">
+              <g
+                className="why-section__decor-spark"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+              >
+                <line x1="-9" y1="0" x2="9" y2="0" />
+                <line x1="0" y1="-9" x2="0" y2="9" />
+                <line x1="-6.5" y1="-6.5" x2="6.5" y2="6.5" />
+                <line x1="-6.5" y1="6.5" x2="6.5" y2="-6.5" />
+              </g>
+            </g>
+            <circle className="why-section__decor-dot" cx="56" cy="248" r="2.4" />
+            <circle className="why-section__decor-dot" cx="148" cy="278" r="1.6" />
+            <circle className="why-section__decor-dot why-section__decor-dot--accent" cx="42" cy="110" r="2.2" />
+          </svg>
+        </div>
         <div className="why-section__inner">
           <div className="why-section__heading">
             <p className="eyebrow">( 02 ) Why choose us?</p>
