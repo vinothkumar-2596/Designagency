@@ -36,7 +36,6 @@ import { Link } from 'react-router-dom'
 import formulaCursorImage from '../../assets/formula-cursor.png'
 import formulaPuzzleImage from '../../assets/formula-puzzle.png'
 import heroMockupImage from '../../assets/coffee-app-mockup.png'
-import BrandSystem from '../../components/BrandSystem/BrandSystem'
 import Button from '../../components/Button/Button'
 import SectionRail from '../../components/SectionRail/SectionRail'
 import SEO from '../../components/SEO/SEO'
@@ -145,6 +144,39 @@ const servicesStrip = [
   { title: 'Mobile App Development', tagline: 'Product design and app builds', icon: Smartphone, href: '/services' },
   { title: 'Creative & Social Media', tagline: 'Campaign and content creatives', icon: Palette, href: '/services' },
   { title: 'Packaging Design', tagline: 'Shelf-ready packaging and labels', icon: Package, href: '/services/packaging' },
+]
+
+const featuredWork = [
+  {
+    title: 'Coffee ordering, redesigned',
+    excerpt: 'A mobile-first commerce flow built for speed, discovery, and one-thumb checkout.',
+    tag: 'UI / UX',
+    href: '/works',
+    image: 'https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&w=1200&q=80',
+    variant: 'feature',
+  },
+  {
+    title: 'Identity for an Indian D2C',
+    excerpt: 'A bold wordmark, expressive type, and packaging that reads at five paces.',
+    tag: 'Branding',
+    href: '/works',
+    image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=1200&q=80',
+    variant: 'wide',
+  },
+  {
+    title: 'E-commerce that converts',
+    tag: 'Web',
+    href: '/works',
+    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=900&q=80',
+    variant: 'small',
+  },
+  {
+    title: 'Shelf-ready packaging',
+    tag: 'Packaging',
+    href: '/works',
+    image: 'https://images.unsplash.com/photo-1556015056-13b0f9eea2fc?auto=format&fit=crop&w=900&q=80',
+    variant: 'small',
+  },
 ]
 
 const proofHighlights = [
@@ -634,8 +666,6 @@ function Home() {
         </div>
       </section>
 
-      <BrandSystem />
-
       <section className="home-formula" aria-labelledby="formula-heading">
         <div className="home-formula__inner">
           <div className="home-formula__header">
@@ -685,7 +715,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-proof" aria-labelledby="proof-heading">
+      <section className="home-proof home-proof--with-work" id="home-work" aria-labelledby="proof-heading">
         <div className="home-proof__inner">
           <div className="home-proof__header">
             <div className="home-proof__copy">
@@ -715,6 +745,50 @@ function Home() {
           </div>
 
           <p className="home-proof__sources">Sources: McKinsey, Adobe, Forrester</p>
+        </div>
+
+        <div className="home-work__inner">
+          <div className="home-work__header">
+            <div className="home-work__heading">
+              <p className="eyebrow">
+                <span className="home-work__eyebrow-rule" aria-hidden="true" />
+                ( 04 ) Featured work
+              </p>
+              <h2 id="work-heading">
+                Recent work that <em>moved</em> the needle.
+              </h2>
+            </div>
+            <Link to="/works" className="home-work__view-all">
+              <span>View all projects</span>
+              <ArrowUpRight size={15} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="home-work__grid">
+            {featuredWork.map((item) => (
+              <Link
+                key={item.title}
+                to={item.href}
+                className={`home-work__tile home-work__tile--${item.variant}`}
+                aria-label={`${item.title} — ${item.tag}`}
+              >
+                <span className="home-work__media" aria-hidden="true">
+                  <img src={item.image} alt="" loading="lazy" decoding="async" />
+                </span>
+                <span className="home-work__overlay" aria-hidden="true" />
+                <span className="home-work__arrow" aria-hidden="true">
+                  <ArrowUpRight size={16} strokeWidth={2.2} />
+                </span>
+                <span className="home-work__meta">
+                  <span className="home-work__tag">{item.tag}</span>
+                  <span className="home-work__title">{item.title}</span>
+                  {item.excerpt ? (
+                    <span className="home-work__excerpt">{item.excerpt}</span>
+                  ) : null}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

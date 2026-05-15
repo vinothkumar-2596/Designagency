@@ -3,35 +3,50 @@
 @use '../../abstracts/breakpoints' as *;
 
 .brand-system {
-  position: relative;
-  overflow: hidden;
-  padding-block: 4rem 3.75rem;
-  background: linear-gradient(135deg, #f36b08 0%, #ff7810 46%, #ef6700 100%);
-  color: $text-primary;
+  --brand-system-dot-size: clamp(28px, 4.5vw, 44px);
 
-  &::before,
-  &::after {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: 4.5rem 4.75rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 72% 40%, rgba($brand-orange, 0.11), transparent 70%),
+    radial-gradient(circle at 14% 110%, rgba($brand-orange, 0.07), transparent 45%),
+    linear-gradient(160deg, #14130f 0%, #0c0d0f 48%, #08090c 100%);
+  color: $white;
+
+  /* Subtle dot grid — gives this section its own visual identity vs the flat
+     dark sections above (services cards) and below (FAQ). */
+  &::before {
     position: absolute;
     inset: 0;
+    z-index: 0;
+    background-image:
+      radial-gradient(rgba($white, 0.05) 1px, transparent 1px);
+    background-size: var(--brand-system-dot-size) var(--brand-system-dot-size);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    opacity: 0.55;
     content: '';
     pointer-events: none;
   }
 
-  &::before {
-    background:
-      radial-gradient(circle at 18% 24%, rgba($white, 0.1), transparent 24%),
-      radial-gradient(circle at 86% 18%, rgba($white, 0.08), transparent 22%),
-      linear-gradient(180deg, rgba($text-primary, 0.02), rgba($text-primary, 0.08));
-    opacity: 0.8;
-  }
-
+  /* Hairline top + bottom rules to clearly seam the section against neighbors. */
   &::after {
-    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba($brand-orange, 0.28) 50%, transparent 100%);
+    box-shadow: 0 1px 16px rgba($brand-orange, 0.18);
+    content: '';
+    pointer-events: none;
   }
 
   .eyebrow {
-    color: $text-primary;
-    letter-spacing: 0.08em;
+    color: $accent-yellow;
+    letter-spacing: 0.18em;
   }
 }
 
@@ -39,21 +54,21 @@
   position: relative;
   z-index: 1;
   isolation: isolate;
-  width: min(100% - 2rem, 1180px);
+  width: min(100% - 2rem, 1300px);
   margin-inline: auto;
-  padding-inline: 0.4rem;
+  padding-inline: 0;
 }
 
 .brand-system__copy {
   position: relative;
   z-index: 1;
-  padding: 2rem 2rem 2.25rem;
+  padding: 0;
 }
 
 .brand-system__heading {
   position: relative;
   max-width: 42rem;
-  margin-inline: auto;
+  margin-inline: 0;
   padding: 0;
   text-align: left;
   z-index: 1;
@@ -63,29 +78,21 @@
     z-index: 1;
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
-    margin-bottom: 1rem;
-    color: rgba($text-primary, 0.96);
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
+    margin-bottom: 0.85rem;
+    color: $accent-yellow;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     line-height: 1;
-
-    &::before {
-      width: 1.8rem;
-      height: 1px;
-      background: rgba($text-primary, 0.28);
-      content: '';
-    }
 
     span {
       display: inline-flex;
       align-items: center;
-      padding: 0.16rem 0.34rem;
-      background: linear-gradient(135deg, #ffe79a 0%, #ffd469 44%, #ffb728 100%);
-      color: rgba($text-primary, 0.96);
-      box-shadow: 0 1px 0 rgba($text-primary, 0.12);
+      padding: 0;
+      background: transparent;
+      color: $accent-yellow;
+      box-shadow: none;
     }
   }
 
@@ -93,21 +100,20 @@
     position: relative;
     z-index: 1;
     margin: 0;
-    color: $text-primary;
-    max-width: 13ch;
-    font-size: 2.05rem;
-    font-weight: 800;
-    line-height: 0.96;
+    color: $white;
+    max-width: 18ch;
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.04;
     letter-spacing: -0.04em;
     text-wrap: balance;
-    text-shadow: none;
 
     @include respond-up(md) {
-      font-size: 3.15rem;
+      font-size: 2.3rem;
     }
 
     span {
-      color: #fefff5;
+      color: $brand-orange;
     }
   }
 
@@ -115,25 +121,24 @@
     position: relative;
     z-index: 1;
     max-width: 34rem;
-    margin: 1.1rem 0 0;
-    color: rgba($text-primary, 0.74);
-    font-size: 0.98rem;
-    font-weight: 600;
-    line-height: 1.62;
+    margin: 0.85rem 0 0;
+    color: rgba($white, 0.6);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.6;
     text-wrap: balance;
   }
-
 }
 
 .brand-system__stage {
   width: 100%;
-  margin-top: 2.75rem;
+  margin-top: 1.75rem;
 }
 
 .brand-system__surface {
   position: relative;
-  width: min(100% - 2rem, 860px);
-  min-height: 19.8rem;
+  width: min(100% - 2rem, 720px);
+  min-height: 14rem;
   margin-inline: auto;
 
   &::before {
@@ -143,14 +148,15 @@
   &::after {
     position: absolute;
     left: 50%;
-    bottom: 2.3rem;
-    width: 10.5rem;
-    height: 5.25rem;
-    background: radial-gradient(ellipse at center, rgba($white, 0.18) 0%, rgba($white, 0.08) 28%, transparent 72%);
+    bottom: 1.6rem;
+    width: 8rem;
+    height: 3.5rem;
+    background: radial-gradient(ellipse at center, rgba($brand-orange, 0.22) 0%, rgba($brand-orange, 0.08) 32%, transparent 72%);
     content: '';
     transform: translateX(-50%);
     pointer-events: none;
-    opacity: 0.9;
+    opacity: 0.7;
+    filter: blur(1px);
   }
 }
 
@@ -256,25 +262,25 @@
 
 @include respond-up(md) {
   .brand-system__inner {
-    padding-inline: 0.85rem;
+    padding-inline: 0;
   }
 
   .brand-system__copy {
-    padding: 2.15rem 2.1rem 2.35rem;
+    padding: 0;
   }
 
   .brand-system__surface {
-    min-height: 21.6rem;
+    min-height: 15rem;
   }
 
   .brand-system__node {
-    top: 4.35rem;
+    top: 3.5rem;
   }
 
   .brand-system__node-icon {
     svg {
-      width: 2rem;
-      height: 2rem;
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 }
@@ -282,14 +288,14 @@
 @include respond-up(lg) {
   .brand-system__inner {
     display: grid;
-    grid-template-columns: minmax(360px, 0.96fr) minmax(500px, 1.04fr);
+    grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.1fr);
     align-items: center;
-    gap: 2.25rem;
-    padding-inline: 1.75rem;
+    gap: 2rem;
+    padding-inline: 0;
   }
 
   .brand-system__copy {
-    padding: 2.25rem 2.35rem 2.5rem;
+    padding: 0;
     align-self: center;
     display: flex;
     align-items: center;
