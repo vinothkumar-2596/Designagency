@@ -1,7 +1,7 @@
 export const seoDefaults = {
   '/': {
-    title: 'Creative Design Agency For Digital Brands',
-    description: 'A design agency creating brand systems, websites, and digital experiences for ambitious teams.',
+    title: 'BrandViora India — Branding, UI/UX, Web & App Development Studio',
+    description: 'BrandViora India is a creative studio crafting brand identity systems, websites, mobile apps, and product experiences for ambitious founders and growth teams across India and beyond.',
     canonicalPath: '/',
     schemaType: 'Organization',
   },

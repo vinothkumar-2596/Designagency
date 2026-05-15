@@ -353,6 +353,89 @@
   animation: services-brand-emblem-pulse 4s ease-in-out infinite;
 }
 
+/* --- Hologram concept --- */
+.brand-fx__hologram {
+  transform-origin: 161px 109px;
+  animation:
+    services-brand-hologram-tilt 5.6s ease-in-out infinite,
+    services-brand-hologram-flicker 7s steps(1) infinite;
+}
+
+.brand-fx__hologram-float {
+  transform-origin: 161px 109px;
+  animation: services-brand-hologram-float 3.4s ease-in-out infinite;
+}
+
+.brand-fx__hologram-main {
+  filter: drop-shadow(0 0 10px rgba(254, 97, 2, 0.6));
+}
+
+.brand-fx__hologram-ghost {
+  mix-blend-mode: screen;
+  animation: services-brand-hologram-jitter 0.32s steps(1) infinite;
+}
+
+.brand-fx__hologram-ghost--cyan {
+  animation-delay: -0.1s;
+}
+
+.brand-fx__hologram-scanlines {
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  pointer-events: none;
+  animation: services-brand-hologram-scanlines 5.5s linear infinite;
+}
+
+.brand-fx__hologram-sweep {
+  opacity: 0;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: services-brand-hologram-sweep 4.4s ease-in-out infinite;
+}
+
+@keyframes services-brand-hologram-tilt {
+  0%   { transform: perspective(720px) rotateY(-24deg); }
+  50%  { transform: perspective(720px) rotateY(24deg); }
+  100% { transform: perspective(720px) rotateY(-24deg); }
+}
+
+@keyframes services-brand-hologram-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+@keyframes services-brand-hologram-flicker {
+  0%, 100% { opacity: 1; }
+  3%       { opacity: 0.45; }
+  5%       { opacity: 1; }
+  44%      { opacity: 1; }
+  46%      { opacity: 0.3; }
+  48%      { opacity: 1; }
+  79%      { opacity: 1; }
+  81%      { opacity: 0.6; }
+  83%      { opacity: 1; }
+}
+
+@keyframes services-brand-hologram-jitter {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(0.6px, -0.4px); }
+  50%  { transform: translate(-0.5px, 0.5px); }
+  75%  { transform: translate(0.4px, 0.4px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes services-brand-hologram-scanlines {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(8px); }
+}
+
+@keyframes services-brand-hologram-sweep {
+  0%   { transform: translateY(0); opacity: 0; }
+  12%  { opacity: 0.9; }
+  88%  { opacity: 0.9; }
+  100% { transform: translateY(116px); opacity: 0; }
+}
+
 @keyframes services-brand-spin {
   to { transform: rotate(360deg); }
 }
@@ -388,6 +471,7 @@
   50% { filter: drop-shadow(0 0 22px rgba(254, 97, 2, 0.7)); }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
   .brand-fx__glow,
   .brand-fx__orbit,
@@ -398,9 +482,22 @@
   .brand-fx__scan,
   .brand-fx__cardinal,
   .brand-fx__corners,
-  .brand-fx__emblem {
+  .brand-fx__emblem,
+  .brand-fx__hologram,
+  .brand-fx__hologram-float,
+  .brand-fx__hologram-ghost,
+  .brand-fx__hologram-scanlines,
+  .brand-fx__hologram-sweep {
     animation: none;
     transform: none;
+  }
+
+  .brand-fx__hologram-sweep {
+    opacity: 0;
+  }
+
+  .brand-fx__hologram-ghost {
+    display: none;
   }
 
   .brand-fx__scan {

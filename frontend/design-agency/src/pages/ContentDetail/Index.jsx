@@ -68,6 +68,13 @@ function ContentDetail({ type }) {
   }, [slug, type])
 
   useEffect(() => {
+    if (type !== 'case-studies' || slug !== 'coffee-app-ux-case-study') return undefined
+    const blockContextMenu = (event) => event.preventDefault()
+    window.addEventListener('contextmenu', blockContextMenu)
+    return () => window.removeEventListener('contextmenu', blockContextMenu)
+  }, [slug, type])
+
+  useEffect(() => {
     if (type !== 'blog') return undefined
     let ignore = false
     getContentList('blog').then((list) => {

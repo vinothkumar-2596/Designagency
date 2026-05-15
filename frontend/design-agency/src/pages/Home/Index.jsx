@@ -33,6 +33,7 @@ import {
 import { Link } from 'react-router-dom'
 import formulaCursorImage from '../../assets/formula-cursor.png'
 import formulaPuzzleImage from '../../assets/formula-puzzle.png'
+import heroMockupImage from '../../assets/coffee-app-mockup.png'
 import BrandSystem from '../../components/BrandSystem/BrandSystem'
 import Button from '../../components/Button/Button'
 import SEO from '../../components/SEO/SEO'
@@ -311,55 +312,54 @@ function Home() {
         ) : null}
         <div className={`home-hero__inner${isIntroComplete ? ' is-ready' : ''}`}>
           <div className="home-hero__content">
-            <div className="home-hero__badge" aria-label="Trusted by ambitious founders">
-              <span className="home-hero__avatars" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </span>
-              <span>Trusted by ambitious founders</span>
-            </div>
+            <p className="home-hero__eyebrow">
+              <span className="home-hero__eyebrow-dot" aria-hidden="true" />
+              Creative Studio · India · Est. 2014
+            </p>
             <h1>
-              Global branding design for ambitious brands.
-              <span>Digital experiences that connect.</span>
+              A <span className="home-hero__accent">human-centered</span> design approach focused on trust, clarity, and business growth.
+              <span className="home-hero__subline">Identity, web, product, and motion — under one studio roof.</span>
             </h1>
             <div className="home-hero__actions">
               <Button as={Link} to="/contactus" className="about-button">
                 <span>Start a project</span>
                 <ArrowRight size={18} />
               </Button>
-              <Button as={Link} to="/case-studies" variant="secondary" className="home-hero__secondary about-button">
-                <span>View work</span>
-                <ArrowRight size={18} />
-              </Button>
             </div>
+            <dl className="home-hero__stats" aria-label="Studio at a glance">
+              <div>
+                <dt>Years of design craft</dt>
+                <dd>15<span aria-hidden="true">+</span></dd>
+              </div>
+              <div>
+                <dt>Brand projects shipped</dt>
+                <dd>300<span aria-hidden="true">+</span></dd>
+              </div>
+              <div>
+                <dt>Founder rating</dt>
+                <dd>4.9<span aria-hidden="true">★</span></dd>
+              </div>
+            </dl>
           </div>
+        </div>
 
-          <div className="home-hero__visual" aria-hidden="true">
-            <div className="home-hero__asset-stack">
-              <img
-                className="home-hero__asset home-hero__asset--base"
-                src="https://framerusercontent.com/images/czMv9lrgvmFb1ErVo2lqUWyBjU.png?width=825&height=694"
-                alt=""
-                width="825"
-                height="694"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-              />
-              <img
-                className="home-hero__asset home-hero__asset--cubes"
-                src="https://framerusercontent.com/images/9HLgJV9XMUyaWaX4Kn4NDxzk.png?width=610&height=610"
-                alt=""
-                width="610"
-                height="610"
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-            <div className="home-hero__seal">
-              <span>Start project</span>
-            </div>
+        <div className="home-hero__visual" aria-hidden="true">
+          <div className="home-hero__mockup">
+            <span className="home-hero__mockup-glow" />
+            <span className="home-hero__mockup-ring" />
+            <span className="home-hero__mockup-badge home-hero__mockup-badge--one">
+              <span className="home-hero__mockup-badge-dot" />
+              UX case study
+            </span>
+            <span className="home-hero__mockup-badge home-hero__mockup-badge--two">
+              Coffee · Mobile
+            </span>
+            <img
+              src={heroMockupImage}
+              alt="Mobile coffee ordering app mockup held in hands"
+              loading="eager"
+              decoding="async"
+            />
           </div>
         </div>
       </section>
@@ -563,20 +563,13 @@ function Home() {
             <div className="home-proof__copy">
               <p className="eyebrow">Why it matters</p>
               <h2 id="proof-heading">
-                Great design drives real
+                Great design drives real{' '}
                 <span className="home-proof__rotating">
                   <span>business growth</span>
                   <span>brand authority</span>
                   <span>customer trust</span>
                 </span>
               </h2>
-            </div>
-
-            <div className="home-proof__mark" aria-hidden="true">
-              <span className="home-proof__arc home-proof__arc--outer" />
-              <span className="home-proof__arc home-proof__arc--middle" />
-              <span className="home-proof__arc home-proof__arc--inner" />
-              <span className="home-proof__needle" />
             </div>
           </div>
 
