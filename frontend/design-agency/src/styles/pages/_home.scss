@@ -122,19 +122,22 @@
 
   @include respond-up(lg) {
     padding-bottom: 0;
-    max-width: 36rem;
   }
 
   h1 {
     margin-top: 1.25rem;
     margin-bottom: 0;
     color: $white;
-    font-size: 2.1rem;
+    font-size: 3.15rem;
     font-weight: 600;
-    line-height: 1.08;
+    line-height: 1.05;
     letter-spacing: -0.025em;
-    text-wrap: balance;
+    text-wrap: pretty;
     text-shadow: 0 0 30px rgba(200, 200, 200, 0.2), 0 0 60px rgba(180, 180, 180, 0.1);
+
+    br {
+      display: none;
+    }
 
     .home-hero__accent {
       color: $brand-orange;
@@ -145,7 +148,7 @@
       display: block;
       margin-top: 0.9rem;
       color: rgba($white, 0.62);
-      font-size: 0.42em;
+      font-size: 0.38em;
       font-weight: 500;
       line-height: 1.35;
       letter-spacing: -0.005em;
@@ -153,11 +156,15 @@
     }
 
     @include respond-up(md) {
-      font-size: 3.05rem;
+      font-size: 4.125rem;
+
+      br {
+        display: inline;
+      }
     }
 
     @include respond-up(lg) {
-      font-size: 3.5rem;
+      font-size: 4.275rem;
     }
   }
 }
@@ -345,7 +352,7 @@
   align-items: flex-end;
   justify-content: center;
   isolation: isolate;
-  transform: translate(35%, 11.5%);
+  transform: translate(35%, 12.3%);
 
   img {
     position: relative;

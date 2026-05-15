@@ -317,7 +317,9 @@ function Home() {
               Creative Studio · India · Est. 2014
             </p>
             <h1>
-              A <span className="home-hero__accent">human-centered</span> design approach focused on trust, clarity, and business growth.
+              A <span className="home-hero__accent">human-centered</span> design <br />
+              approach focused on trust, <br />
+              clarity, and business growth.
               <span className="home-hero__subline">Identity, web, product, and motion — under one studio roof.</span>
             </h1>
             <div className="home-hero__actions">
