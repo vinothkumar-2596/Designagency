@@ -6,11 +6,13 @@ import {
   Briefcase,
   Blocks,
   Code2,
+  Coffee,
   TrendingUp,
   Smartphone,
   Sparkles,
   Package,
   Palette,
+  Plus,
   Trophy,
   Star,
   Users,
@@ -36,6 +38,7 @@ import formulaPuzzleImage from '../../assets/formula-puzzle.png'
 import heroMockupImage from '../../assets/coffee-app-mockup.png'
 import BrandSystem from '../../components/BrandSystem/BrandSystem'
 import Button from '../../components/Button/Button'
+import SectionRail from '../../components/SectionRail/SectionRail'
 import SEO from '../../components/SEO/SEO'
 import { getSeo } from '../../services/contentService'
 import { resolveRegionalGreeting, splitGreetingText } from '../../utils/regionalGreeting'
@@ -288,13 +291,38 @@ function Home() {
   return (
     <main className="home-page" id="main-content">
       <SEO meta={meta} />
-      <section className="home-hero">
+      <SectionRail />
+      <section className="home-hero" id="home-hero">
         <div className="home-hero__grid-box grid-box" aria-hidden="true">
           {heroGridLines.map((line) => (
             <div className="grid-line" key={line}>
               <div className="grid-line-inner" />
             </div>
           ))}
+        </div>
+
+        <div className="home-hero__tech" aria-hidden="true">
+          <svg className="home-hero__tech-svg" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid meet">
+            <circle className="home-hero__tech-ring home-hero__tech-ring--outer" cx="600" cy="500" r="260" />
+            <circle className="home-hero__tech-ring home-hero__tech-ring--mid" cx="600" cy="500" r="200" />
+            <g className="home-hero__tech-tick" transform="translate(300 220)">
+              <line x1="0" y1="10" x2="22" y2="10" />
+              <line x1="11" y1="0" x2="11" y2="22" />
+            </g>
+            <g className="home-hero__tech-tick" transform="translate(880 220)">
+              <line x1="0" y1="10" x2="22" y2="10" />
+              <line x1="11" y1="0" x2="11" y2="22" />
+            </g>
+            <circle className="home-hero__tech-dot home-hero__tech-dot--orange" cx="330" cy="420" r="3" />
+            <circle className="home-hero__tech-dot home-hero__tech-dot--yellow" cx="870" cy="360" r="2.5" />
+            <circle className="home-hero__tech-dot home-hero__tech-dot--white" cx="900" cy="600" r="2" />
+            <circle className="home-hero__tech-dot home-hero__tech-dot--white" cx="300" cy="600" r="2" />
+          </svg>
+
+          <div className="home-hero__hud home-hero__hud--right">
+            <span className="home-hero__hud-dot" />
+            <span className="home-hero__hud-tag">LIVE · STUDIO</span>
+          </div>
         </div>
         {regionalGreeting && isGreetingVisible ? (
           <p
@@ -349,24 +377,43 @@ function Home() {
           <div className="home-hero__mockup">
             <span className="home-hero__mockup-glow" />
             <span className="home-hero__mockup-ring" />
-            <span className="home-hero__mockup-badge home-hero__mockup-badge--one">
-              <span className="home-hero__mockup-badge-dot" />
-              UX case study
-            </span>
-            <span className="home-hero__mockup-badge home-hero__mockup-badge--two">
-              Coffee · Mobile
-            </span>
             <img
               src={heroMockupImage}
               alt="Mobile coffee ordering app mockup held in hands"
               loading="eager"
               decoding="async"
             />
+
+            <div className="home-hero__chip home-hero__chip--order">
+              <span className="home-hero__chip-icon">
+                <Coffee size={15} strokeWidth={2.2} />
+              </span>
+              <span className="home-hero__chip-body">
+                <span className="home-hero__chip-label">Cappuccino</span>
+                <span className="home-hero__chip-meta">+ ₹120</span>
+              </span>
+              <span className="home-hero__chip-plus">
+                <Plus size={12} strokeWidth={3} />
+              </span>
+            </div>
+
+            <div className="home-hero__chip home-hero__chip--rating">
+              <span className="home-hero__chip-stars">
+                <Star size={11} fill="currentColor" strokeWidth={0} />
+                <Star size={11} fill="currentColor" strokeWidth={0} />
+                <Star size={11} fill="currentColor" strokeWidth={0} />
+                <Star size={11} fill="currentColor" strokeWidth={0} />
+                <Star size={11} fill="currentColor" strokeWidth={0} />
+              </span>
+              <strong>4.9</strong>
+              <span className="home-hero__chip-meta">12k reviews</span>
+            </div>
+
           </div>
         </div>
       </section>
 
-      <section className="why-section" aria-labelledby="why-heading">
+      <section className="why-section" id="why-section" aria-labelledby="why-heading">
         <div className="why-section__inner">
           <div className="why-section__heading">
             <p className="eyebrow">( 02 ) Why choose us?</p>
@@ -426,7 +473,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-services" aria-labelledby="services-heading">
+      <section className="home-services" id="home-services" aria-labelledby="services-heading">
         <div className="home-services__inner">
           <div className="home-services__heading">
             <p className="eyebrow">
@@ -592,7 +639,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-faq" aria-labelledby="faq-heading">
+      <section className="home-faq" id="home-faq" aria-labelledby="faq-heading">
         <div className="home-faq__wrapper">
           <div className="home-faq__inner">
             <div className="home-faq__cta">

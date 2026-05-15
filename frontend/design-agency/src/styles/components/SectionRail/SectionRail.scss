@@ -1,0 +1,211 @@
+@use '../../abstracts/variables' as *;
+
+.section-rail {
+  position: fixed;
+  top: 50%;
+  right: 1.5rem;
+  z-index: 60;
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem 1rem 1rem 1.25rem;
+  border: 1px solid rgba($white, 0.08);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(10, 12, 16, 0.78), rgba(8, 10, 14, 0.62));
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba($white, 0.06);
+  backdrop-filter: blur(14px);
+  transform: translateY(-50%);
+  pointer-events: auto;
+  font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  @media (min-width: 1400px) {
+    display: flex;
+  }
+}
+
+
+.section-rail__hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.18rem 0.55rem 0.18rem 0.45rem;
+  border: 1px solid rgba($white, 0.1);
+  border-radius: 999px;
+  background: rgba($white, 0.03);
+  color: rgba($white, 0.55);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-rail__hud-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: $brand-orange;
+  box-shadow: 0 0 0 3px rgba($brand-orange, 0.18), 0 0 10px rgba($brand-orange, 0.6);
+  animation: section-rail-blink 1.4s ease-in-out infinite;
+}
+
+.section-rail__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0.25rem 0 0.25rem 1.1rem;
+  list-style: none;
+}
+
+.section-rail__list::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba($white, 0.18) 12%,
+    rgba($white, 0.18) 88%,
+    transparent
+  );
+}
+
+.section-rail__indicator {
+  position: absolute;
+  left: 4px;
+  top: 0;
+  width: 1px;
+  height: 38px;
+  margin-top: -19px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba($brand-orange, 0.85) 50%,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba($brand-orange, 0.7);
+  transition: transform 520ms cubic-bezier(0.65, 0, 0.35, 1);
+  pointer-events: none;
+}
+
+.section-rail__item {
+  position: relative;
+  margin: 0;
+}
+
+.section-rail__link {
+  display: inline-grid;
+  grid-template-columns: 10px auto auto;
+  align-items: center;
+  gap: 0 0.75rem;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  color: rgba($white, 0.45);
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 280ms ease, transform 280ms ease;
+
+  &:hover {
+    color: rgba($white, 0.88);
+  }
+
+  &:focus-visible {
+    outline: 1px dashed rgba($brand-orange, 0.6);
+    outline-offset: 4px;
+    color: $white;
+  }
+}
+
+.section-rail__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: rgba($white, 0.22);
+  border: 1px solid rgba($white, 0.18);
+  transition: background 320ms ease, box-shadow 320ms ease, transform 320ms ease;
+  z-index: 1;
+}
+
+.section-rail__code {
+  color: rgba($white, 0.4);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  transition: color 280ms ease;
+}
+
+.section-rail__label {
+  color: inherit;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.section-rail__item.is-active {
+  .section-rail__link {
+    color: $white;
+    transform: translateX(-2px);
+  }
+
+  .section-rail__code {
+    color: $brand-orange;
+  }
+
+  .section-rail__dot {
+    background: $brand-orange;
+    border-color: rgba($brand-orange, 0.6);
+    box-shadow:
+      0 0 0 4px rgba($brand-orange, 0.18),
+      0 0 14px rgba($brand-orange, 0.7);
+    animation: section-rail-pulse 1.7s ease-in-out infinite;
+  }
+}
+
+@keyframes section-rail-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 4px rgba($brand-orange, 0.18),
+      0 0 14px rgba($brand-orange, 0.7);
+  }
+  50% {
+    transform: scale(1.25);
+    box-shadow:
+      0 0 0 6px rgba($brand-orange, 0.1),
+      0 0 22px rgba($brand-orange, 0.95);
+  }
+}
+
+@keyframes section-rail-blink {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-rail__indicator {
+    transition: none;
+  }
+
+  .section-rail__item.is-active .section-rail__dot,
+  .section-rail__hud-dot {
+    animation: none;
+  }
+}
