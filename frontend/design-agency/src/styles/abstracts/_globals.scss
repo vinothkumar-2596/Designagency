@@ -44,7 +44,7 @@ body {
   min-height: 100vh;
   background: $color-background;
   caret-color: transparent;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 button,

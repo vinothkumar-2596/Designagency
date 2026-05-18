@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowUpRight, Code2, LayoutGrid, Package, Palette, PenTool, Smartphone } from 'lucide-react'
+import { ArrowUpRight, Code2, LayoutGrid, Menu, Package, Palette, PenTool, Smartphone, X } from 'lucide-react'
 import { siteConfig } from '../../config/site'
 import { prefetchRoute, warmIdleRoutes } from '../../app/routePrefetch'
 import Footer from '../Footer/Footer'
@@ -31,6 +31,7 @@ function Layout() {
   const location = useLocation()
   const navRef = useRef(null)
   const indicatorRef = useRef(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   // True only for the very first paint after a hard refresh. The bootloader
   // already handles that transition, so we suppress the page-transition
   // fade-in on initial mount to avoid a flash of the body's cream background
@@ -50,6 +51,29 @@ function Layout() {
       active.blur()
     }
   }, [location.pathname])
+
+  // Close mobile menu on route change.
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [location.pathname])
+
+  // Lock body scroll while mobile menu is open + close on ESC.
+  useEffect(() => {
+    if (typeof document === 'undefined') return undefined
+    if (isMobileMenuOpen) {
+      const previous = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      const handleKey = (event) => {
+        if (event.key === 'Escape') setIsMobileMenuOpen(false)
+      }
+      window.addEventListener('keydown', handleKey)
+      return () => {
+        document.body.style.overflow = previous
+        window.removeEventListener('keydown', handleKey)
+      }
+    }
+    return undefined
+  }, [isMobileMenuOpen])
 
   // Slide a single shared dot to whichever nav link is active. Measuring in a
   // layout effect (before paint) lets the indicator move smoothly without a
@@ -116,12 +140,13 @@ function Layout() {
         Skip to content
       </a>
 
-      <header className="site-header">
+      <header className={`site-header${isMobileMenuOpen ? ' is-menu-open' : ''}`}>
         <div className="site-header__inner">
           <NavLink
             className="site-header__brand"
             to="/"
             aria-label={`${siteConfig.name} home`}
+            onClick={() => setIsMobileMenuOpen(false)}
             {...prefetchHandlers('/')}
           >
             <svg
@@ -152,6 +177,21 @@ function Layout() {
             </svg>
           </NavLink>
 
+          <button
+            type="button"
+            className="site-header__menu-toggle"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="site-header-mobile-drawer"
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+          >
+            {isMobileMenuOpen ? <X size={22} strokeWidth={2.2} /> : <Menu size={22} strokeWidth={2.2} />}
+          </button>
+
+          <div
+            id="site-header-mobile-drawer"
+            className={`site-header__drawer${isMobileMenuOpen ? ' is-open' : ''}`}
+          >
           <nav className="site-header__nav" aria-label="Primary navigation" ref={navRef}>
             {siteConfig.navItems.map((item) => {
               if (item.children?.length) {
@@ -237,6 +277,7 @@ function Layout() {
           <NavLink
             className="site-header__action"
             to="/contactus"
+            onClick={() => setIsMobileMenuOpen(false)}
             {...prefetchHandlers('/contactus')}
           >
             Start a project
@@ -247,6 +288,14 @@ function Layout() {
               </svg>
             </span>
           </NavLink>
+          </div>
+          <button
+            type="button"
+            className={`site-header__backdrop${isMobileMenuOpen ? ' is-visible' : ''}`}
+            aria-hidden="true"
+            tabIndex={-1}
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
         </div>
       </header>
 

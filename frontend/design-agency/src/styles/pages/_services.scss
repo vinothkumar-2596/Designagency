@@ -101,11 +101,16 @@
   max-width: 18ch;
   margin: 0;
   color: $white;
-  font-size: clamp(2.5rem, 5.2vw, 4.75rem);
+  font-size: clamp(2rem, 7.2vw, 4.75rem);
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
   text-wrap: balance;
+
+  @include respond-up(md) {
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
 }
 
 .services-hero__sketch {
@@ -629,10 +634,14 @@
     order: 1;
     margin: 0;
     color: $white;
-    font-size: clamp(2rem, 3.6vw, 2.75rem);
+    font-size: clamp(1.5rem, 5.5vw, 2.75rem);
     font-weight: 700;
     line-height: 1;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
+
+    @include respond-up(md) {
+      letter-spacing: -0.04em;
+    }
   }
 }
 

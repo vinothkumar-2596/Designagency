@@ -4,6 +4,11 @@
 
 .home-page {
   background: $bg-main;
+  /* Contain horizontal overflow from any section. The desktop phone mockup
+     translates past its column edge for cinematic feel; this rule + the
+     body-level overflow-x:hidden together prevent any element from causing
+     horizontal scroll on mobile/tablet. */
+  overflow-x: hidden;
 }
 
 .home-hero {
@@ -18,22 +23,34 @@
     radial-gradient(circle at 12% 78%, rgba($brand-orange, 0.16), transparent 34%),
     linear-gradient(116deg, #020202 0%, #0a0d12 52%, #000 100%);
   color: $white;
+  /* Mobile + tablet: vertical stack — content, then phone in flow, then
+     services strip. Desktop pulls .home-hero__visual and .services-strip
+     out of flow with absolute positioning. */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
 
-  /* Reserve room at the bottom for the absolutely-positioned services strip so
-     centered hero content (stats, CTA) doesn't sit under it. We grow the
-     container via min-height (not padding-bottom), so the flex-centered
-     content position stays put while extra space opens up below it. */
-  @include respond-up(md) {
-    min-height: 880px;
-    padding-bottom: 110px;
+  /* Mobile + tablet (<1024px): single-column flow. The phone visual sits
+     INSIDE the document flow below the content, so the hero's natural
+     height is determined by its children — no min-height needed. */
+
+  /* Desktop (≥1024px): two-column layout. The phone visual is absolutely
+     positioned (see .home-hero__visual) so it can extend slightly outside
+     its column for the premium "jutting" effect. min-height reserves space
+     for that absolute visual + the services strip overlay below. */
+  @media (min-width: 1024px) {
+    min-height: 893px;
+    padding-bottom: 106px;
   }
 
-  @include respond-up(lg) {
-    min-height: 1020px;
-    padding-bottom: 120px;
+  /* Big-monitor only (above 24"): shrink so the phone doesn't overflow
+     into the services strip below. */
+  @media (min-width: 2000px) {
+    min-height: 805px;
+  }
+
+  @media (min-width: 2400px) {
+    min-height: 822px;
   }
 }
 
@@ -264,14 +281,18 @@
 }
 
 .home-hero__inner {
-  @include container;
   position: relative;
   z-index: 2;
-  display: grid;
-  gap: 1.75rem;
-  padding-block: 3rem 3rem;
-  max-width: 1300px;
   width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
+  /* Mobile: 24px horizontal padding per spec. Bottom padding trimmed so the
+     phone visual (next sibling, in-flow) sits close to the stats — its own
+     margin-top controls the gap. */
+  padding-inline: 1.5rem;
+  padding-block: 1.75rem 0;
+  display: grid;
+  gap: 1.25rem;
   opacity: 0;
   pointer-events: none;
   transform: translateY(18px);
@@ -285,7 +306,17 @@
     transform: translateY(0);
   }
 
-  @include respond-up(lg) {
+  @include respond-up(md) {
+    padding-inline: 2rem;
+    padding-block: 3rem 1.75rem;
+    gap: 1.5rem;
+  }
+
+  /* Desktop (≥1024px): restore the staged baseline — full-width content
+     column with align-items:start. The visual overlap is handled by the
+     scale(0.9) hack on .home-hero__content (applied only at this breakpoint
+     so tablet's single-column flow layout stays intact). */
+  @media (min-width: 1024px) {
     grid-template-columns: minmax(0, 1fr);
     align-items: start;
     gap: 3rem;
@@ -294,22 +325,34 @@
 }
 
 .home-hero__content {
+  width: 100%;
+  min-width: 0;
   align-self: center;
 
-  @include respond-up(lg) {
-    padding-bottom: 0;
+  /* Desktop only: reduce the hero content by 10% overall so the headline,
+     eyebrow, CTA, and stats sit comfortably alongside the absolutely-positioned
+     phone visual. Restricted to ≥1024px — applying it at tablet (768–1023)
+     would cause horizontal overflow because tablet uses the single-column
+     in-flow layout where the scale + width-compensation breaks. */
+  @media (min-width: 1024px) {
+    transform: scale(0.9);
+    transform-origin: top left;
+    width: 111.111%;
   }
 
   h1 {
-    margin-top: 1.25rem;
-    margin-bottom: 0;
+    margin: 0.75rem 0 0;
     color: $white;
-    font-size: 3.15rem;
+    /* Mobile: ~34px–48px per spec. */
+    font-size: clamp(2.125rem, 8vw, 3rem);
     font-weight: 600;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    text-wrap: pretty;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
     text-shadow: 0 0 30px rgba(200, 200, 200, 0.2), 0 0 60px rgba(180, 180, 180, 0.1);
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: manual;
 
     br {
       display: none;
@@ -322,25 +365,40 @@
 
     .home-hero__subline {
       display: block;
-      margin-top: 0.9rem;
+      margin-top: 0.85rem;
       color: rgba($white, 0.62);
-      font-size: 0.38em;
+      font-size: clamp(0.95rem, 2.2vw, 1.1rem);
       font-weight: 500;
-      line-height: 1.35;
+      line-height: 1.4;
       letter-spacing: -0.005em;
       text-shadow: none;
     }
 
+    /* Tablet / iPad (768–1023px): controlled, never exceeds container. */
     @include respond-up(md) {
-      font-size: 4.125rem;
+      font-size: clamp(2.5rem, 5.6vw, 3.5rem);
+      line-height: 1.07;
+      letter-spacing: -0.024em;
+    }
+
+    /* Desktop (≥1024px): staged "premium" headline — fixed 4.275rem with
+       text-wrap:pretty so the phrase fills the full content width and wraps
+       naturally (the manual <br /> breaks restore the cinematic stack). */
+    @media (min-width: 1024px) {
+      font-size: 4.275rem;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      text-wrap: pretty;
 
       br {
         display: inline;
       }
-    }
 
-    @include respond-up(lg) {
-      font-size: 4.275rem;
+      .home-hero__subline {
+        font-size: 0.38em;
+        margin-top: 0.9rem;
+        line-height: 1.35;
+      }
     }
   }
 }
@@ -350,16 +408,24 @@
   align-items: center;
   gap: 0.55rem;
   margin: 0;
-  padding: 0.32rem 0.85rem 0.32rem 0.55rem;
+  padding: 0.28rem 0.7rem 0.28rem 0.5rem;
   border: 1px solid rgba($white, 0.14);
   border-radius: 999px;
   background: rgba($white, 0.04);
   color: rgba($white, 0.72);
-  font-size: 0.7rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   backdrop-filter: blur(8px);
+  white-space: nowrap;
+
+  @include respond-up(md) {
+    padding: 0.32rem 0.85rem 0.32rem 0.55rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    white-space: normal;
+  }
 }
 
 .home-hero__eyebrow-dot {
@@ -384,33 +450,48 @@
 .home-hero__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.4rem;
-  margin: 3.25rem 0 0;
-  padding: 1.4rem 0 0;
+  /* Mobile: tighter inter-column gap, slimmer top margin, smaller top
+     padding above the divider — keeps the stats compact next to the phone. */
+  gap: 0.7rem;
+  margin: 1.75rem 0 0;
+  padding: 0.9rem 0 0;
   border-top: 1px solid rgba($white, 0.08);
   max-width: 32rem;
+
+  @include respond-up(md) {
+    gap: 1.4rem;
+    margin-top: 3.25rem;
+    padding-top: 1.4rem;
+  }
 
   > div {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    /* Slightly more air between number and label so the hierarchy reads. */
+    gap: 0.4rem;
   }
 
   dt {
     order: 2;
     color: rgba($white, 0.5);
-    font-size: 0.68rem;
+    font-size: 0.56rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    line-height: 1.3;
+    line-height: 1.2;
+
+    @include respond-up(md) {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
   }
 
   dd {
     order: 1;
     margin: 0;
     color: $white;
-    font-size: 1.85rem;
+    font-size: 1.55rem;
     font-weight: 700;
     letter-spacing: -0.025em;
     line-height: 1;
@@ -418,6 +499,10 @@
     display: inline-flex;
     align-items: center;
     gap: 0.12em;
+
+    @include respond-up(md) {
+      font-size: 1.85rem;
+    }
 
     span {
       display: inline-flex;
@@ -509,34 +594,86 @@
   display: flex;
   flex-wrap: wrap;
   gap: $spacing-sm;
-  margin-top: 2.25rem;
+  /* Tighter on mobile for a compact, premium rhythm; restore the original
+     breathing room at md+ where the hero has more space. */
+  margin-top: 1.75rem;
+
+  @include respond-up(md) {
+    margin-top: 2.25rem;
+  }
 }
 
 .home-hero__visual {
-  display: none;
+  /* Mobile + tablet (<1024px): phone mockup sits below the hero content in
+     normal flow, centered, no absolute positioning. */
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  /* Tight 20px gap to the stats above — premium rhythm, no dead space. */
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  padding-inline: 1.5rem;
+  pointer-events: none;
+  overflow: visible;
 
   @include respond-up(md) {
+    margin-top: 2rem;
+    padding-inline: 2rem;
+  }
+
+  /* Desktop (≥1024px): switch to absolute positioning so the phone anchors
+     to the bottom of the hero and can extend slightly outside its column
+     for the premium "jutting" cinematic feel. Horizontal overflow is
+     contained by .home-page { overflow-x: clip }. */
+  @media (min-width: 1024px) {
     position: absolute;
     inset: auto 0 0 0;
     z-index: 9999;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
     height: 730px;
-    pointer-events: none;
-    overflow: visible;
+    margin: 0;
+    padding-inline: 0;
+  }
+
+  /* Wide laptop+: cap visual container width and pin it right so the phone +
+     floating chips stay together as one tight unit. */
+  @media (min-width: 1440px) {
+    left: auto;
+    right: 0;
+    width: 1440px;
+    justify-content: flex-end;
+  }
+
+  @media (min-width: 1700px) {
+    width: 1500px;
+    height: 780px;
+  }
+
+  /* Above 24" — shrink so the phone doesn't overflow into the services strip. */
+  @media (min-width: 2000px) {
+    width: 1600px;
+    height: 700px;
+  }
+
+  @media (min-width: 2400px) {
+    width: 1720px;
+    height: 720px;
   }
 }
 
 .home-hero__mockup {
   position: relative;
-  width: min(100%, 1380px);
-  height: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   isolation: isolate;
-  transform: translate(35%, 12.3%);
+  /* Mobile: 68vw, between 220px and 320px — feels premium and visible on
+     phones, the image fills its box with no letterbox (image is ~1:1, so
+     aspect-ratio matches). */
+  width: clamp(220px, 68vw, 320px);
+  aspect-ratio: 1 / 1;
+  /* Mobile: no translate — phone is centered in flow below the content. */
+  transform: none;
 
   img {
     position: relative;
@@ -549,12 +686,40 @@
       drop-shadow(0 0 24px rgba($brand-orange, 0.09));
   }
 
+  /* Tablet / iPad: phone slightly larger but capped — never spans the row. */
   @include respond-up(md) {
-    width: min(100%, 1560px);
+    width: clamp(280px, 50%, 420px);
   }
 
-  @include respond-up(lg) {
+  /* Desktop (≥1024px): mockup fills the absolute visual container; a
+     controlled translate biases the phone toward the right portion of the
+     hero. Page-wrapper overflow-x:clip contains any jut past the viewport. */
+  @media (min-width: 1024px) {
     width: min(100%, 1800px);
+    height: 100%;
+    aspect-ratio: auto;
+    transform: translate(25%, 12.3%);
+  }
+
+  /* At 1440px+ the visual container is capped + right-aligned, so the
+     mockup needs less translate-x to land inside its container. */
+  @media (min-width: 1440px) {
+    width: 100%;
+    transform: translate(18%, 12.3%);
+  }
+
+  @media (min-width: 1700px) {
+    transform: translate(15%, 12.3%);
+  }
+
+  /* Above 24" — pull the phone up so it doesn't overflow into the
+     services strip below the hero. */
+  @media (min-width: 2000px) {
+    transform: translate(12%, 4%);
+  }
+
+  @media (min-width: 2400px) {
+    transform: translate(10%, 2%);
   }
 }
 
@@ -565,11 +730,21 @@
   border-radius: 50%;
   background:
     radial-gradient(circle at 50% 45%, rgba($brand-orange, 0.45) 0%, rgba($brand-orange, 0.12) 38%, transparent 68%);
-  filter: blur(28px);
+  /* Mobile: smaller blur so the halo stays proportional to the smaller phone
+     instead of bleeding past it. Desktop's larger phone gets the full halo. */
+  filter: blur(14px);
   pointer-events: none;
   transform-origin: 50% 55%;
   animation: heroGlowPulse 4.5s ease-in-out infinite;
   will-change: transform, opacity;
+
+  @include respond-up(md) {
+    filter: blur(20px);
+  }
+
+  @media (min-width: 1024px) {
+    filter: blur(28px);
+  }
 }
 
 .home-hero__mockup-ring {
@@ -665,7 +840,10 @@
   pointer-events: none;
   will-change: transform, opacity;
 
-  @include respond-up(md) {
+  /* Floating chips are decorative around the phone. On mobile/tablet the
+     phone is in flow and smaller, so chips would crowd it. Show only on
+     desktop where the phone has room to anchor them. */
+  @media (min-width: 1024px) {
     display: inline-flex;
   }
 
@@ -1282,16 +1460,17 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  padding-block: 1.4rem;
+  padding-block: 1.25rem;
   background: transparent;
   overflow: hidden;
   isolation: isolate;
   color: $white;
 
-  /* On md+, anchor to the bottom of the hero. Sit BELOW the phone mockup
-     (z-index 9999) so cards passing through the phone area are hidden by the
-     opaque mockup — only cards on either side of the phone remain visible. */
-  @include respond-up(md) {
+  /* Desktop (≥1024px): anchor to the bottom of the hero. Sit BELOW the phone
+     mockup (z-index 9999) so cards passing through the phone area are hidden
+     by the opaque mockup — only cards on either side of the phone remain
+     visible. On mobile/tablet the strip stays in flow below the phone. */
+  @media (min-width: 1024px) {
     position: absolute;
     inset: auto 0 0 0;
     z-index: 5;
@@ -1300,6 +1479,37 @@
     .services-strip__card {
       pointer-events: auto;
     }
+  }
+}
+
+/* Mobile + tablet (<1024px): swap the auto-scrolling marquee for a
+   touch-scrollable strip with proper edge padding so the first/last card
+   doesn't bleed flush against the viewport edge. */
+@media (max-width: 1023px) {
+  .services-strip {
+    /* Belt-and-suspenders: contain any card overflow even if a child miscalculates. */
+    overflow-x: hidden;
+  }
+
+  .services-strip__marquee {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    padding-inline: 1.5rem;
+    scroll-padding-inline: 1.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .services-strip__track {
+    animation: none !important;
+    width: max-content;
+    gap: 0.85rem;
   }
 }
 
@@ -1322,7 +1532,7 @@
     transparent 64%
   );
 
-  @include respond-up(md) {
+  @media (min-width: 1024px) {
     --strip-fade: 140px;
   }
 
@@ -1346,12 +1556,17 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  width: 15rem;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid rgba($white, 0.07);
-  background: rgba($white, 0.018);
-  backdrop-filter: blur(6px);
+  gap: 0.8rem;
+  /* Mobile: roomier card with explicit min-width so the title + tagline
+     have breathing room, and a slightly stronger background so each card
+     reads as a distinct premium tile against the hero gradient. */
+  width: 15.5rem;
+  min-width: 14rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba($white, 0.14);
+  border-radius: 14px;
+  background: rgba(18, 20, 26, 0.9);
+  backdrop-filter: blur(12px);
   color: inherit;
   text-decoration: none;
   transition:
@@ -1387,6 +1602,10 @@
     width: 16.5rem;
     padding: 0.7rem 1rem;
     gap: 0.75rem;
+    /* Restore the subtle glassmorphism look on tablet+ */
+    background: rgba($white, 0.018);
+    border-color: rgba($white, 0.07);
+    backdrop-filter: blur(6px);
   }
 }
 

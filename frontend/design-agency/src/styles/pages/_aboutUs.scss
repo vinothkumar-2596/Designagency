@@ -410,12 +410,17 @@
     max-width: 9.6ch;
     margin: 0;
     color: $text-primary;
-    font-size: clamp(3.15rem, 6.4vw, 6.8rem);
+    font-size: clamp(2.15rem, 7vw, 6.8rem);
     font-weight: 900;
-    line-height: 0.82;
-    letter-spacing: -0.06em;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
     text-wrap: balance;
     text-shadow: none;
+
+    @include respond-up(md) {
+      line-height: 0.82;
+      letter-spacing: -0.06em;
+    }
 
     span {
       display: block;

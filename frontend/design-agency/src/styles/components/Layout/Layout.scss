@@ -35,15 +35,112 @@
   @include container;
   width: min(100% - 2rem, 1300px);
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
+  justify-content: space-between;
   gap: 0;
   min-height: 3.875rem;
   border-bottom: 1px solid rgba($white, 0.14);
   padding-block: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile menu — hamburger toggle, slide-down drawer, dark backdrop    */
+/* ------------------------------------------------------------------ */
+
+.site-header__menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid rgba($white, 0.18);
+  background: rgba($white, 0.04);
+  color: $white;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($white, 0.08);
+    border-color: rgba($white, 0.3);
+    outline: none;
+  }
 
   @include respond-up(lg) {
-    flex-wrap: nowrap;
+    display: none;
+  }
+}
+
+.site-header__drawer {
+  display: contents; /* desktop: render children inline in the header */
+
+  @media (max-width: 991px) {
+    /* Full-viewport overlay that starts below the header so the hamburger
+       toggle remains visible/tappable. 24px padding all around per spec. */
+    position: fixed;
+    top: 3.875rem; /* header height */
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 50;
+    width: 100vw;
+    max-width: 100vw;
+    /* Vertical layout: nav fills, CTA pins to bottom via margin-top: auto. */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: linear-gradient(180deg, #07090d 0%, #0a0d12 100%);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity   220ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 220ms;
+
+    &.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition:
+        opacity   220ms cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0s;
+    }
+  }
+}
+
+.site-header__backdrop {
+  display: none;
+
+  @media (max-width: 991px) {
+    display: block;
+    position: fixed;
+    inset: 3.875rem 0 0 0;
+    z-index: 40;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 240ms ease,
+      visibility 0s linear 240ms;
+
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 240ms ease, visibility 0s linear 0s;
+    }
   }
 }
 
@@ -65,34 +162,43 @@
 .site-header__nav {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
-  order: 3;
+  flex-direction: column;
   width: 100%;
-  margin-left: auto;
-  gap: $spacing-xs $spacing-md;
+  gap: 0.25rem;
 
   @include respond-up(lg) {
-    order: initial;
+    flex-direction: row;
+    flex-wrap: nowrap;
     width: auto;
     margin-left: auto;
     justify-content: center;
+    gap: $spacing-xs $spacing-md;
   }
 
   > a,
   .site-header__nav-link {
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 0.4rem;
-    min-height: 3.875rem;
+    width: 100%;
+    min-height: 3rem;
     margin-block: 0;
-    padding: 0 0.35rem;
-    color: rgba($white, 0.62);
-    font-size: 0.8125rem;
+    /* Mobile: flush within the drawer's 24px padding — no extra horizontal
+       indent on top-level links so the row aligns with the submenu items. */
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba($white, 0.08);
+    color: rgba($white, 0.78);
+    font-size: 1rem;
     font-weight: 650;
     letter-spacing: 0.01em;
     text-decoration: none;
+    box-sizing: border-box;
     transition: color 220ms ease;
+
+    &:last-child {
+      border-bottom: 0;
+    }
 
     &:hover {
       color: rgba($white, 0.92);
@@ -104,6 +210,17 @@
 
     &.active {
       color: $white;
+    }
+
+    @include respond-up(lg) {
+      display: inline-flex;
+      min-height: 3.875rem;
+      padding: 0 0.35rem;
+      border-bottom: 0;
+      color: rgba($white, 0.62);
+      font-size: 0.8125rem;
+      /* Keep multi-word labels (e.g. "Case Studies") on a single line. */
+      white-space: nowrap;
     }
   }
 }
@@ -125,6 +242,12 @@
     width 320ms cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
   will-change: transform, opacity;
+
+  /* Mobile: vertical column nav — the horizontal indicator dot has no
+     meaningful position; hide it entirely. */
+  @media (max-width: 991px) {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -135,7 +258,15 @@
 
 .site-header__nav-item {
   position: relative;
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @include respond-up(lg) {
+    display: inline-flex;
+    flex-direction: row;
+    width: auto;
+  }
 }
 
 .site-header__nav-caret {
@@ -156,25 +287,57 @@
       transform: rotate(180deg);
     }
 
-    .site-header__nav-menu {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-      /* On the way in we want visibility to flip immediately so the
-         entrance can animate, then opacity + transform tween. */
-      transition:
-        opacity   240ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-        visibility 0s linear 0s;
+    /* Desktop-only: the submenu is absolutely positioned with `left: 50%`,
+       so it needs `translateX(-50%)` to center under the parent. On mobile
+       the submenu is `position: static; width: 100%` inside the drawer —
+       applying that translate shifts it half its width off the viewport
+       to the left, which is what caused the "service card overflows left
+       on hover" bug. */
+    @include respond-up(lg) {
+      .site-header__nav-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0);
+        transition:
+          opacity   240ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0s linear 0s;
+      }
     }
   }
 }
 
 .site-header__nav-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
+  /* Mobile: render the children inline as a stacked vertical list. Always
+     visible when the drawer is open (no hover/focus-within gating, since
+     :hover is unreliable on touch and tapping the parent link navigates
+     away before any focus state can apply). */
+  position: static;
+  top: auto;
+  left: auto;
+  width: 100%;
+  margin: 0.25rem 0 0.5rem;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+
+  .site-header__nav-menu-head {
+    display: none;
+  }
+
+  @include respond-up(lg) {
+    position: absolute;
+    top: 100%;
+    left: 50%;
   /* Resting state: translated up a few px and faded out. The browser
      pre-computes layout + paint at this state, so the first reveal is
      a cheap transform/opacity tween instead of a fresh paint. */
@@ -206,45 +369,72 @@
     transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
     visibility 0s linear 260ms;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -0.7rem 0 auto;
-    height: 0.7rem;
-    background: transparent;
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -0.7rem 0 auto;
+      height: 0.7rem;
+      background: transparent;
+    }
   }
 }
 
 .site-header__nav-menu-link {
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 0.75rem;
+  /* Mobile: simple horizontal flex row (icon · copy · arrow), full-width,
+     48px tap target, bottom-border per item for visual separation. */
+  display: flex;
   align-items: center;
-  min-height: 4rem;
-  padding: 0.7rem 0.8rem;
-  border: 1px solid transparent;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba($white, 0.07);
   border-radius: 0;
-  color: rgba($white, 0.72);
-  font-size: 0.8125rem;
+  color: rgba($white, 0.78);
+  font-size: 0.95rem;
   font-weight: 650;
   letter-spacing: 0.01em;
   text-decoration: none;
+  box-sizing: border-box;
   transition:
     color           180ms ease,
     background      180ms ease,
     border-color    180ms ease;
 
-  & + & {
-    margin-top: 0.18rem;
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @include respond-up(lg) {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    min-height: 4rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    font-size: 0.8125rem;
+
+    &:last-child {
+      border: 1px solid transparent;
+    }
+
+    & + & {
+      margin-top: 0.18rem;
+    }
   }
 
   &:hover,
   &:focus-visible {
     color: $white;
-    border-color: rgba($brand-orange, 0.16);
-    background: rgba($white, 0.035);
+    background: rgba($white, 0.04);
     outline: none;
+
+    @include respond-up(lg) {
+      border-color: rgba($brand-orange, 0.16);
+    }
   }
 }
 
@@ -288,31 +478,46 @@
 .site-header__nav-menu-copy {
   display: grid;
   gap: 0.22rem;
+  /* Take the available row width inside the flex/grid parent so the arrow
+     stays right-aligned and long descriptions wrap instead of overflowing. */
+  flex: 1 1 0;
   min-width: 0;
 
   strong {
     color: rgba($white, 0.9);
-    font-size: 0.84rem;
+    font-size: 0.92rem;
     font-weight: 780;
     line-height: 1.15;
   }
 
   small {
     color: rgba($white, 0.48);
-    font-size: 0.7rem;
+    font-size: 0.78rem;
     font-weight: 650;
     line-height: 1.2;
+  }
+
+  @include respond-up(lg) {
+    strong { font-size: 0.84rem; }
+    small  { font-size: 0.7rem; }
   }
 }
 
 .site-header__nav-menu-arrow {
+  flex: 0 0 auto;
   color: rgba($white, 0.34);
-  opacity: 0;
-  transform: translate(-3px, 3px);
+  /* Mobile: always visible — no hover state on touch. */
+  opacity: 0.5;
+  transform: none;
   transition:
     opacity   200ms ease,
     color     180ms ease,
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  @include respond-up(lg) {
+    opacity: 0;
+    transform: translate(-3px, 3px);
+  }
 }
 
 .site-header__nav-menu-link:hover .site-header__nav-menu-icon,
@@ -337,16 +542,18 @@
 .site-header__action {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.55rem;
-  align-self: stretch;
-  min-height: 3.875rem;
-  margin-left: $spacing-lg;
-  padding: 0 1.45rem;
+  width: 100%;
+  /* Mobile: push to bottom of the flex column drawer so the CTA always
+     sits at the bottom of the open menu, even if the nav is short. */
+  margin-top: auto;
+  padding: 1rem 1.45rem;
   border-radius: 0;
   background: $brand-orange;
   color: #0a0a0a;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 
@@ -366,6 +573,17 @@
   &:focus-visible {
     @include focus-ring;
   }
+
+  @include respond-up(lg) {
+    align-self: stretch;
+    width: auto;
+    min-height: 3.875rem;
+    margin-top: 0;
+    margin-left: $spacing-lg;
+    padding: 0 1.45rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
 }
 
 /* No animation on the wrapper itself — both opacity and transform fade-ins
@@ -375,6 +593,45 @@
    should be instant. */
 .page-transition {
   animation: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mobile safety guard — defensive rules so service items can't shift  */
+/* or overflow horizontally on hover/focus. The root cause is fixed    */
+/* above (the parent-hover translateX is now desktop-only); this block */
+/* exists so future edits can't reintroduce a hover-shift on touch.    */
+/* ------------------------------------------------------------------ */
+@media (max-width: 991px) {
+  .site-header__drawer,
+  .site-header__drawer * {
+    box-sizing: border-box;
+  }
+
+  .site-header__nav-menu {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .site-header__nav-menu-link {
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    margin-left: 0;
+    left: auto;
+
+    &:hover,
+    &:focus-visible {
+      transform: none;
+      background: rgba(255, 106, 0, 0.08);
+      border-color: rgba(255, 106, 0, 0.35);
+    }
+  }
+
+  /* Arrow may still tint on hover, but must not translate on mobile. */
+  .site-header__nav-menu-link:hover .site-header__nav-menu-arrow,
+  .site-header__nav-menu-link:focus-visible .site-header__nav-menu-arrow {
+    transform: none;
+  }
 }
 
 .site-footer {
