@@ -62,6 +62,28 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   pointer-events: none;
   opacity: 0.7;
+
+  /* Mobile: the 12-col orange grid spans the full viewport which makes the
+     lines feel like edge-to-edge UI chrome instead of a halo behind the
+     phone. A radial mask concentrates the visible band roughly under the
+     mockup and fades the four edges to transparent so nothing touches the
+     screen sides. Opacity is also dialled down so the lines stay subtle.
+     Desktop concept untouched. */
+  @media (max-width: 767px) {
+    opacity: 0.35;
+    mask-image: radial-gradient(
+      ellipse 50% 58% at 50% 66%,
+      #000 28%,
+      rgba(0, 0, 0, 0.55) 62%,
+      transparent 92%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 50% 58% at 50% 66%,
+      #000 28%,
+      rgba(0, 0, 0, 0.55) 62%,
+      transparent 92%
+    );
+  }
 }
 
 .grid-line {
@@ -617,6 +639,18 @@
   pointer-events: none;
   overflow: visible;
 
+  /* Mobile: pull the cream section up far enough that the image's
+     transparent bottom fade (wrist tail-off in the source PNG) is fully
+     covered by cream — no dark gap between the phone bottom and the next
+     section. position+z-index keep the visual on top of the cream overlap. */
+  @media (max-width: 767px) {
+    position: relative;
+    z-index: 3;
+    margin-top: 1.5rem;
+    margin-bottom: clamp(-6rem, -18vw, -3.5rem);
+    padding-inline: 0;
+  }
+
   @include respond-up(md) {
     margin-top: 2rem;
     padding-inline: 2rem;
@@ -662,17 +696,24 @@
 }
 
 .home-hero__mockup {
+  /* Single wrapper that holds the phone+hands as ONE composition. The PNG
+     is a single image — never position the phone separately from the hands.
+     Everything inside (glow, ring, img) scales / positions with this wrapper. */
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   isolation: isolate;
-  /* Mobile: 68vw, between 220px and 320px — feels premium and visible on
-     phones, the image fills its box with no letterbox (image is ~1:1, so
-     aspect-ratio matches). */
-  width: clamp(220px, 68vw, 320px);
-  aspect-ratio: 1 / 1;
-  /* Mobile: no translate — phone is centered in flow below the content. */
+  /* Mobile defaults — single wrapper, full-width (capped at 480px for very
+     wide phones), centered, natural aspect of the source PNG (2124×2083)
+     so the image fills the wrapper edge-to-edge with no letterbox and the
+     hands+phone stay locked as one composition. The visual's negative
+     margin-bottom (above) extends the lower hand/wrist portion onto the
+     cream section below, matching the desktop concept. */
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  aspect-ratio: 2124 / 2083;
   transform: none;
 
   img {
@@ -681,6 +722,10 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+    /* Wrapper aspect matches image aspect (2124:2083) on mobile/tablet so
+       there is no letterbox space — object-position is effectively a no-op
+       at those sizes. center bottom is retained for desktop where the
+       absolute visual container has its own explicit height. */
     object-position: center bottom;
     filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.275))
       drop-shadow(0 0 24px rgba($brand-orange, 0.09));
@@ -689,6 +734,8 @@
   /* Tablet / iPad: phone slightly larger but capped — never spans the row. */
   @include respond-up(md) {
     width: clamp(280px, 50%, 420px);
+    max-width: none;
+    aspect-ratio: 2124 / 2083;
   }
 
   /* Desktop (≥1024px): mockup fills the absolute visual container; a
@@ -1036,6 +1083,90 @@
     border: 2px solid $brand-orange;
     pointer-events: none;
     animation: chipPulseRing 2.4s ease-out 1.6s infinite;
+  }
+}
+
+/* Phone app view: keep the hero compact without touching tablet/desktop. */
+@media (max-width: 767px) {
+  .home-hero {
+    overflow: visible;
+  }
+
+  .home-hero__inner {
+    padding-inline: 1.25rem;
+    padding-block-start: 1.05rem;
+    gap: 0.95rem;
+  }
+
+  .home-hero__eyebrow {
+    max-width: 100%;
+    font-size: 0.58rem;
+    letter-spacing: 0.075em;
+  }
+
+  .home-hero__content {
+    align-self: start;
+
+    h1 {
+      margin-top: 0.65rem;
+      max-width: 21rem;
+      font-size: clamp(2rem, 8.65vw, 2.42rem);
+      line-height: 1.075;
+      letter-spacing: -0.018em;
+      text-wrap: pretty;
+
+      .home-hero__subline {
+        max-width: 19rem;
+        margin-top: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.36;
+      }
+    }
+  }
+
+  .home-hero__actions {
+    margin-top: 1.35rem;
+
+    .button {
+      min-height: 3.05rem;
+      padding-inline: 1.15rem;
+    }
+  }
+
+  .home-hero__stats {
+    gap: 0.55rem;
+    margin-top: 1.3rem;
+    padding-top: 0.8rem;
+
+    dt {
+      font-size: 0.5rem;
+      line-height: 1.18;
+    }
+
+    dd {
+      font-size: 1.45rem;
+    }
+  }
+
+  .home-hero__visual {
+    margin-top: 1.5rem;
+    margin-bottom: clamp(-6rem, -18vw, -3.5rem);
+    padding-inline: 0;
+    overflow: visible;
+    position: relative;
+    z-index: 2;
+  }
+
+  .home-hero__mockup {
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 2124 / 2083;
+    transform: none;
+  }
+
+  .home-hero__mockup-ring {
+    width: 64%;
+    bottom: 10%;
   }
 }
 
@@ -1460,11 +1591,17 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  padding-block: 1.25rem;
+  /* Mobile: extra breathing room above so the cards aren't crowded under the
+     phone mockup. Tablet/desktop restore the tighter strip padding. */
+  padding-block: 2rem 1.25rem;
   background: transparent;
   overflow: hidden;
   isolation: isolate;
   color: $white;
+
+  @include respond-up(md) {
+    padding-block: 1.25rem;
+  }
 
   /* Desktop (≥1024px): anchor to the bottom of the hero. Sit BELOW the phone
      mockup (z-index 9999) so cards passing through the phone area are hidden
@@ -1482,12 +1619,25 @@
   }
 }
 
-/* Mobile + tablet (<1024px): swap the auto-scrolling marquee for a
-   touch-scrollable strip with proper edge padding so the first/last card
-   doesn't bleed flush against the viewport edge. */
-@media (max-width: 1023px) {
+/* Mobile (<768px): horizontal auto-marquee carousel that sits cleanly BELOW
+   the phone — no negative margin / overlap. Forcing the desktop "absolute
+   overlay" rhythm here caused the cards to slice through the middle of the
+   phone mockup (cards land above the phone in stacking order while the
+   phone is in normal flow). Mobile layout now reads:
+     content → phone → breathing space → moving carousel. */
+/* Mobile (<768px): remove the services carousel entirely — too cramped
+   under the phone visual on small screens. Tablet keeps the touch-scrollable
+   strip; desktop keeps the auto-marquee. */
+@media (max-width: 767px) {
   .services-strip {
-    /* Belt-and-suspenders: contain any card overflow even if a child miscalculates. */
+    display: none;
+  }
+}
+
+/* Tablet (768–1023px): touch-scrollable marquee with proper edge padding so
+   the first/last card doesn't bleed flush against the viewport edge. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-strip {
     overflow-x: hidden;
   }
 
@@ -1498,8 +1648,8 @@
     scrollbar-width: none;
     mask-image: none !important;
     -webkit-mask-image: none !important;
-    padding-inline: 1.5rem;
-    scroll-padding-inline: 1.5rem;
+    padding-inline: 2rem;
+    scroll-padding-inline: 2rem;
 
     &::-webkit-scrollbar {
       display: none;
@@ -1557,9 +1707,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.8rem;
-  /* Mobile: roomier card with explicit min-width so the title + tagline
-     have breathing room, and a slightly stronger background so each card
-     reads as a distinct premium tile against the hero gradient. */
+  /* Default (tablet/desktop): fixed-width tile for the horizontal marquee /
+     touch-scroll strip. Mobile uses a clamp()-sized variant in the
+     max-width: 767px block above. */
   width: 15.5rem;
   min-width: 14rem;
   padding: 0.85rem 1rem;
@@ -1572,6 +1722,10 @@
   transition:
     border-color 260ms ease,
     background 260ms ease;
+
+  /* Mobile card sizing now lives in the @media (max-width: 767px) block
+     near the top of this section — it switches the strip back to a
+     horizontal snap-scroll carousel with clamp()-sized cards. */
 
   &:hover,
   &:focus-visible {
@@ -1694,9 +1848,20 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: 7rem 7.5rem;
+  /* Mobile: tighter vertical rhythm so the section isn't dominated by empty
+     space above/below the heading + panel. Desktop keeps the generous
+     spacing the design originally specified. */
+  padding-block: 3rem 3.5rem;
   background: #fefff5;
   color: $text-primary;
+
+  @include respond-up(md) {
+    padding-block: 5rem 5.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-block: 7rem 7.5rem;
+  }
 }
 
 .why-section__decor {
@@ -1776,8 +1941,22 @@
 }
 
 .why-section__inner {
-  width: min(100% - 2rem, 1300px);
+  /* Mobile: 24px gutter to match the rest of the page rhythm. Desktop keeps
+     the original 1rem gutter inside the 1300px max. */
+  width: 100%;
+  max-width: 1300px;
   margin-inline: auto;
+  padding-inline: 1.5rem;
+  box-sizing: border-box;
+
+  @include respond-up(md) {
+    padding-inline: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: min(100% - 2rem, 1300px);
+    padding-inline: 0;
+  }
 }
 
 .why-section__heading {
@@ -1786,12 +1965,18 @@
 
   h2 {
     margin: 0;
-    font-size: 2rem;
+    /* Mobile: fluid scale so the headline fits cleanly in narrow viewports
+       without overflowing the column. Caps at the original 2rem on phones
+       and 2.35rem on tablet+ per the design. */
+    font-size: clamp(1.5rem, 6.6vw, 2rem);
     font-weight: 800;
-    line-height: 1.12;
+    line-height: 1.15;
+    text-wrap: balance;
+    overflow-wrap: break-word;
 
     @include respond-up(md) {
       font-size: 2.35rem;
+      line-height: 1.12;
     }
   }
 }
@@ -1844,15 +2029,28 @@
 }
 
 .why-panel__image {
-  min-height: 280px;
+  height: clamp(220px, 58vw, 300px);
+  min-height: 0;
   border-bottom: 1px solid rgba($text-primary, 0.16);
+  overflow: hidden;
 
   img {
+    display: block;
     width: 100%;
     height: 100%;
-    min-height: inherit;
+    min-height: 0;
     object-fit: cover;
+    object-position: center 42%;
     filter: saturate(0.82) contrast(1.04);
+  }
+
+  @include respond-up(md) {
+    height: auto;
+    min-height: 280px;
+
+    img {
+      min-height: inherit;
+    }
   }
 }
 
@@ -1894,6 +2092,7 @@
 
 .why-awards {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   max-width: 930px;
   border-right: 1px solid rgba($text-primary, 0.16);
   border-bottom: 1px solid rgba($text-primary, 0.16);
@@ -1904,28 +2103,32 @@
 .why-awards__lead,
 .why-awards__item {
   display: flex;
-  min-height: 6.5rem;
+  min-height: 4.75rem;
   flex-direction: column;
   justify-content: center;
-  gap: $spacing-sm;
-  padding: 1rem 1.25rem;
+  gap: 0.4rem;
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid rgba($text-primary, 0.16);
 }
 
 .why-awards__lead {
-  align-items: flex-start;
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.85rem;
 
   span {
     position: relative;
-    width: 1.25rem;
-    height: 1.25rem;
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
     border: 3px solid $brand-orange;
     border-radius: 50%;
 
     &::before,
     &::after {
       position: absolute;
-      bottom: -0.5rem;
+      bottom: -0.45rem;
       width: 0.3125rem;
       height: 0.55rem;
       background: $brand-orange;
@@ -1944,27 +2147,41 @@
   }
 
   p {
-    max-width: 180px;
+    max-width: 220px;
     color: rgba($text-primary, 0.72);
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 700;
-    line-height: 1.22;
+    line-height: 1.25;
   }
 }
 
 .why-awards__item {
   align-items: center;
   text-align: center;
+  border-right: 1px solid rgba($text-primary, 0.16);
+
+  &:nth-child(even) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
 
   span {
     position: relative;
-    width: 2.625rem;
-    height: 1.75rem;
+    width: 1.75rem;
+    height: 1.5rem;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   p {
-    color: rgba($text-primary, 0.48);
-    font-size: 0.875rem;
+    color: rgba($text-primary, 0.55);
+    font-size: 0.8125rem;
     font-weight: 800;
   }
 }
@@ -1990,12 +2207,41 @@
 
   .why-awards__lead,
   .why-awards__item {
+    min-height: 6.5rem;
+    padding: 1rem 1.25rem;
     border-right: 1px solid rgba($text-primary, 0.16);
     border-bottom: 0;
   }
 
-  .why-awards__item:last-child {
-    border-right: 0;
+  .why-awards__lead {
+    grid-column: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-sm;
+
+    p {
+      max-width: 180px;
+      font-size: 0.875rem;
+    }
+  }
+
+  .why-awards__item {
+    span {
+      width: 2.625rem;
+      height: 1.75rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+    }
+
+    &:nth-child(even) {
+      border-right: 1px solid rgba($text-primary, 0.16);
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
   }
 }
 
@@ -2793,6 +3039,121 @@
 
   .home-formula__image--cursor {
     width: min(100%, 12.4rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .home-formula {
+    padding-block: 3.75rem 4.25rem;
+  }
+
+  .home-formula__header {
+    text-align: left;
+
+    .eyebrow {
+      text-align: left;
+    }
+
+    h2 {
+      font-size: clamp(2.35rem, 12vw, 3.25rem);
+      line-height: 0.96;
+      letter-spacing: -0.045em;
+    }
+  }
+
+  .home-formula__banner {
+    max-width: 100%;
+    margin-top: 1.2rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    box-shadow: 0 0.3rem 0 $text-primary;
+  }
+
+  .home-formula__grid {
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .home-formula__panel {
+    gap: 1.35rem;
+  }
+
+  .home-formula__panel--right {
+    .home-formula__copy {
+      order: 1;
+    }
+
+    .home-formula__visual {
+      order: 2;
+    }
+  }
+
+  .home-formula__copy {
+    max-width: none;
+
+    h3 {
+      font-size: clamp(2rem, 9vw, 2.35rem);
+      line-height: 1.02;
+      text-wrap: pretty;
+    }
+
+    p {
+      margin-top: 0.85rem;
+      font-size: 0.98rem;
+      line-height: 1.45;
+    }
+  }
+
+  .home-formula__visual {
+    justify-self: center;
+  }
+
+  .home-formula__visual--left {
+    width: 100%;
+  }
+
+  .home-formula__figure {
+    min-height: auto;
+  }
+
+  .home-formula__image--puzzle {
+    width: clamp(13rem, 62vw, 16rem);
+    margin-inline: auto;
+  }
+
+  .home-formula__image--cursor {
+    width: clamp(11rem, 54vw, 14rem);
+    margin-inline: auto;
+  }
+}
+
+/* Final mobile hero composition override: keep the phone+hands as one image,
+   pull only the following cream section upward, and ensure the phone paints
+   over the cream exactly like the desktop reference. */
+@media (max-width: 767px) {
+  .home-hero {
+    overflow: visible;
+  }
+
+  .home-hero__visual {
+    z-index: 10;
+    margin-top: 1.35rem;
+    margin-bottom: clamp(-8.5rem, -27vw, -5.75rem);
+    overflow: visible;
+  }
+
+  .home-hero__mockup {
+    width: min(116vw, 480px);
+    max-width: none;
+    aspect-ratio: 2124 / 2083;
+    transform: none;
+  }
+
+  .home-hero__mockup img {
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
   }
 }
 

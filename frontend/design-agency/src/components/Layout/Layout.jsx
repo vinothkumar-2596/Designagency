@@ -32,6 +32,9 @@ function Layout() {
   const navRef = useRef(null)
   const indicatorRef = useRef(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  // Tracks which parent nav items have their submenu expanded on mobile.
+  // Keyed by item.path. Desktop ignores this — its dropdown is hover-driven.
+  const [openMobileSubmenus, setOpenMobileSubmenus] = useState({})
   // True only for the very first paint after a hard refresh. The bootloader
   // already handles that transition, so we suppress the page-transition
   // fade-in on initial mount to avoid a flash of the body's cream background
@@ -52,10 +55,16 @@ function Layout() {
     }
   }, [location.pathname])
 
-  // Close mobile menu on route change.
+  // Close mobile menu on route change and collapse any expanded submenus so
+  // the next open starts clean.
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    setOpenMobileSubmenus({})
   }, [location.pathname])
+
+  const toggleMobileSubmenu = (path) => {
+    setOpenMobileSubmenus((prev) => ({ ...prev, [path]: !prev[path] }))
+  }
 
   // Lock body scroll while mobile menu is open + close on ESC.
   useEffect(() => {
@@ -195,10 +204,13 @@ function Layout() {
           <nav className="site-header__nav" aria-label="Primary navigation" ref={navRef}>
             {siteConfig.navItems.map((item) => {
               if (item.children?.length) {
+                const isSubmenuOpen = Boolean(openMobileSubmenus[item.path])
                 return (
                   <div
                     key={item.path}
-                    className="site-header__nav-item site-header__nav-item--has-menu"
+                    className={`site-header__nav-item site-header__nav-item--has-menu${
+                      isSubmenuOpen ? ' is-mobile-open' : ''
+                    }`}
                     onMouseEnter={() => {
                       // Parent hover = imminent dropdown open. Warm every
                       // child route at once so a click on any item is instant.
@@ -209,7 +221,21 @@ function Layout() {
                     <NavLink
                       to={item.path}
                       className="site-header__nav-link"
-                      onClick={(event) => event.currentTarget.blur()}
+                      aria-expanded={isSubmenuOpen}
+                      onClick={(event) => {
+                        // Mobile (drawer): tapping the parent label should
+                        // toggle the submenu, not navigate. Desktop keeps
+                        // its hover-to-open behavior and click-to-navigate.
+                        if (
+                          typeof window !== 'undefined' &&
+                          window.matchMedia('(max-width: 991px)').matches
+                        ) {
+                          event.preventDefault()
+                          toggleMobileSubmenu(item.path)
+                          return
+                        }
+                        event.currentTarget.blur()
+                      }}
                       {...prefetchHandlers(item.path)}
                     >
                       <span>{item.label}</span>
