@@ -10,6 +10,10 @@
   background:
     linear-gradient(180deg, #faf8f0 0%, #f7f4ec 42%, #f5f1e8 100%);
   color: $text-primary;
+  /* Contain any horizontal overflow from descendant sections (e.g. the
+     toolbar's negative-margin tab strip or hero glow halos) so the page
+     can't expose the body background on the right side. */
+  overflow-x: hidden;
 }
 
 .visually-hidden {
@@ -524,6 +528,129 @@
 .blog-toolbar__status-sep {
   color: rgba($text-primary, 0.35);
   margin-inline: 0.1rem;
+}
+
+/* ─── Mobile (<768px): proper toolbar layout ───────────────────────────
+   Desktop crams the FILTER label + many tabs + search + sort + counter
+   into two rows. On phones that produces an ugly 2-column tab grid with
+   the label hogging horizontal space. Mobile gets:
+     • Row 1: label above, tabs in a horizontal touch-scroll strip below
+     • Row 2: search bar full-width
+     • Row 3: sort + counter side-by-side
+*/
+@media (max-width: 767px) {
+  .blog-toolbar {
+    margin-top: -2.4rem;
+    padding-inline: 0.75rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .blog-toolbar__panel {
+    padding: 0.9rem;
+    border-color: rgba($text-primary, 0.12);
+    background: #fffdf7;
+    overflow-x: hidden;
+  }
+
+  .blog-toolbar__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+  }
+
+  .blog-toolbar__row + .blog-toolbar__row {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+
+  .blog-toolbar__label {
+    gap: 0.45rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.15em;
+  }
+
+  .blog-toolbar__divider {
+    display: none;
+  }
+
+  /* Tabs: horizontal touch-scroll strip — no wrap, no awkward grid. */
+  .blog-toolbar__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 -0.9rem;
+    padding: 0.05rem 0.9rem 0.15rem;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.45rem;
+    scroll-snap-type: x proximity;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .blog-toolbar__tab {
+    min-height: 2.35rem;
+    padding: 0.52rem 0.7rem;
+    font-size: 0.76rem;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .blog-toolbar__tab-count {
+    padding: 0.12rem 0.32rem;
+    font-size: 0.58rem;
+  }
+
+  /* Secondary row: stack search full-width, then sort + status row below. */
+  .blog-toolbar__row--secondary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+  }
+
+  .blog-toolbar__search {
+    grid-column: 1 / -1;
+    flex: 1 1 auto;
+    min-height: 2.75rem;
+    padding: 0.58rem 0.75rem;
+
+    input { font-size: 0.9rem; }
+  }
+
+  .blog-toolbar__sort,
+  .blog-toolbar__status {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .blog-toolbar__sort-trigger,
+  .blog-toolbar__status {
+    width: 100%;
+    min-width: 0;
+    min-height: 2.75rem;
+    padding-inline: 0.75rem;
+    font-size: 0.74rem;
+  }
+
+  .blog-toolbar__sort-trigger {
+    justify-content: center;
+    gap: 0.42rem;
+  }
+
+  .blog-toolbar__sort-hint {
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+  }
+
+  .blog-toolbar__status {
+    gap: 0.4rem;
+  }
+
+  .blog-toolbar__status-dot {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 @keyframes blog-toolbar-drift {
