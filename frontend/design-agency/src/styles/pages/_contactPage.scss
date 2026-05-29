@@ -3,7 +3,7 @@
 @use '../abstracts/breakpoints' as *;
 
 .contact-page {
-  background: linear-gradient(180deg, #fff4e7 0%, #ffe7cf 50%, #fff4e7 100%);
+  background: linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 50%, #FFF4EB 100%);
   color: $text-primary;
 }
 
@@ -376,7 +376,7 @@
   background:
     radial-gradient(circle at 15% 80%, rgba($brand-orange, 0.24), transparent 40%),
     radial-gradient(circle at 85% 14%, rgba($accent-yellow, 0.12), transparent 44%),
-    linear-gradient(120deg, #020202 0%, #0a0d12 55%, #000 100%);
+    linear-gradient(120deg, #720D28 0%, #5A0A20 55%, #720D28 100%);
   color: $white;
 
   @include respond-up(md) {
@@ -400,7 +400,7 @@
   width: 1px;
   height: 100%;
   overflow: hidden;
-  background: rgba(#ff6a00, 0.2);
+  background: rgba(#720D28, 0.2);
 }
 
 .contact-hero__line-inner {
@@ -409,7 +409,7 @@
   right: 0;
   bottom: 0;
   height: 10%;
-  background-image: linear-gradient(#ff6a00, rgba(0, 255, 255, 0));
+  background-image: linear-gradient(#720D28, rgba(114, 13, 40, 0));
   animation: contact-hero-grid 3s linear infinite;
   opacity: 0.4;
 }
@@ -593,7 +593,7 @@
   padding: 1.25rem 1.1rem 1.35rem;
   border: 1px solid rgba($text-primary, 0.14);
   background:
-    linear-gradient(180deg, #fff9ee 0%, #fff4e1 100%);
+    linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 100%);
   color: $text-primary;
 
   @include respond-up(md) {
@@ -698,7 +698,7 @@ body:has(.contact-flow) .footer__back-to-top {
   padding: 0.9rem;
   border: 1px solid rgba($text-primary, 0.14);
   background:
-    linear-gradient(135deg, #ffffff, #fff6e6);
+    linear-gradient(135deg, #FFF4EB, #FFF4EB);
   box-shadow:
     inset 0 1px 0 rgba($white, 0.7),
     0 1px 2px rgba($text-primary, 0.06),
@@ -1046,7 +1046,7 @@ body:has(.contact-flow) .footer__back-to-top {
 
     &:hover,
     &:focus {
-      background-color: #fbf8f2;
+      background-color: #FFF4EB;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 0.9rem center;
@@ -1169,7 +1169,7 @@ body:has(.contact-flow) .footer__back-to-top {
   border: 1px solid rgba($text-primary, 0.9);
   border-radius: 0;
   background: $brand-orange;
-  color: #14100c;
+  color: #0F0F0F;
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -1187,7 +1187,7 @@ body:has(.contact-flow) .footer__back-to-top {
     border-color: $text-primary;
     background: $brand-orange-hover;
     box-shadow: 3px 3px 0 rgba($text-primary, 0.85);
-    color: #fffaf2;
+    color: #FFF4EB;
     transform: translateY(-1px);
 
     svg {
@@ -1292,7 +1292,7 @@ body:has(.contact-flow) .footer__back-to-top {
   border: 1px solid rgba($text-primary, 0.14);
   background:
     radial-gradient(circle at 100% 0%, rgba($brand-orange, 0.18), transparent 45%),
-    linear-gradient(180deg, #fff5e4 0%, #fff0d4 100%);
+    linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 100%);
   color: $text-primary;
 
   &::before {
@@ -1537,7 +1537,7 @@ body:has(.contact-flow) .footer__back-to-top {
   padding: 0.9rem 0.95rem 0.95rem;
   border: 1px solid rgba($text-primary, 0.88);
   background:
-    linear-gradient(180deg, #0e1014 0%, #08090c 100%);
+    linear-gradient(180deg, #0F0F0F 0%, #0F0F0F 100%);
   color: $white;
 
   &::before {
@@ -1920,20 +1920,17 @@ body:has(.contact-flow) .footer__back-to-top {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 15% 0%, rgba(#fff, 0.22), transparent 50%),
-    radial-gradient(ellipse at 100% 100%, rgba(#b73a00, 0.38), transparent 55%),
-    linear-gradient(135deg, lighten($brand-orange, 6%) 0%, $brand-orange 55%, darken($brand-orange, 10%) 100%);
-  color: $text-primary;
-  border-top: 1px solid rgba($text-primary, 0.12);
+  background: #720D28;
+  color: #FFF4EB;
+  border-top: 1px solid rgba(#FFF4EB, 0.12);
 
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba($text-primary, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba($text-primary, 0.05) 1px, transparent 1px);
+      linear-gradient(rgba(#FFF4EB, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(#FFF4EB, 0.05) 1px, transparent 1px);
     background-size: 42px 42px;
     mask-image: radial-gradient(ellipse at center, #000 25%, transparent 72%);
     pointer-events: none;
@@ -1982,7 +1979,7 @@ body:has(.contact-flow) .footer__back-to-top {
   align-items: center;
   gap: 0.55rem;
   margin: 0 0 0.75rem;
-  color: rgba($text-primary, 0.96);
+  color: rgba(#FFF4EB, 0.96);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -1992,7 +1989,7 @@ body:has(.contact-flow) .footer__back-to-top {
   &::before {
     width: 1.5rem;
     height: 1px;
-    background: rgba($text-primary, 0.4);
+    background: rgba(#FFF4EB, 0.4);
     content: '';
   }
 
@@ -2001,12 +1998,12 @@ body:has(.contact-flow) .footer__back-to-top {
     align-items: center;
     gap: 0.35rem;
     padding: 0.24rem 0.5rem;
-    background: linear-gradient(135deg, #ffe79a 0%, #ffd469 44%, #ffb728 100%);
-    color: rgba($text-primary, 0.96);
-    box-shadow: 0 1px 0 rgba($text-primary, 0.14);
+    background: #D8AA68;
+    color: #0F0F0F;
+    box-shadow: 0 1px 0 rgba(#0F0F0F, 0.14);
 
     svg {
-      color: rgba($text-primary, 0.78);
+      color: rgba(#0F0F0F, 0.78);
     }
   }
 }
@@ -2015,7 +2012,7 @@ body:has(.contact-flow) .footer__back-to-top {
   position: relative;
   z-index: 1;
   margin: 0;
-  color: $text-primary;
+  color: #FFF4EB;
   font-size: 1.65rem;
   font-weight: 800;
   line-height: 1;
@@ -2023,7 +2020,7 @@ body:has(.contact-flow) .footer__back-to-top {
   text-wrap: balance;
 
   span {
-    color: #fefff5;
+    color: #ED743B;
     font-weight: 800;
   }
 
@@ -2035,7 +2032,7 @@ body:has(.contact-flow) .footer__back-to-top {
 .contact-faq__lede {
   margin: 0.7rem 0 0;
   max-width: 440px;
-  color: rgba($text-primary, 0.85);
+  color: rgba(#FFF4EB, 0.78);
   font-size: 0.92rem;
   font-weight: 500;
   line-height: 1.5;
@@ -2058,9 +2055,9 @@ body:has(.contact-flow) .footer__back-to-top {
     align-items: center;
     gap: 0.55rem;
     padding: 0.4rem 0.85rem 0.4rem 0.45rem;
-    border: 1px solid rgba($text-primary, 0.22);
-    background: rgba($white, 0.22);
-    color: rgba($text-primary, 0.92);
+    border: 1px solid rgba(#FFF4EB, 0.22);
+    background: rgba(#FFF4EB, 0.08);
+    color: rgba(#FFF4EB, 0.92);
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -2068,10 +2065,10 @@ body:has(.contact-flow) .footer__back-to-top {
     transition: background 220ms ease, border-color 220ms ease, transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms ease;
 
     &:hover {
-      background: rgba($white, 0.45);
-      border-color: rgba($text-primary, 0.45);
+      background: rgba(#FFF4EB, 0.16);
+      border-color: rgba(#FFF4EB, 0.45);
       transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba($text-primary, 0.12);
+      box-shadow: 0 8px 18px rgba(#000, 0.18);
 
       .contact-faq__perk-icon {
         transform: rotate(-6deg) scale(1.08);
@@ -2087,8 +2084,8 @@ body:has(.contact-flow) .footer__back-to-top {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.35rem;
-  background: $text-primary;
-  color: $accent-yellow;
+  background: #FFF4EB;
+  color: #720D28;
   transition: background 220ms ease, color 220ms ease, transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
 
   svg {
@@ -2137,22 +2134,22 @@ $faq-step-size: 2.3rem;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba($text-primary, 0.28);
+  background: rgba(#FFF4EB, 0.28);
   cursor: pointer;
   transition: background 0.3s ease, width 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
 
   &:hover {
-    background: rgba($text-primary, 0.55);
+    background: rgba(#FFF4EB, 0.55);
   }
 
   &.is-active {
     width: 22px;
     border-radius: 999px;
-    background: $text-primary;
+    background: #ED743B;
   }
 
   &:focus-visible {
-    outline: 2px solid $text-primary;
+    outline: 2px solid #FFF4EB;
     outline-offset: 3px;
   }
 }
@@ -2226,7 +2223,7 @@ $faq-step-size: 2.3rem;
   width: 100%;
   max-width: 34rem;
   margin: 0;
-  color: $text-primary;
+  color: #FFF4EB;
   font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -2243,7 +2240,7 @@ $faq-step-size: 2.3rem;
   width: 100%;
   max-width: 34rem;
   margin: 0;
-  color: rgba($text-primary, 0.78);
+  color: rgba(#FFF4EB, 0.78);
   font-size: 0.94rem;
   font-weight: 500;
   line-height: 1.58;
@@ -2259,7 +2256,7 @@ $faq-step-size: 2.3rem;
   align-items: center;
   justify-content: flex-start;
   margin: 0 0 0.8rem;
-  color: $white;
+  color: #ED743B;
   background: transparent;
   border: 0;
   padding: 0;

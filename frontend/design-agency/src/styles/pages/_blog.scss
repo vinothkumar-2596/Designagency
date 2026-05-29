@@ -8,7 +8,7 @@
      page background fills the viewport instead of the footer peeking up. */
   min-height: 100vh;
   background:
-    linear-gradient(180deg, #faf8f0 0%, #f7f4ec 42%, #f5f1e8 100%);
+    linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 42%, #FFF4EB 100%);
   color: $text-primary;
   /* Contain any horizontal overflow from descendant sections (e.g. the
      toolbar's negative-margin tab strip or hero glow halos) so the page
@@ -36,7 +36,7 @@
   background:
     radial-gradient(circle at 18% 80%, rgba($brand-orange, 0.22), transparent 38%),
     radial-gradient(circle at 85% 10%, rgba($accent-yellow, 0.1), transparent 40%),
-    linear-gradient(120deg, #020202 0%, #0a0d12 55%, #000 100%);
+    linear-gradient(180deg, #720D28, #5A0A20);
   color: $white;
 
   @include respond-up(md) {
@@ -193,7 +193,7 @@
   padding: 1.1rem 1.1rem;
   border: 1px solid rgba($text-primary, 0.16);
   border-radius: 0;
-  background: #fbf8f2;
+  background: #FFF4EB;
   color: $text-primary;
 
   @include respond-up(md) {
@@ -279,7 +279,7 @@
   transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 
   &:hover {
-    background: #f4efe6;
+    background: #FFF4EB;
     border-color: rgba($text-primary, 0.24);
     color: $text-primary;
 
@@ -290,17 +290,17 @@
   }
 
   &.is-active {
-    color: $text-primary;
+    color: #FFF4EB;
     background: $brand-orange;
     border-color: $brand-orange;
 
     .blog-toolbar__tab-dot {
-      background: $text-primary;
+      background: #FFF4EB;
     }
 
     .blog-toolbar__tab-count {
       color: $text-primary;
-      background: rgba($white, 0.72);
+      background: #FFF4EB;
     }
   }
 }
@@ -325,7 +325,7 @@
   color: $text-primary;
   padding: 0.15rem 0.38rem;
   border-radius: 0;
-  background: #f1ede5;
+  background: #FFF4EB;
   transition: color 180ms ease, background 180ms ease;
 }
 
@@ -390,7 +390,7 @@
   width: 1.7rem;
   height: 1.7rem;
   border-radius: 0;
-  background: #f1ede5;
+  background: #FFF4EB;
   color: $text-primary;
   transition: background 160ms ease, color 160ms ease;
   flex-shrink: 0;
@@ -426,7 +426,7 @@
   transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
 
   &:hover {
-    background: #f4efe6;
+    background: #FFF4EB;
     border-color: rgba($text-primary, 0.24);
     color: $text-primary;
   }
@@ -504,7 +504,7 @@
   padding: 0.7rem 0.95rem;
   border: 1px solid rgba($text-primary, 0.14);
   border-radius: 0;
-  background: #fcfaf5;
+  background: #FFF4EB;
   color: $text-primary;
   font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
   font-size: 0.72rem;
@@ -548,7 +548,7 @@
   .blog-toolbar__panel {
     padding: 0.9rem;
     border-color: rgba($text-primary, 0.12);
-    background: #fffdf7;
+    background: #FFF4EB;
     overflow-x: hidden;
   }
 
@@ -774,7 +774,7 @@
   aspect-ratio: 16 / 10.5;
   background:
     linear-gradient(135deg, rgba($text-primary, 0.05), transparent),
-    #f4f4f2;
+    #FFF4EB;
   border-bottom: 1px solid rgba($text-primary, 0.22);
 
   &::after {
@@ -809,7 +809,7 @@
 .blog-featured__media-fallback {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, $brand-orange-light, #f2f1ec);
+  background: linear-gradient(135deg, $brand-orange-light, #FFF4EB);
 }
 
 .blog-featured__flag {
@@ -953,7 +953,7 @@
   align-items: center;
   padding: 0.42rem 0.7rem;
   border-radius: 999px;
-  background: #fff2e8;
+  background: #FFF4EB;
   color: $brand-orange-hover;
   font-size: 0.68rem;
   font-weight: 800;
@@ -1333,7 +1333,7 @@
   display: block;
   overflow: hidden;
   aspect-ratio: 16 / 11;
-  background: #ece8dd;
+  background: #FFF4EB;
   text-decoration: none;
 
   img {
@@ -1353,7 +1353,7 @@
 .blog-spotlight__media-fallback {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, $brand-orange-light, #f2f1ec);
+  background: linear-gradient(135deg, $brand-orange-light, #FFF4EB);
 }
 
 .blog-spotlight__badge {
@@ -1496,7 +1496,7 @@
   display: block;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  background: #e7e1d6;
+  background: #FFF4EB;
 
   img {
     width: 100%;
@@ -1510,7 +1510,7 @@
 .blog-card__media-fallback {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, $brand-orange-light, #f2f1ec);
+  background: linear-gradient(135deg, $brand-orange-light, #FFF4EB);
 }
 
 .blog-card__category {
@@ -1643,7 +1643,7 @@
   background:
     radial-gradient(circle at 12% 22%, rgba($brand-orange, 0.22), transparent 46%),
     radial-gradient(circle at 92% 82%, rgba($accent-yellow, 0.18), transparent 50%),
-    linear-gradient(140deg, #fff4e7 0%, #ffe7cf 52%, #fff4e7 100%);
+    linear-gradient(140deg, #FFF4EB 0%, #FFF4EB 52%, #FFF4EB 100%);
 
   @include respond-up(md) {
     padding-block: 6rem 7rem;
@@ -1917,7 +1917,7 @@
   display: block;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  background: #f3ecdf;
+  background: #FFF4EB;
   border: 1px solid rgba($text-primary, 0.08);
   transition: transform 260ms ease;
 
@@ -1964,7 +1964,7 @@
 .blog-picks__media-fallback {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, $brand-orange-light, #f2f1ec);
+  background: linear-gradient(135deg, $brand-orange-light, #FFF4EB);
 }
 
 /* ---- Pencil-sketch decorations ---- */
@@ -2197,7 +2197,7 @@
     display: inline-flex;
     align-items: center;
     padding: 0.22rem 0.42rem;
-    background: linear-gradient(135deg, #ffe79a 0%, #ffd469 44%, #ffb728 100%);
+    background: linear-gradient(135deg, #D8AA68 0%, #D8AA68 44%, #D8AA68 100%);
     color: rgba($text-primary, 0.96);
     box-shadow: 0 1px 0 rgba($text-primary, 0.12);
   }
@@ -2207,7 +2207,7 @@
   position: relative;
   z-index: 1;
   margin: 0;
-  color: $text-primary;
+  color: #FFEDD4;
   font-size: 2.05rem;
   font-weight: 800;
   line-height: 0.96;
@@ -2215,7 +2215,7 @@
   text-wrap: balance;
 
   span {
-    color: #fefff5;
+    color: $white;
     font-weight: 800;
   }
 
@@ -2227,7 +2227,7 @@
 .blog-newsletter__lede {
   margin: 1.1rem 0 0;
   max-width: 460px;
-  color: rgba($text-primary, 0.88);
+  color: rgba(#FFEDD4, 0.82);
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.55;
@@ -2278,7 +2278,7 @@
   padding: 0.9rem 1.5rem;
   border: 0;
   border-radius: 0;
-  background: #eed75e;
+  background: #D8AA68;
   color: $text-primary;
   font-size: 0.92rem;
   font-weight: 800;
@@ -2292,7 +2292,7 @@
   }
 
   &:hover {
-    background: #eed75e;
+    background: #D8AA68;
     color: $text-primary;
     transform: translate(-2px, -2px);
     box-shadow: 4px 4px 0 $text-primary;

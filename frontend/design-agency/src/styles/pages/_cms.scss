@@ -254,9 +254,9 @@
   padding-block: 3.5rem 3rem;
   border-bottom: 1px solid rgba($white, 0.08);
   background:
-    radial-gradient(circle at 18% 80%, rgba($brand-orange, 0.22), transparent 38%),
-    radial-gradient(circle at 85% 10%, rgba($accent-yellow, 0.1), transparent 40%),
-    linear-gradient(120deg, #020202 0%, #0a0d12 55%, #000 100%);
+    radial-gradient(circle at 18% 80%, rgba(#ed743b, 0.18), transparent 38%),
+    radial-gradient(circle at 85% 10%, rgba(#ebbd80, 0.08), transparent 40%),
+    #720d28;
   color: $white;
 
   @include respond-up(md) {
@@ -280,15 +280,15 @@
   width: 1px;
   height: 100%;
   overflow: hidden;
-  background-color: rgba($brand-orange, 0.18);
+  background-color: rgba(#ed743b, 0.22);
 }
 
 .case-hero__grid-pulse {
   position: absolute;
   inset: auto 0 0 0;
   height: 12%;
-  background-image: linear-gradient($brand-orange, rgba($brand-orange, 0));
-  opacity: 0.45;
+  background-image: linear-gradient(#ed743b, rgba(#ed743b, 0));
+  opacity: 0.5;
   animation: case-grid-pulse 3.6s linear infinite;
 }
 
@@ -356,15 +356,15 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: $brand-orange;
-  box-shadow: 0 0 10px rgba($brand-orange, 0.6);
+  background: #ed743b;
+  box-shadow: 0 0 10px rgba(#ed743b, 0.6);
 
   &::after {
     content: '';
     position: absolute;
     inset: -4px;
     border-radius: 50%;
-    border: 1px solid rgba($brand-orange, 0.5);
+    border: 1px solid rgba(#ed743b, 0.5);
     animation: case-hero-pulse 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   }
 }
@@ -381,7 +381,7 @@
 .case-hero__title {
   max-width: 24ch;
   margin: 0;
-  color: $white;
+  color: #FFF4EB;
   font-size: clamp(2.1rem, 4.8vw, 4rem);
   font-weight: 600;
   line-height: 1.04;
@@ -389,7 +389,7 @@
   text-wrap: balance;
 
   em {
-    color: $accent-yellow;
+    color: #ebbd80;
     font-style: normal;
     font-weight: 500;
   }
@@ -497,8 +497,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: $brand-orange;
-  box-shadow: 0 0 8px rgba($brand-orange, 0.6);
+  background: #ed743b;
+  box-shadow: 0 0 8px rgba(#ed743b, 0.6);
 }
 
 .case-hero__showcase-count {
@@ -513,7 +513,7 @@
   }
 
   strong {
-    color: $accent-yellow;
+    color: #ebbd80;
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: -0.01em;
@@ -546,7 +546,7 @@
   }
 
   svg {
-    color: $brand-orange;
+    color: #ed743b;
     animation: case-hero-hint 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   }
 }
@@ -590,9 +590,9 @@
     left: 0;
     background: linear-gradient(
       90deg,
-      #000 0%,
-      rgba(0, 0, 0, 0.92) 35%,
-      rgba(0, 0, 0, 0) 100%
+      #720d28 0%,
+      rgba(#720d28, 0.92) 35%,
+      rgba(#720d28, 0) 100%
     );
   }
 
@@ -600,9 +600,9 @@
     right: 0;
     background: linear-gradient(
       270deg,
-      #000 0%,
-      rgba(0, 0, 0, 0.92) 35%,
-      rgba(0, 0, 0, 0) 100%
+      #720d28 0%,
+      rgba(#720d28, 0.92) 35%,
+      rgba(#720d28, 0) 100%
     );
   }
 
@@ -760,11 +760,11 @@
     }
 
     &::before { opacity: 0.55; }
-    &::after { box-shadow: inset 0 0 0 1px rgba($brand-orange, 0.55); }
+    &::after { box-shadow: inset 0 0 0 1px rgba(#ed743b, 0.55); }
 
     .case-hero__tile-marker {
-      background: rgba($brand-orange, 0.18);
-      border-color: $brand-orange;
+      background: rgba(#ed743b, 0.18);
+      border-color: #ed743b;
     }
   }
 }
@@ -779,9 +779,9 @@
   align-items: center;
   gap: 0.35rem;
   padding: 0.28rem 0.5rem;
-  border: 1px solid rgba($brand-orange, 0.55);
-  background: rgba(0, 0, 0, 0.55);
-  color: $brand-orange;
+  border: 1px solid rgba(#ed743b, 0.55);
+  background: rgba(#3a0614, 0.55);
+  color: #ed743b;
   font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
   font-size: 0.6rem;
   font-weight: 700;
@@ -796,8 +796,8 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: $brand-orange;
-  box-shadow: 0 0 6px rgba($brand-orange, 0.7);
+  background: #ed743b;
+  box-shadow: 0 0 6px rgba(#ed743b, 0.7);
 }
 
 /* Always-visible bottom caption */
@@ -827,7 +827,7 @@
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: $brand-orange;
+  color: #ed743b;
 }
 
 .case-hero__tile-title {

@@ -600,37 +600,44 @@ function Home() {
           </div>
 
           <div className="home-services__list" role="list">
-            {serviceHighlights.map((service, idx) => (
-              <Link
-                to={service.href}
-                key={service.title}
-                className="home-service"
-                role="listitem"
-                aria-label={`${service.title} — learn more`}
-              >
-                <span className="home-service__index" aria-hidden="true">
-                  / {String(idx + 1).padStart(2, '0')}
-                </span>
+            {[0, 1, 2].map((colIdx) => (
+              <div className="home-services__col" key={`col-${colIdx}`}>
+                {[serviceHighlights[colIdx], serviceHighlights[colIdx + 3]].map((service, rowIdx) => {
+                  const idx = colIdx + rowIdx * 3
+                  return (
+                    <Link
+                      to={service.href}
+                      key={service.title}
+                      className="home-service"
+                      role="listitem"
+                      aria-label={`${service.title} — learn more`}
+                    >
+                      <span className="home-service__index" aria-hidden="true">
+                        / {String(idx + 1).padStart(2, '0')}
+                      </span>
 
-                <span className="home-service__icon" aria-hidden="true">
-                  <service.icon strokeWidth={1.6} />
-                </span>
+                      <span className="home-service__icon" aria-hidden="true">
+                        <service.icon strokeWidth={1.6} />
+                      </span>
 
-                <h3>{service.title}</h3>
-                <p>{service.copy}</p>
+                      <h3>{service.title}</h3>
+                      <p>{service.copy}</p>
 
-                {service.chips ? (
-                  <ul className="home-service__chips" aria-hidden="true">
-                    {service.chips.map((chip) => (
-                      <li key={chip}>{chip}</li>
-                    ))}
-                  </ul>
-                ) : null}
+                      {service.chips ? (
+                        <ul className="home-service__chips" aria-hidden="true">
+                          {service.chips.map((chip) => (
+                            <li key={chip}>{chip}</li>
+                          ))}
+                        </ul>
+                      ) : null}
 
-                <span className="home-service__arrow" aria-hidden="true">
-                  <ArrowUpRight size={14} strokeWidth={2.2} />
-                </span>
-              </Link>
+                      <span className="home-service__arrow" aria-hidden="true">
+                        <ArrowUpRight size={14} strokeWidth={2.2} />
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
             ))}
           </div>
 

@@ -342,49 +342,46 @@
 
   @include respond-up(lg) {
     position: absolute;
-    top: 100%;
+    /* 0.6rem gap below the header bar so the dropdown floats clearly
+       instead of feeling glued to the menu — no more "glitch" jolt
+       when it pops in. The transparent ::before bridge preserves hover
+       continuity across the gap so the menu doesn't close mid-traverse. */
+    top: calc(100% + 0.6rem);
     left: 50%;
-  /* Reset the mobile collapse mechanics — desktop uses opacity/transform,
-     not max-height — so the absolute dropdown can render at its full size. */
-  max-height: none;
-  overflow: visible;
-  margin: 0;
-  /* Resting state: translated up a few px and faded out. The browser
-     pre-computes layout + paint at this state, so the first reveal is
-     a cheap transform/opacity tween instead of a fresh paint. */
-  transform: translateX(-50%) translateY(-6px);
-  display: flex;
-  flex-direction: column;
-  width: 21rem;
-  padding: 0.65rem;
-  border: 1px solid rgba($white, 0.14);
-  border-radius: 0;
-  background: linear-gradient(180deg, rgba(#151a22, 0.98), rgba(#07090d, 0.98));
-  box-shadow:
-    0 28px 70px rgba(#000, 0.5),
-    inset 0 1px 0 rgba($white, 0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 30;
-  /* Permanently promote to a compositor layer so backdrop-filter,
-     gradient, and box-shadow are ALREADY composited before the user
-     hovers — eliminates the first-open paint stutter. */
-  will-change: opacity, transform;
-  /* Visibility flips after the fade-out finishes so the menu doesn't
-     disappear mid-transition; opacity + transform animate normally. */
-  transition:
-    opacity   220ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 260ms;
+    max-height: none;
+    overflow: visible;
+    margin: 0;
+    transform: translateX(-50%) translateY(-6px);
+    display: flex;
+    flex-direction: column;
+    width: 21rem;
+    padding: 0.65rem;
+    border: 1px solid rgba($text-primary, 0.1);
+    border-radius: 0;
+    background: $bg-soft;
+    box-shadow:
+      0 24px 60px rgba(#000, 0.18),
+      inset 0 1px 0 rgba($white, 0.45);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 30;
+    will-change: opacity, transform;
+    transition:
+      opacity   220ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 260ms;
 
+    /* Transparent hover bridge spanning the visible gap so moving cursor
+       from the nav link into the dropdown doesn't lose hover. Sized to
+       the new gap (0.6rem) plus a little extra slack. */
     &::before {
       content: '';
       position: absolute;
-      inset: -0.7rem 0 auto;
-      height: 0.7rem;
+      inset: -0.9rem 0 auto;
+      height: 0.9rem;
       background: transparent;
     }
   }
@@ -401,9 +398,9 @@
   min-height: 3rem;
   padding: 0.75rem 0;
   border: 0;
-  border-bottom: 1px solid rgba($white, 0.07);
+  border-bottom: 1px solid rgba($text-primary, 0.08);
   border-radius: 0;
-  color: rgba($white, 0.78);
+  color: rgba($text-primary, 0.78);
   font-size: 0.95rem;
   font-weight: 650;
   letter-spacing: 0.01em;
@@ -439,12 +436,12 @@
 
   &:hover,
   &:focus-visible {
-    color: $white;
-    background: rgba($white, 0.04);
+    color: $text-primary;
+    background: rgba($accent-bronze, 0.06);
     outline: none;
 
     @include respond-up(lg) {
-      border-color: rgba($brand-orange, 0.16);
+      border-color: rgba($accent-bronze, 0.3);
     }
   }
 }
@@ -455,11 +452,11 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 0.65rem 0.7rem 0.85rem;
-  border-bottom: 1px solid rgba($white, 0.08);
+  border-bottom: 1px solid rgba($text-primary, 0.1);
   margin-bottom: 0.35rem;
 
   span {
-    color: $white;
+    color: $text-primary;
     font-size: 0.78rem;
     font-weight: 850;
     letter-spacing: 0.12em;
@@ -467,7 +464,7 @@
   }
 
   small {
-    color: rgba($white, 0.42);
+    color: rgba($text-primary, 0.5);
     font-size: 0.68rem;
     font-weight: 700;
   }
@@ -479,7 +476,7 @@
   place-items: center;
   width: 1.4rem;
   height: 1.4rem;
-  color: rgba($white, 0.55);
+  color: rgba($text-primary, 0.55);
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -489,20 +486,18 @@
 .site-header__nav-menu-copy {
   display: grid;
   gap: 0.22rem;
-  /* Take the available row width inside the flex/grid parent so the arrow
-     stays right-aligned and long descriptions wrap instead of overflowing. */
   flex: 1 1 0;
   min-width: 0;
 
   strong {
-    color: rgba($white, 0.9);
+    color: $text-primary;
     font-size: 0.92rem;
     font-weight: 780;
     line-height: 1.15;
   }
 
   small {
-    color: rgba($white, 0.48);
+    color: rgba($text-primary, 0.6);
     font-size: 0.78rem;
     font-weight: 650;
     line-height: 1.2;
@@ -516,7 +511,7 @@
 
 .site-header__nav-menu-arrow {
   flex: 0 0 auto;
-  color: rgba($white, 0.34);
+  color: rgba($text-primary, 0.4);
   /* Mobile: always visible — no hover state on touch. */
   opacity: 0.5;
   transform: none;
@@ -533,12 +528,12 @@
 
 .site-header__nav-menu-link:hover .site-header__nav-menu-icon,
 .site-header__nav-menu-link:focus-visible .site-header__nav-menu-icon {
-  color: $brand-orange;
+  color: $accent-bronze;
 }
 
 .site-header__nav-menu-link:hover .site-header__nav-menu-arrow,
 .site-header__nav-menu-link:focus-visible .site-header__nav-menu-arrow {
-  color: $brand-orange;
+  color: $accent-bronze;
   opacity: 1;
   transform: translate(0, 0);
 }
@@ -561,8 +556,8 @@
   margin-top: auto;
   padding: 1rem 1.45rem;
   border-radius: 0;
-  background: $brand-orange;
-  color: #0a0a0a;
+  background: #83551f;
+  color: $white;
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -573,7 +568,7 @@
   }
 
   &:hover {
-    background: $brand-orange-hover;
+    background: #946327;
     color: $white;
 
     span {
@@ -662,8 +657,8 @@
     &:hover,
     &:focus-visible {
       transform: none;
-      background: rgba(255, 106, 0, 0.08);
-      border-color: rgba(255, 106, 0, 0.35);
+      background: rgba($accent-yellow, 0.08);
+      border-color: rgba($accent-yellow, 0.35);
     }
   }
 

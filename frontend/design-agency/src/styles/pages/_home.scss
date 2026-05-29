@@ -1,4 +1,4 @@
-@use '../abstracts/variables' as *;
+﻿@use '../abstracts/variables' as *;
 @use '../abstracts/mixins' as *;
 @use '../abstracts/breakpoints' as *;
 
@@ -18,12 +18,12 @@
   width: 100%;
   margin-inline: auto;
   overflow: visible;
-  border-bottom: 1px solid rgba($white, 0.12);
+  border-bottom: 0;
   background:
     radial-gradient(circle at 12% 78%, rgba($brand-orange, 0.16), transparent 34%),
-    linear-gradient(116deg, #020202 0%, #0a0d12 52%, #000 100%);
+    linear-gradient(116deg, #7a0c2a 0%, #870f32 52%, #6d0925 100%);
   color: $white;
-  /* Mobile + tablet: vertical stack — content, then phone in flow, then
+  /* Mobile + tablet: vertical stack â€” content, then phone in flow, then
      services strip. Desktop pulls .home-hero__visual and .services-strip
      out of flow with absolute positioning. */
   display: flex;
@@ -40,18 +40,18 @@
        cream area a slightly warmer shade than the why-section below. */
     background: linear-gradient(
       to bottom,
-      #020202 0%,
-      #0a0d12 45%,
-      #000 calc(100% - 80px),
+      #7a0c2a 0%,
+      #870f32 45%,
+      #6d0925 calc(100% - 80px),
       #fefff5 calc(100% - 80px)
     );
   }
 
   /* Mobile + tablet (<1024px): single-column flow. The phone visual sits
      INSIDE the document flow below the content, so the hero's natural
-     height is determined by its children — no min-height needed. */
+     height is determined by its children â€” no min-height needed. */
 
-  /* Desktop (≥1024px): two-column layout. The phone visual is absolutely
+  /* Desktop (â‰¥1024px): two-column layout. The phone visual is absolutely
      positioned (see .home-hero__visual) so it can extend slightly outside
      its column for the premium "jutting" effect. min-height reserves space
      for that absolute visual + the services strip overlay below. */
@@ -68,6 +68,11 @@
 
   @media (min-width: 2400px) {
     min-height: 822px;
+  }
+
+  /* User's 30.6" display: hero 25% taller than the 2400+ baseline. */
+  @media (min-width: 2400px) and (max-width: 2700px) {
+    min-height: 1028px;
   }
 }
 
@@ -109,7 +114,7 @@
   width: 1px;
   height: 100%;
   overflow: hidden;
-  background-color: rgba(#ff6a00, 0.2);
+  background-color: rgba($white, 0.08);
   opacity: 0.8;
   transition: transform 2.5s;
 }
@@ -120,7 +125,7 @@
   bottom: 0;
   left: 0;
   height: 10%;
-  background-image: linear-gradient(#ff6a00, rgba(0, 255, 255, 0));
+  background-image: linear-gradient(rgba($accent-yellow, 0.52), rgba($accent-yellow, 0));
   animation: gridAnimation 3s linear infinite;
   opacity: 0.4;
 }
@@ -326,7 +331,7 @@
   max-width: 1300px;
   margin-inline: auto;
   /* Mobile: 24px horizontal padding per spec. Bottom padding trimmed so the
-     phone visual (next sibling, in-flow) sits close to the stats — its own
+     phone visual (next sibling, in-flow) sits close to the stats â€” its own
      margin-top controls the gap. */
   padding-inline: 1.5rem;
   padding-block: 1.75rem 0;
@@ -351,7 +356,7 @@
     gap: 1.5rem;
   }
 
-  /* Desktop (≥1024px): restore the staged baseline — full-width content
+  /* Desktop (â‰¥1024px): restore the staged baseline â€” full-width content
      column with align-items:start. The visual overlap is handled by the
      scale(0.9) hack on .home-hero__content (applied only at this breakpoint
      so tablet's single-column flow layout stays intact). */
@@ -360,6 +365,12 @@
     align-items: start;
     gap: 3rem;
     padding-block: 3.5rem 3.5rem;
+  }
+
+  /* User's 30.6" display: push the hero content down 22% of the section
+     height (~226px on a 1028px hero) to balance the taller section. */
+  @media (min-width: 2400px) and (max-width: 2700px) {
+    padding-block-start: 226px;
   }
 }
 
@@ -370,7 +381,7 @@
 
   /* Desktop only: reduce the hero content by 10% overall so the headline,
      eyebrow, CTA, and stats sit comfortably alongside the absolutely-positioned
-     phone visual. Restricted to ≥1024px — applying it at tablet (768–1023)
+     phone visual. Restricted to â‰¥1024px â€” applying it at tablet (768â€“1023)
      would cause horizontal overflow because tablet uses the single-column
      in-flow layout where the scale + width-compensation breaks. */
   @media (min-width: 1024px) {
@@ -382,7 +393,7 @@
   h1 {
     margin: 0.75rem 0 0;
     color: $white;
-    /* Mobile: ~34px–48px per spec. */
+    /* Mobile: ~34pxâ€“48px per spec. */
     font-size: clamp(2.125rem, 8vw, 3rem);
     font-weight: 600;
     line-height: 1.08;
@@ -398,7 +409,7 @@
     }
 
     .home-hero__accent {
-      color: $brand-orange;
+      color: $accent-yellow;
       font-weight: 600;
     }
 
@@ -413,14 +424,14 @@
       text-shadow: none;
     }
 
-    /* Tablet / iPad (768–1023px): controlled, never exceeds container. */
+    /* Tablet / iPad (768â€“1023px): controlled, never exceeds container. */
     @include respond-up(md) {
       font-size: clamp(2.5rem, 5.6vw, 3.5rem);
       line-height: 1.07;
       letter-spacing: -0.024em;
     }
 
-    /* Desktop (≥1024px): staged "premium" headline — fixed 4.275rem with
+    /* Desktop (â‰¥1024px): staged "premium" headline â€” fixed 4.275rem with
        text-wrap:pretty so the phrase fills the full content width and wraps
        naturally (the manual <br /> breaks restore the cinematic stack). */
     @media (min-width: 1024px) {
@@ -490,7 +501,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   /* Mobile: tighter inter-column gap, slimmer top margin, smaller top
-     padding above the divider — keeps the stats compact next to the phone. */
+     padding above the divider â€” keeps the stats compact next to the phone. */
   gap: 0.7rem;
   margin: 1.75rem 0 0;
   padding: 0.9rem 0 0;
@@ -546,7 +557,7 @@
     span {
       display: inline-flex;
       align-items: center;
-      color: $brand-orange;
+      color: $accent-yellow;
       font-weight: 600;
 
       svg {
@@ -640,6 +651,17 @@
   @include respond-up(md) {
     margin-top: 2.25rem;
   }
+
+  .button {
+    background: #f27436;
+    color: $text-primary;
+    box-shadow: 0 18px 38px rgba($text-primary, 0.14);
+
+    &:hover {
+      background: #ff7a3d;
+      color: $text-primary;
+    }
+  }
 }
 
 .home-hero__visual {
@@ -649,16 +671,17 @@
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  /* Tight 20px gap to the stats above — premium rhythm, no dead space. */
+  /* Tight 20px gap to the stats above â€” premium rhythm, no dead space. */
   margin-top: 1.25rem;
   margin-bottom: 0;
   padding-inline: 1.5rem;
   pointer-events: none;
   overflow: visible;
 
+
   /* Mobile + tablet (<1024px): 2500px of dark "footer" space below the
-     phone+hands before the cream section begins (50× the previous 50px).
-     Applies to BOTH mobile and tablet — anything narrower than the desktop
+     phone+hands before the cream section begins (50Ã— the previous 50px).
+     Applies to BOTH mobile and tablet â€” anything narrower than the desktop
      two-column layout. No cream overlap. */
   @media (max-width: 1023px) {
     margin-top: 1.5rem;
@@ -671,13 +694,13 @@
     padding-inline: 2rem;
   }
 
-  /* Desktop (≥1024px): switch to absolute positioning so the phone anchors
+  /* Desktop (â‰¥1024px): switch to absolute positioning so the phone anchors
      to the bottom of the hero and can extend slightly outside its column
      for the premium "jutting" cinematic feel. Horizontal overflow is
      contained by .home-page { overflow-x: clip }. */
   @media (min-width: 1024px) {
     position: absolute;
-    inset: auto 0 0 0;
+    inset: auto 0 60px 0;
     z-index: 9999;
     height: 730px;
     margin: 0;
@@ -698,7 +721,7 @@
     height: 780px;
   }
 
-  /* Above 24" — shrink so the phone doesn't overflow into the services strip. */
+  /* Above 24" â€” shrink so the phone doesn't overflow into the services strip. */
   @media (min-width: 2000px) {
     width: 1600px;
     height: 700px;
@@ -712,15 +735,15 @@
 
 .home-hero__mockup {
   /* Single wrapper that holds the phone+hands as ONE composition. The PNG
-     is a single image — never position the phone separately from the hands.
+     is a single image â€” never position the phone separately from the hands.
      Everything inside (glow, ring, img) scales / positions with this wrapper. */
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   isolation: isolate;
-  /* Mobile defaults — single wrapper, full-width (capped at 480px for very
-     wide phones), centered, natural aspect of the source PNG (2124×2083)
+  /* Mobile defaults â€” single wrapper, full-width (capped at 480px for very
+     wide phones), centered, natural aspect of the source PNG (2124Ã—2083)
      so the image fills the wrapper edge-to-edge with no letterbox and the
      hands+phone stay locked as one composition. The visual's negative
      margin-bottom (above) extends the lower hand/wrist portion onto the
@@ -738,50 +761,74 @@
     height: 100%;
     object-fit: contain;
     /* Wrapper aspect matches image aspect (2124:2083) on mobile/tablet so
-       there is no letterbox space — object-position is effectively a no-op
+       there is no letterbox space â€” object-position is effectively a no-op
        at those sizes. center bottom is retained for desktop where the
        absolute visual container has its own explicit height. */
     object-position: center bottom;
-    filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.275))
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2))
       drop-shadow(0 0 24px rgba($brand-orange, 0.09));
   }
 
-  /* Tablet / iPad: phone slightly larger but capped — never spans the row. */
+  /* Tablet / iPad: phone slightly larger but capped â€” never spans the row. */
   @include respond-up(md) {
     width: clamp(280px, 50%, 420px);
     max-width: none;
     aspect-ratio: 2124 / 2083;
   }
 
-  /* Desktop (≥1024px): mockup fills the absolute visual container; a
+  /* Desktop (â‰¥1024px): mockup fills the absolute visual container; a
      controlled translate biases the phone toward the right portion of the
      hero. Page-wrapper overflow-x:clip contains any jut past the viewport. */
   @media (min-width: 1024px) {
     width: min(100%, 1800px);
     height: 100%;
     aspect-ratio: auto;
-    transform: translate(25%, 12.3%);
+    transform: translate(25%, 0);
   }
 
   /* At 1440px+ the visual container is capped + right-aligned, so the
      mockup needs less translate-x to land inside its container. */
   @media (min-width: 1440px) {
     width: 100%;
-    transform: translate(18%, 12.3%);
+    transform: translate(18%, 0);
   }
 
   @media (min-width: 1700px) {
-    transform: translate(15%, 12.3%);
+    transform: translate(15%, 0);
   }
 
-  /* Above 24" — pull the phone up so it doesn't overflow into the
+  /* Above 24" â€” pull the phone up so it doesn't overflow into the
      services strip below the hero. */
   @media (min-width: 2000px) {
-    transform: translate(12%, 4%);
+    transform: translate(12%, 0);
   }
 
   @media (min-width: 2400px) {
-    transform: translate(10%, 2%);
+    transform: translate(10%, 0);
+  }
+
+  /* User's 30.6" display (~2559px viewport): nudge the phone+hands down by
+     25% of the mockup height to settle it lower in the section. Scoped to
+     this device range only so wider monitors keep the existing alignment. */
+  @media (min-width: 2400px) and (max-width: 2700px) {
+    transform: translate(10%, 20.5%);
+  }
+}
+
+/* Large laptop / 30-inch display widths: keep the cinematic oversized crop
+   from the reference while leaving wider 27-inch monitor rules untouched. */
+@media (min-width: 1024px) and (max-width: 1699px) {
+  .home-hero__visual {
+    height: clamp(940px, 78vw, 1080px);
+  }
+
+  .home-hero__mockup {
+    transform: translate(0, 5%);
+  }
+
+  .home-hero__mockup img {
+    object-fit: cover;
+    object-position: center bottom;
   }
 }
 
@@ -875,7 +922,7 @@
 }
 
 /* ============================================================
-   HERO MOCKUP — floating UI chips
+   HERO MOCKUP â€” floating UI chips
    ============================================================ */
 .home-hero__chip {
   position: absolute;
@@ -949,7 +996,7 @@
     height: 30px;
     border-radius: 9px;
     color: $white;
-    background: linear-gradient(135deg, #f59e0b 0%, $brand-orange 100%);
+    background: linear-gradient(135deg, $accent-yellow 0%, $brand-orange 100%);
     box-shadow: 0 6px 14px -4px rgba($brand-orange, 0.55);
   }
 
@@ -1107,15 +1154,15 @@
     overflow: visible;
   }
 
-  /* ─── Mobile hero hierarchy ──────────────────────────────────────────
-     5 tiers, top → bottom, each a deliberate visual beat:
+  /* â”€â”€â”€ Mobile hero hierarchy â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+     5 tiers, top â†’ bottom, each a deliberate visual beat:
        1. Eyebrow chip      (smallest, all-caps, tracking)
        2. Headline          (largest, dense, brand-accent orange word)
        3. Subline           (mid-weight, lower-opacity copy)
        4. CTA               (orange action block)
        5. Stats trio        (rule-divider above, 3 even cols)
      The `gap` on .home-hero__inner controls the major rhythm between tiers;
-     individual margin-tops fine-tune sub-tier spacing (e.g. subline ↔ h1). */
+     individual margin-tops fine-tune sub-tier spacing (e.g. subline â†” h1). */
   .home-hero__inner {
     padding-inline: 1.25rem;
     padding-block-start: 1.5rem;
@@ -1139,7 +1186,7 @@
       margin-top: 0.4rem;
       max-width: 22rem;
       /* Slightly smaller cap + tighter letter-spacing so the headline
-         reads as 3–4 lines, not a 5-line tower. */
+         reads as 3â€“4 lines, not a 5-line tower. */
       font-size: clamp(1.85rem, 7.6vw, 2.2rem);
       line-height: 1.12;
       letter-spacing: -0.022em;
@@ -1268,7 +1315,7 @@
 }
 
 /* ============================================================
-   HERO STAGE — cinematic studio deck
+   HERO STAGE â€” cinematic studio deck
    ============================================================ */
 .hero-stage {
   position: relative;
@@ -1323,7 +1370,7 @@
   width: 13rem;
   height: 13rem;
   transform: translate(-50%, -50%);
-  /* Mouse parallax — strongest movement (foreground). */
+  /* Mouse parallax â€” strongest movement (foreground). */
   translate: calc(var(--hero-mx) * 22px) calc(var(--hero-my) * 14px);
   z-index: 2;
   animation: hero-cube-glow-pulse 4.6s ease-in-out infinite;
@@ -1431,7 +1478,7 @@
   left: 0;
   width: 58%;
   max-width: 15rem;
-  /* Parallax — panels move opposite to the cursor for a layered feel. */
+  /* Parallax â€” panels move opposite to the cursor for a layered feel. */
   translate: calc(var(--hero-mx) * -14px) calc(var(--hero-my) * -9px);
 
   ul {
@@ -1600,7 +1647,7 @@
   }
 }
 
-/* Below md — collapse to a simpler stack */
+/* Below md â€” collapse to a simpler stack */
 @media (max-width: 767px) {
   .hero-stage { translate: 0 0; }
   .hero-stage__panel--analytics { display: none; }
@@ -1633,7 +1680,7 @@
 }
 
 /* ============================================================
-   SERVICES STRIP — horizontal marquee under the hero
+   SERVICES STRIP â€” horizontal marquee under the hero
    ============================================================ */
 .services-strip {
   position: relative;
@@ -1651,9 +1698,9 @@
     padding-block: 1.25rem;
   }
 
-  /* Desktop (≥1024px): anchor to the bottom of the hero. Sit BELOW the phone
+  /* Desktop (â‰¥1024px): anchor to the bottom of the hero. Sit BELOW the phone
      mockup (z-index 9999) so cards passing through the phone area are hidden
-     by the opaque mockup — only cards on either side of the phone remain
+     by the opaque mockup â€” only cards on either side of the phone remain
      visible. On mobile/tablet the strip stays in flow below the phone. */
   @media (min-width: 1024px) {
     position: absolute;
@@ -1668,12 +1715,12 @@
 }
 
 /* Mobile (<768px): horizontal auto-marquee carousel that sits cleanly BELOW
-   the phone — no negative margin / overlap. Forcing the desktop "absolute
+   the phone â€” no negative margin / overlap. Forcing the desktop "absolute
    overlay" rhythm here caused the cards to slice through the middle of the
    phone mockup (cards land above the phone in stacking order while the
    phone is in normal flow). Mobile layout now reads:
-     content → phone → breathing space → moving carousel. */
-/* Mobile (<768px): remove the services carousel entirely — too cramped
+     content â†’ phone â†’ breathing space â†’ moving carousel. */
+/* Mobile (<768px): remove the services carousel entirely â€” too cramped
    under the phone visual on small screens. Tablet keeps the touch-scrollable
    strip; desktop keeps the auto-marquee. */
 @media (max-width: 767px) {
@@ -1682,7 +1729,7 @@
   }
 }
 
-/* Tablet (768–1023px): touch-scrollable marquee with proper edge padding so
+/* Tablet (768â€“1023px): touch-scrollable marquee with proper edge padding so
    the first/last card doesn't bleed flush against the viewport edge. */
 @media (min-width: 768px) and (max-width: 1023px) {
   .services-strip {
@@ -1762,41 +1809,47 @@
   min-width: 14rem;
   padding: 0.85rem 1rem;
   border: 1px solid rgba($white, 0.14);
-  border-radius: 14px;
-  background: rgba(18, 20, 26, 0.9);
+  border-radius: 0;
+  background: rgba($white, 0.045);
   backdrop-filter: blur(12px);
   color: inherit;
   text-decoration: none;
   transition:
     border-color 260ms ease,
-    background 260ms ease;
+    background 260ms ease,
+    box-shadow 260ms ease;
 
   /* Mobile card sizing now lives in the @media (max-width: 767px) block
-     near the top of this section — it switches the strip back to a
+     near the top of this section â€” it switches the strip back to a
      horizontal snap-scroll carousel with clamp()-sized cards. */
 
   &:hover,
   &:focus-visible {
-    border-color: rgba($brand-orange, 0.3);
-    background: rgba($white, 0.035);
+    border-color: rgba($accent-yellow, 0.55);
+    background: rgba($accent-yellow, 0.08);
+    box-shadow: 0 6px 20px -10px rgba($accent-yellow, 0.45);
 
     .services-strip__card-icon {
-      color: $brand-orange;
-      border-color: rgba($brand-orange, 0.32);
-      background: rgba($brand-orange, 0.08);
+      color: $accent-yellow;
+      border-color: rgba($accent-yellow, 0.55);
+      background: rgba($accent-yellow, 0.12);
+    }
+
+    .services-strip__card-title {
+      color: $white;
     }
 
     .services-strip__card-arrow {
       opacity: 1;
       transform: translate(0, 0);
-      color: $brand-orange;
-      border-color: rgba($brand-orange, 0.32);
-      background: rgba($brand-orange, 0.08);
+      color: $accent-yellow;
+      border-color: rgba($accent-yellow, 0.55);
+      background: rgba($accent-yellow, 0.12);
     }
   }
 
   &:focus-visible {
-    outline: 2px solid rgba($brand-orange, 0.5);
+    outline: 2px solid rgba($accent-yellow, 0.6);
     outline-offset: 3px;
   }
 
@@ -1805,8 +1858,8 @@
     padding: 0.7rem 1rem;
     gap: 0.75rem;
     /* Restore the subtle glassmorphism look on tablet+ */
-    background: rgba($white, 0.018);
-    border-color: rgba($white, 0.07);
+    background: rgba($white, 0.045);
+    border-color: rgba($white, 0.12);
     backdrop-filter: blur(6px);
   }
 }
@@ -1900,7 +1953,7 @@
      space above/below the heading + panel. Desktop keeps the generous
      spacing the design originally specified. */
   padding-block: 3rem 3.5rem;
-  background: #fefff5;
+  background: #fff4eb;
   color: $text-primary;
 
   @media (max-width: 767px) {
@@ -1914,6 +1967,10 @@
   @media (min-width: 1024px) {
     padding-block: 7rem 7.5rem;
   }
+}
+
+.why-section .eyebrow {
+  color: #f26b2d;
 }
 
 .why-section__decor {
@@ -2015,6 +2072,10 @@
   max-width: 610px;
   margin-bottom: $spacing-xl;
 
+  .eyebrow {
+    color: #f26b2d;
+  }
+
   h2 {
     margin: 0;
     /* Mobile: fluid scale so the headline fits cleanly in narrow viewports
@@ -2025,6 +2086,7 @@
     line-height: 1.15;
     text-wrap: balance;
     overflow-wrap: break-word;
+    color: #171016;
 
     @include respond-up(md) {
       font-size: 2.35rem;
@@ -2036,8 +2098,8 @@
 .why-panel {
   display: grid;
   max-width: 930px;
-  border: 1px solid rgba($text-primary, 0.16);
-  background: #fefff5;
+  border: 1px solid rgba(#171016, 0.14);
+  background: #fff4eb;
 }
 
 .why-panel__intro {
@@ -2047,18 +2109,18 @@
   justify-content: space-between;
   gap: $spacing-xl;
   padding: 1.75rem 1.5rem;
-  border-bottom: 1px solid rgba($text-primary, 0.16);
+  border-bottom: 1px solid rgba(#171016, 0.14);
 
   p {
     max-width: 100%;
-    color: rgba($text-primary, 0.72);
+    color: rgba(#171016, 0.78);
     font-size: 0.9375rem;
     font-weight: 600;
     line-height: 1.55;
     text-align: justify;
     text-justify: inter-word;
     word-spacing: -0.02em;
-    /* Allow long words to wrap on their own, but no auto hyphenation —
+    /* Allow long words to wrap on their own, but no auto hyphenation â€”
        prevents ugly mid-word breaks like "expe-riences" / "busi-nesses". */
     hyphens: manual;
     overflow-wrap: break-word;
@@ -2067,6 +2129,13 @@
   .button {
     align-self: flex-start;
     min-width: 8.5rem;
+    background: #f2773c;
+    color: $white;
+
+    &:hover {
+      background: #dc5f24;
+      color: $white;
+    }
   }
 }
 
@@ -2090,7 +2159,7 @@
 .why-panel__image {
   height: clamp(220px, 58vw, 300px);
   min-height: 0;
-  border-bottom: 1px solid rgba($text-primary, 0.16);
+  border-bottom: 1px solid rgba(#171016, 0.14);
   overflow: hidden;
 
   img {
@@ -2118,57 +2187,52 @@
 }
 
 .why-stat {
-  /* Horizontal stat block: kicker + big number stack on the LEFT (anchor),
-     description sits on the RIGHT spanning both rows, centered vertically.
-     This makes each stat read as one tight unit instead of three loose
-     stacked lines, and cuts the block height ~40%. */
-  display: grid;
-  grid-template-columns: minmax(7rem, auto) minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  column-gap: 1.5rem;
-  row-gap: 0.45rem;
-  align-items: center;
-  padding: 1.35rem 1.5rem;
-  border-bottom: 1px solid rgba($text-primary, 0.16);
+  /* Clean top-to-bottom hierarchy inside each card:
+       LABEL  (kicker, small uppercase)
+         â†“
+       VALUE  (large burgundy number â€” the visual anchor)
+         â†“
+       COPY   (supporting description â€” full card width so it wraps
+              at ~6â€“8 words per line, not 2â€“3).                       */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 1.5rem 1.5rem 1.65rem;
+  border-bottom: 1px solid rgba($text-primary, 0.14);
 
   &:last-child {
     border-bottom: 0;
   }
 
   h3 {
-    grid-column: 1;
-    grid-row: 1;
     margin: 0;
     color: rgba($text-primary, 0.55);
     font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     line-height: 1;
   }
 
   strong {
-    grid-column: 1;
-    grid-row: 2;
     display: block;
-    margin: 0;
-    color: $brand-orange;
-    font-size: 2.25rem;
-    font-weight: 500;
+    margin: 0.1rem 0 0.45rem;
+    color: $brand-burgundy;
+    font-size: 2.5rem;
+    font-weight: 600;
     line-height: 1;
     letter-spacing: -0.025em;
   }
 
   p {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
     margin: 0;
-    color: rgba($text-primary, 0.62);
+    max-width: 32ch;
+    color: rgba($text-primary, 0.7);
     font-size: 0.9rem;
     font-weight: 500;
-    line-height: 1.5;
-    text-wrap: balance;
+    line-height: 1.55;
+    text-wrap: pretty;
   }
 }
 
@@ -2176,10 +2240,10 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   max-width: 930px;
-  border-right: 1px solid rgba($text-primary, 0.16);
-  border-bottom: 1px solid rgba($text-primary, 0.16);
-  border-left: 1px solid rgba($text-primary, 0.16);
-  background: #fefff5;
+  border-right: 1px solid rgba(#171016, 0.14);
+  border-bottom: 1px solid rgba(#171016, 0.14);
+  border-left: 1px solid rgba(#171016, 0.14);
+  background: #fff4eb;
 }
 
 .why-awards__lead,
@@ -2192,7 +2256,7 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 1.4rem 1.5rem;
-  border-bottom: 1px solid rgba($text-primary, 0.16);
+  border-bottom: 1px solid rgba(#171016, 0.14);
 }
 
 .why-awards__lead {
@@ -2206,7 +2270,7 @@
     flex-shrink: 0;
     width: 1.4rem;
     height: 1.4rem;
-    border: 3px solid $brand-orange;
+    border: 3px solid $brand-burgundy;
     border-radius: 50%;
 
     &::before,
@@ -2215,7 +2279,7 @@
       bottom: -0.55rem;
       width: 0.4rem;
       height: 0.7rem;
-      background: $brand-orange;
+      background: $brand-burgundy;
       content: '';
     }
 
@@ -2233,7 +2297,7 @@
   p {
     margin: 0;
     max-width: 100%;
-    color: rgba($text-primary, 0.72);
+    color: rgba(#171016, 0.78);
     font-size: 0.9rem;
     font-weight: 600;
     line-height: 1.4;
@@ -2244,7 +2308,7 @@
 .why-awards__item {
   align-items: center;
   text-align: center;
-  border-right: 1px solid rgba($text-primary, 0.16);
+  border-right: 1px solid rgba(#171016, 0.14);
 
   &:nth-child(even) {
     border-right: 0;
@@ -2266,7 +2330,7 @@
   }
 
   p {
-    color: rgba($text-primary, 0.55);
+    color: rgba(#171016, 0.55);
     font-size: 0.8125rem;
     font-weight: 800;
   }
@@ -2278,8 +2342,14 @@
   }
 
   .why-stat {
+    padding: 1.65rem 1.5rem 1.75rem;
+
+    p {
+      font-size: 0.875rem;
+    }
+
     &:nth-child(odd) {
-      border-right: 1px solid rgba($text-primary, 0.16);
+      border-right: 1px solid rgba($text-primary, 0.14);
     }
 
     &:nth-last-child(-n + 2) {
@@ -2295,7 +2365,7 @@
   .why-awards__item {
     min-height: 6.5rem;
     padding: 1rem 1.25rem;
-    border-right: 1px solid rgba($text-primary, 0.16);
+    border-right: 1px solid rgba(#171016, 0.14);
     border-bottom: 0;
   }
 
@@ -2322,7 +2392,7 @@
     }
 
     &:nth-child(even) {
-      border-right: 1px solid rgba($text-primary, 0.16);
+      border-right: 1px solid rgba(#171016, 0.14);
     }
 
     &:last-child {
@@ -2333,12 +2403,12 @@
 
 @include respond-up(lg) {
   .why-panel {
-    grid-template-columns: 1fr 0.75fr 1.7fr;
+    grid-template-columns: 1fr 0.78fr 2.35fr;
   }
 
   .why-panel__intro,
   .why-panel__image {
-    border-right: 1px solid rgba($text-primary, 0.16);
+    border-right: 1px solid rgba(#171016, 0.14);
     border-bottom: 0;
   }
 }
@@ -2349,52 +2419,20 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: 7rem 8rem;
-  background:
-    radial-gradient(circle at 12% 10%, rgba($brand-orange, 0.12), transparent 30%),
-    linear-gradient(116deg, #020202 0%, #090b0f 52%, #000 100%);
+  padding-block: 6rem 4rem;
+  background: #e26830;
   color: $white;
 
   &::before {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image: linear-gradient(90deg, rgba($white, 0.09) 1px, transparent 1px);
-    background-size: var(--home-section-grid-size) 100%;
-    opacity: 0.46;
-    mask-image: linear-gradient(90deg, rgba(#000, 0.9), rgba(#000, 0.72) 55%, rgba(#000, 0.32));
-    content: '';
-    pointer-events: none;
+    display: none;
   }
 
   &::after {
-    position: absolute;
-    inset: -50% 0;
-    z-index: 0;
-    background:
-      linear-gradient(180deg, transparent 0%, rgba($white, 0.08) 31%, rgba($white, 0.28) 43%, rgba($brand-orange, 0.38) 52%, rgba($brand-orange, 0.1) 63%, transparent 82%),
-      linear-gradient(180deg, transparent 0%, rgba($accent-yellow, 0.07) 36%, rgba($accent-yellow, 0.22) 48%, rgba($accent-yellow, 0.06) 62%, transparent 80%),
-      linear-gradient(180deg, transparent 0%, rgba($white, 0.06) 30%, rgba($white, 0.18) 42%, rgba($brand-orange, 0.18) 56%, rgba($brand-orange, 0.04) 68%, transparent 86%);
-    background-position:
-      calc(var(--home-section-grid-size) * 3) -45%,
-      calc(var(--home-section-grid-size) * 8) -72%,
-      calc(var(--home-section-grid-size) * 12) -58%;
-    background-repeat: no-repeat;
-    background-size:
-      1px 38%,
-      1px 30%,
-      1px 44%;
-    opacity: 0.68;
-    filter: blur(0.4px);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-    mix-blend-mode: screen;
-    animation: home-line-glow 6.4s linear infinite;
-    content: '';
-    pointer-events: none;
+    display: none;
   }
 
   .eyebrow {
-    color: $brand-orange;
+    color: rgba($white, 0.95);
     letter-spacing: 0.12em;
   }
 }
@@ -2405,7 +2443,7 @@
      headings + body copy wrap into too many lines). */
   position: relative;
   z-index: 1;
-  width: min(100% - 2rem, 1360px);
+  width: min(100% - 2rem, 1564px);
   margin-inline: auto;
 }
 
@@ -2422,7 +2460,7 @@
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: $brand-orange;
+    color: rgba($white, 0.95);
   }
 
   h2 {
@@ -2435,10 +2473,7 @@
 
     em {
       font-style: normal;
-      background: linear-gradient(120deg, $white 0%, #ffd4a8 55%, $brand-orange 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: $brand-burgundy;
     }
 
     @include respond-up(md) {
@@ -2449,7 +2484,7 @@
   p:last-child {
     max-width: 56ch;
     margin: 1rem auto 0;
-    color: rgba($white, 0.7);
+    color: rgba($white, 0.92);
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.6;
@@ -2460,177 +2495,232 @@
 .home-services__eyebrow-rule {
   width: 36px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba($brand-orange, 0.7));
+  background: linear-gradient(90deg, transparent, rgba($white, 0.85));
 }
 
+/* ─────────────────────────────────────────────────────────────
+   SERVICES LIST — Editorial horizontal-row layout
+   Each service is a magazine-style row with:
+   [ big burgundy index ] [ icon ] [ title + copy + chips ] [ arrow ]
+   Hairline divider between rows. Subtle hover state.
+   ───────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   SERVICES MOSAIC — 3 columns × 2 cards each.
+   Hovering one card expands it (1.6fr) and shrinks its sibling
+   (0.4fr) — an accordion-style interactive resize per column.
+   Alternating burgundy/cream creates a warm checkerboard.
+   ───────────────────────────────────────────────────────────── */
 .home-services__list {
   display: grid;
-  gap: 1rem;
-  margin-top: 3rem;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 4rem;
+
+  @include respond-up(sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include respond-up(lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.home-services__col {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 38rem;
+
+  /* Mobile + tablet: stack cards in natural content height — no fixed
+     38rem column, no equal-fr split, cards size to their own padding/copy. */
+  @media (max-width: 991.98px) {
+    grid-template-rows: auto auto;
+    height: auto;
+  }
 }
 
 .home-service {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 17.5rem;
-  padding: 1.65rem 1.2rem 3.1rem;
-  border: 1px solid rgba($white, 0.09);
-  border-radius: 0;
-  background:
-    linear-gradient(180deg, rgba($white, 0.05) 0%, rgba($white, 0.015) 100%);
-  backdrop-filter: blur(8px);
+  min-height: 0;
+  height: 100%;
+  padding: 1.8rem 1.85rem 3.5rem;
+  text-decoration: none;
   overflow: hidden;
   isolation: isolate;
-  color: inherit;
-  text-decoration: none;
-  transition:
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 420ms ease,
-    background 420ms ease,
-    box-shadow 420ms ease;
+  transition: background 240ms ease, color 240ms ease;
 
-  /* Subtle radial wash that fades in on hover — kept low so the card reads
-     as "lifted" rather than "lit on fire". */
-  &::after {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba($brand-orange, 0.08), transparent 65%);
-    opacity: 0;
-    transition: opacity 420ms ease;
-    pointer-events: none;
-    content: '';
-    z-index: 0;
+  /* Mobile + tablet: cards sit in natural document flow with
+     compact padding — no fixed height stretching. */
+  @media (max-width: 991.98px) {
+    height: auto;
+    padding: 1.4rem 1.25rem 1.5rem;
   }
 
   > * { position: relative; z-index: 1; }
 
   &:hover,
   &:focus-visible {
-    transform: translateY(-4px);
-    border-color: rgba($brand-orange, 0.22);
-    background:
-      linear-gradient(180deg, rgba($white, 0.055) 0%, rgba($white, 0.018) 100%);
-    /* A real depth shadow with a faint orange tint — not an orange halo. */
-    box-shadow:
-      0 22px 44px -28px rgba(#000, 0.7),
-      0 6px 18px -14px rgba($brand-orange, 0.22);
-
-    &::after { opacity: 0.7; }
-
-    .home-service__icon {
-      color: $brand-orange;
-      background: rgba($brand-orange, 0.1);
-      border-color: rgba($brand-orange, 0.3);
-      box-shadow: 0 0 0 1px rgba($brand-orange, 0.12);
-    }
-
     .home-service__arrow {
+      transform: translate(3px, -3px);
+      background: currentColor;
       opacity: 1;
-      transform: translate(2px, -2px);
-      background: rgba($brand-orange, 0.18);
-      color: $brand-orange;
+
+      svg { color: $brand-burgundy; }
     }
   }
 
   &:focus-visible {
-    outline: 2px solid rgba($brand-orange, 0.55);
-    outline-offset: 4px;
+    outline: 2px solid $accent-yellow;
+    outline-offset: -3px;
+  }
+}
+
+/* Alternating checkerboard pattern across columns:
+   col 1: burgundy / cream
+   col 2: cream / burgundy
+   col 3: burgundy / cream                                       */
+.home-services__col:nth-child(odd) {
+  .home-service:first-child {
+    background: $brand-burgundy;
+    color: #fff4eb;
+
+    &:hover, &:focus-visible { background: $brand-burgundy-hover; }
+  }
+
+  .home-service:last-child {
+    background: #0F0F0F;
+    color: #fff4eb;
+
+    &:hover, &:focus-visible { background: #0F0F0F; }
+  }
+}
+
+.home-services__col:nth-child(even) {
+  .home-service:first-child {
+    background: #0F0F0F;
+    color: #fff4eb;
+
+    &:hover, &:focus-visible { background: #0F0F0F; }
+  }
+
+  .home-service:last-child {
+    background: $brand-burgundy;
+    color: #fff4eb;
+
+    &:hover, &:focus-visible { background: $brand-burgundy-hover; }
   }
 }
 
 .home-service__index {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.4rem;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  color: rgba($white, 0.32);
-  font-feature-settings: 'tnum';
+  display: none;
 }
 
 .home-service__icon {
-  position: relative;
   display: inline-grid;
   place-items: center;
-  width: 2.8rem;
-  height: 2.8rem;
-  margin-bottom: 1.6rem;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
   border-radius: 0;
-  border: 1px solid rgba($brand-orange, 0.14);
-  background: rgba($brand-orange, 0.06);
-  color: rgba(#ffc28a, 0.85);
-  transition:
-    color 360ms ease,
-    background 360ms ease,
-    border-color 360ms ease,
-    box-shadow 360ms ease;
+  border: 1px solid $accent-yellow;
+  background: transparent;
+  color: $accent-yellow;
+  opacity: 1;
 
   svg {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  @media (max-width: 767px) {
+    width: 2.6rem;
+    height: 2.6rem;
+
+    svg { width: 1.15rem; height: 1.15rem; }
   }
 }
 
 .home-service {
   h3 {
     margin: 0;
-    color: $white;
-    font-size: 1.05rem;
+    color: inherit;
+    font-size: 1.55rem;
     font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: -0.012em;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 767px) {
+      font-size: 1.25rem;
+    }
   }
 
   p {
-    margin-top: 0.55rem;
-    color: rgba($white, 0.7);
-    font-size: 0.875rem;
+    margin: 0.6rem 0 0;
+    color: inherit;
+    opacity: 0.72;
+    font-size: 0.92rem;
     font-weight: 500;
-    line-height: 1.5;
+    line-height: 1.55;
+    transition: opacity 340ms ease;
+
+    @media (max-width: 767px) {
+      font-size: 0.85rem;
+    }
   }
 }
 
 .home-service__chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.32rem;
-  margin: 1.1rem 0 0;
+  gap: 0.4rem;
+  margin: 1.4rem 0 0;
   padding: 0;
   list-style: none;
+  transition: opacity 340ms ease;
 
   li {
-    padding: 0.22rem 0.55rem;
-    border: 1px solid rgba($white, 0.1);
+    padding: 0.32rem 0.75rem;
+    border: 0;
     border-radius: 999px;
-    background: rgba($white, 0.02);
-    color: rgba($white, 0.55);
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    background: color-mix(in srgb, currentColor 16%, transparent);
+    color: inherit;
+    opacity: 0.9;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 }
 
+/* Arrow — bottom-right, uses currentColor. */
 .home-service__arrow {
   position: absolute;
-  right: 1.2rem;
-  bottom: 1.2rem;
+  right: 1.6rem;
+  bottom: 1.6rem;
   display: inline-grid;
   place-items: center;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 2.4rem;
+  height: 2.4rem;
   border-radius: 999px;
-  background: rgba($white, 0.06);
-  color: rgba($white, 0.55);
-  opacity: 0;
-  transform: translate(-4px, 4px);
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  opacity: 0.7;
+  transform: translate(0, 0);
   transition:
-    opacity 360ms ease,
-    transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
-    background 360ms ease,
-    color 360ms ease;
+    opacity 240ms ease,
+    background 240ms ease,
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  svg { transition: color 240ms ease; }
+
+  @media (max-width: 767px) {
+    right: 1.2rem;
+    bottom: 1.2rem;
+    width: 2rem;
+    height: 2rem;
+  }
 }
 
 .home-services__cta {
@@ -2639,94 +2729,33 @@
   margin-top: 2.6rem;
 }
 
-/* Mobile compact service cards — tighter padding, smaller icon, less
-   wasted vertical space so the list reads as a quick scannable feed
-   instead of four giant 280px blocks. */
-@media (max-width: 767px) {
-  .home-services__list {
-    gap: 0.75rem;
-    margin-top: 2rem;
-  }
-
-  .home-service {
-    min-height: 0;
-    padding: 1.2rem 1.15rem 2.55rem;
-
-    h3 {
-      font-size: 1rem;
-    }
-
-    p {
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
-      line-height: 1.5;
-      text-wrap: balance;
-    }
-  }
-
-  .home-service__index {
-    top: 1rem;
-    right: 1.15rem;
-    font-size: 0.55rem;
-    letter-spacing: 0.18em;
-  }
-
-  .home-service__icon {
-    width: 2.2rem;
-    height: 2.2rem;
-    margin-bottom: 1rem;
-
-    svg {
-      width: 1rem;
-      height: 1rem;
-    }
-  }
-
-  .home-service__chips {
-    margin-top: 0.85rem;
-    gap: 0.28rem;
-
-    li {
-      padding: 0.2rem 0.5rem;
-      font-size: 0.58rem;
-    }
-  }
-
-  .home-service__arrow {
-    right: 1rem;
-    bottom: 1rem;
-    width: 1.6rem;
-    height: 1.6rem;
-    /* Always visible on touch — no hover state on mobile. */
-    opacity: 1;
-    transform: none;
-  }
-}
+/* Mobile responsiveness is now handled inline per-component above. */
 
 .home-services__cta-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
-  min-height: 44px;
-  padding: 0.75rem 1.25rem;
-  border: 1px solid $brand-orange;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid $white;
   border-radius: 0;
-  background: $brand-orange;
+  background: transparent;
   color: $white;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease;
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
 
   &:hover {
-    background: darken($brand-orange, 6%);
-    border-color: darken($brand-orange, 6%);
+    background: $white;
+    color: $brand-burgundy;
+    border-color: $white;
   }
 }
 
@@ -2734,46 +2763,22 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: $white;
-  box-shadow: 0 0 10px rgba($white, 0.6);
+  background: currentColor;
 }
 
-@include respond-up(sm) {
-  .home-services__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* lg (≥992 px) and up: a clean 3 × 2 grid for six cards. Three across keeps
-   each card wide enough for the title, copy, and chips without crowding,
-   and two rows reads as a balanced block on the page. */
-@include respond-up(lg) {
-  .home-services__list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.1rem;
-  }
-  .home-service {
-    grid-column: auto;
-  }
-}
-
-@include respond-up(xl) {
-  .home-services__list {
-    gap: 1.25rem;
-  }
-}
+/* Editorial row list — no grid breakpoints needed, rows are vertical
+   on every viewport. */
 
 @media (prefers-reduced-motion: reduce) {
-  .home-service {
+  .home-service,
+  .home-service__arrow,
+  .home-service__arrow svg {
     transition: none;
-
-    &:hover,
-    &:focus-visible {
-      transform: none;
-      &::before { width: 100%; }
-    }
   }
-  .home-service__arrow { transition: opacity 200ms ease; }
+  .home-service:hover .home-service__arrow,
+  .home-service:focus-visible .home-service__arrow {
+    transform: none;
+  }
 }
 
 .home-proof {
@@ -2846,7 +2851,7 @@
     }
 
     > span {
-      color: $brand-orange;
+      color: #ED743B;
     }
   }
 }
@@ -2860,7 +2865,7 @@
   overflow: hidden;
   min-height: 1.2em;
   margin-top: 0.08em;
-  color: $brand-orange;
+  color: #ED743B;
 
   span {
     grid-column: 1;
@@ -2911,12 +2916,12 @@
   display: flex;
   flex-direction: column;
   padding: 0.25rem 1.1rem 0 1.1rem;
-  border-left: 1px solid rgba($brand-orange, 0.42);
+  border-left: 1px solid rgba(221, 172, 106, 0.55);
 
   h3 {
     margin: 0;
     max-width: 18rem;
-    color: $white;
+    color: #ddac6a;
     font-size: 1.35rem;
     font-weight: 600;
     line-height: 1.08;
@@ -2937,7 +2942,7 @@
 .home-proof__icon {
   display: inline-flex;
   margin-bottom: 1.45rem;
-  color: rgba($brand-orange, 0.95);
+  color: #784E24;
 
   svg {
     width: 1.15rem;
@@ -2949,7 +2954,7 @@
   display: inline-flex;
   margin-top: auto;
   padding-top: 1.65rem;
-  color: rgba($white, 0.72);
+  color: #784e24;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -3036,10 +3041,10 @@
   max-width: min(100%, 39rem);
   margin-top: 1.5rem;
   padding: 1rem 1.4rem;
-  border: 2px solid $text-primary;
+  border: 2px solid $brand-burgundy;
   border-radius: 1rem;
-  background: $brand-orange;
-  box-shadow: 0 0.42rem 0 $text-primary;
+  background: $accent-yellow;
+  box-shadow: 0 0.42rem 0 $brand-burgundy;
   color: $text-primary;
   font-family: $font-family-heading;
   font-size: 1.12rem;
@@ -3056,16 +3061,16 @@
     content: '"';
     font-size: 2.8rem;
     font-weight: 700;
-    color: $brand-orange;
+    color: $brand-burgundy;
     line-height: 0.8;
     font-family: cursive;
     transform: rotate(6deg) scaleX(0.95);
     opacity: 0.92;
     text-shadow:
-      -0.08rem 0 0 $brand-orange,
-      0.08rem 0 0 $brand-orange,
-      0 -0.08rem 0 $brand-orange,
-      0 0.08rem 0 $brand-orange;
+      -0.08rem 0 0 $brand-burgundy,
+      0.08rem 0 0 $brand-burgundy,
+      0 -0.08rem 0 $brand-burgundy,
+      0 0.08rem 0 $brand-burgundy;
   }
 
   @include respond-up(md) {
@@ -3073,7 +3078,7 @@
   }
 
   span {
-    color: $white;
+    color: $text-primary;
   }
 }
 
@@ -3278,7 +3283,7 @@
   }
 }
 
-/* Final mobile hero composition override: 50× dark footer below the
+/* Final mobile hero composition override: 50Ã— dark footer below the
    phone+hands (= 2500px). No cream overlap. */
 @media (max-width: 767px) {
   .home-hero {
@@ -3307,53 +3312,13 @@
 }
 
 .trusted-by {
-  --home-section-grid-size: clamp(5.5rem, 10vw, 8.5rem);
-
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: 1.5rem 4.5rem;
-  background: linear-gradient(116deg, #020202 0%, #090b0f 52%, #000 100%);
-  border-top: 1px solid rgba($white, 0.08);
+  padding-block: 2.5rem 3.5rem;
+  border-top: 1px solid rgba($white, 0.22);
+  background: #e26830;
   color: $white;
-
-  &::before {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image: linear-gradient(90deg, rgba($white, 0.09) 1px, transparent 1px);
-    background-size: var(--home-section-grid-size) 100%;
-    opacity: 0.46;
-    mask-image: linear-gradient(90deg, rgba(#000, 0.9), rgba(#000, 0.72) 55%, rgba(#000, 0.32));
-    content: '';
-    pointer-events: none;
-  }
-
-  &::after {
-    position: absolute;
-    inset: -50% 0;
-    z-index: 0;
-    background:
-      linear-gradient(180deg, transparent 0%, rgba($white, 0.08) 31%, rgba($white, 0.28) 43%, rgba($brand-orange, 0.38) 52%, rgba($brand-orange, 0.1) 63%, transparent 82%),
-      linear-gradient(180deg, transparent 0%, rgba($accent-yellow, 0.07) 36%, rgba($accent-yellow, 0.22) 48%, rgba($accent-yellow, 0.06) 62%, transparent 80%),
-      linear-gradient(180deg, transparent 0%, rgba($white, 0.06) 30%, rgba($white, 0.18) 42%, rgba($brand-orange, 0.18) 56%, rgba($brand-orange, 0.04) 68%, transparent 86%);
-    background-position:
-      calc(var(--home-section-grid-size) * 3) -45%,
-      calc(var(--home-section-grid-size) * 8) -72%,
-      calc(var(--home-section-grid-size) * 12) -58%;
-    background-repeat: no-repeat;
-    background-size:
-      1px 38%,
-      1px 30%,
-      1px 44%;
-    opacity: 0.68;
-    filter: blur(0.4px);
-    mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-    mix-blend-mode: screen;
-    animation: home-line-glow 6.4s linear infinite;
-    content: '';
-    pointer-events: none;
-  }
 }
 
 .trusted-by__inner {
@@ -3363,12 +3328,13 @@
 }
 
 .trusted-by__heading {
-  margin: 0 0 2.5rem;
+  margin: 0 0 1.75rem;
   text-align: center;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: rgba($white, 0.6);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $white;
 }
 
 .trusted-by__scroll-container {
@@ -3377,18 +3343,20 @@
   width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100px;
-    height: 100%;
-    z-index: 10;
-    pointer-events: none;
-    background: linear-gradient(270deg, $text-primary 0%, transparent 100%);
-  }
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 calc(100% - 80px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 80px,
+    #000 calc(100% - 80px),
+    transparent 100%
+  );
 }
 
 .trusted-by__logos {
@@ -3397,30 +3365,18 @@
   animation: scrollLogos 30s linear infinite;
   width: fit-content;
   position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    background: linear-gradient(90deg, $text-primary 0%, transparent 100%);
-    z-index: 10;
-    pointer-events: none;
-  }
 }
 
 .trusted-by__logo {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: rgba($white, 0.48);
+  color: rgba($white, 0.78);
   white-space: nowrap;
   flex-shrink: 0;
   transition: color 300ms ease;
 
   &:hover {
-    color: rgba($white, 0.72);
+    color: $white;
   }
 }
 
@@ -3450,7 +3406,7 @@
 
   .trusted-by__scroll-container {
     padding-block: 0.5rem;
-    /* Soft fade on both edges via mask — replaces the harsh solid-color
+    /* Soft fade on both edges via mask â€” replaces the harsh solid-color
        overlays from the desktop pseudo-elements. */
     mask-image: linear-gradient(
       to right,
@@ -3483,7 +3439,7 @@
 }
 
 /* ============================================================
-   FEATURED WORK — bento grid of project highlights
+   FEATURED WORK â€” bento grid of project highlights
    ============================================================ */
 .home-work {
   position: relative;
@@ -3584,8 +3540,8 @@
   gap: 0.5rem;
   align-self: flex-start;
   padding: 0.7rem 1rem;
-  border: 1px solid rgba($white, 0.18);
-  color: $white;
+  border: 1px solid #ed743b;
+  color: #ed743b;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -3598,13 +3554,13 @@
 
   &:hover,
   &:focus-visible {
-    border-color: $brand-orange;
-    background: rgba($brand-orange, 0.1);
-    color: $brand-orange;
+    border-color: #ed743b;
+    background: #ed743b;
+    color: $white;
   }
 
   &:focus-visible {
-    outline: 2px solid rgba($brand-orange, 0.5);
+    outline: 2px solid rgba(#ed743b, 0.5);
     outline-offset: 3px;
   }
 }
@@ -3866,8 +3822,8 @@
   overflow: hidden;
   border: none;
   border-radius: 0;
-  background: $brand-orange;
-  color: $white;
+  background: $accent-yellow;
+  color: $text-primary;
 
   @include respond-up(md) {
     gap: 1.6rem;
@@ -3901,7 +3857,7 @@
     font-weight: 700;
     line-height: 1.02;
     letter-spacing: -0.04em;
-    color: $text-primary;
+    color: $brand-burgundy;
     text-wrap: balance;
 
     @include respond-up(md) {
@@ -3920,7 +3876,7 @@
 .home-faq__cta-description {
   margin: 0;
   max-width: 24rem;
-  color: rgba($white, 0.92);
+  color: $text-primary;
   font-size: 0.96rem;
   font-weight: 500;
   line-height: 1.62;
@@ -3954,7 +3910,7 @@
   align-items: center;
   gap: 0.55rem;
   width: fit-content;
-  color: $text-primary;
+  color: $brand-burgundy;
   font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
@@ -3963,12 +3919,12 @@
     transform 220ms ease;
 
   svg {
-    color: $text-primary;
+    color: $brand-burgundy;
     transition: transform 220ms ease;
   }
 
   &:hover {
-    color: rgba($text-primary, 0.72);
+    color: rgba($brand-burgundy, 0.72);
     transform: translateX(2px);
 
     svg {
@@ -4244,7 +4200,7 @@
 }
 
 .trust-strip {
-  background: linear-gradient(135deg, #FF6A00 0%, #FF7A00 100%);
+  background: linear-gradient(135deg, #720d28 0%, #8a1835 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   height: 110px;
@@ -4869,3 +4825,4 @@
     animation: none;
   }
 }
+

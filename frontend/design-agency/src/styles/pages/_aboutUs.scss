@@ -5,7 +5,7 @@
 .about-us-page {
   background:
     radial-gradient(circle at 16% 8%, rgba($brand-orange, 0.08), transparent 24%),
-    linear-gradient(180deg, #f8f4eb 0%, #f3eee3 100%);
+    linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 100%);
 }
 
 .about-hero__inner,
@@ -25,7 +25,7 @@
   overflow: hidden;
   padding-block: 6rem 4.5rem;
   border-bottom: 1px solid rgba($white, 0.08);
-  background: linear-gradient(180deg, #050608 0%, #0a0d12 100%);
+  background: linear-gradient(180deg, #720D28, #5A0A20);
   color: $white;
 
   @include respond-up(md) {
@@ -162,6 +162,15 @@
   }
 }
 
+/* Brand emblem — pops in last, after the dots + sparkle, settles
+   and stays. Sized via the SVG transform attribute. */
+.about-hero__sketch-emblem {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: about-sketch-pop 0.55s cubic-bezier(0.34, 1.4, 0.5, 1) 2.4s forwards;
+}
+
 @keyframes about-sketch-draw {
   to {
     stroke-dashoffset: 0;
@@ -196,7 +205,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .about-hero__sketch-stroke,
-  .about-hero__sketch-dot {
+  .about-hero__sketch-dot,
+  .about-hero__sketch-emblem {
     animation: none;
   }
 
@@ -205,7 +215,8 @@
     stroke-dashoffset: 0;
   }
 
-  .about-hero__sketch-dot {
+  .about-hero__sketch-dot,
+  .about-hero__sketch-emblem {
     opacity: 1;
     transform: none;
   }
@@ -324,7 +335,7 @@
   background:
     radial-gradient(circle at 12% 12%, rgba($brand-orange, 0.1), transparent 20rem),
     radial-gradient(circle at 88% 18%, rgba($accent-yellow, 0.14), transparent 24rem),
-    #fbfaf6;
+    #FFF4EB;
   color: $text-primary;
 
   @include respond-up(md) {
@@ -580,7 +591,7 @@
     }
 
     &:nth-child(3) {
-      background: linear-gradient(135deg, $brand-orange 0%, #ff8c2b 100%);
+      background: linear-gradient(135deg, $brand-orange 0%, #ED743B 100%);
       color: $white;
       box-shadow:
         0 0.55rem 1.2rem rgba($brand-orange, 0.32),
@@ -671,7 +682,7 @@
   background:
     radial-gradient(circle at 12% 20%, rgba($brand-orange, 0.08), transparent 20rem),
     radial-gradient(circle at 88% 14%, rgba($accent-yellow, 0.16), transparent 22rem),
-    #fbfaf6;
+    #FFF4EB;
 
   @include respond-up(md) {
     padding-block: 7.5rem;
@@ -696,7 +707,7 @@
   border: 0;
   background:
     radial-gradient(circle at 82% 18%, rgba($brand-orange, 0.18), transparent 18rem),
-    linear-gradient(135deg, #050505 0%, #111214 100%);
+    linear-gradient(135deg, #0F0F0F 0%, #0F0F0F 100%);
   color: $white;
   box-shadow: 0 32px 80px rgba($text-primary, 0.18);
 
@@ -815,7 +826,7 @@
   .about-story__footer-copy {
     display: flex;
     align-items: flex-end;
-    background: #fffaf0;
+    background: #FFF4EB;
     box-shadow: inset 0 0 0 1px rgba($text-primary, 0.08);
   }
 }
@@ -850,7 +861,7 @@
     transform: none !important;
 
     &:nth-child(2) {
-      background: #fffaf0;
+      background: #FFF4EB;
       color: $text-primary;
     }
 
@@ -903,7 +914,7 @@
   background:
     radial-gradient(circle at 12% 16%, rgba($brand-orange, 0.08), transparent 18rem),
     radial-gradient(circle at 86% 20%, rgba($accent-yellow, 0.12), transparent 20rem),
-    #fbfaf6;
+    #FFF4EB;
 
   @include respond-up(md) {
     padding-block: 7rem;
@@ -1207,7 +1218,7 @@
   gap: 0.9rem;
   padding: 1.25rem;
   border-radius: 1.2rem;
-  background: linear-gradient(180deg, rgba($text-primary, 0.96), #171c22 100%);
+  background: linear-gradient(180deg, rgba($text-primary, 0.96), #0F0F0F 100%);
   box-shadow: 0 18px 40px rgba($text-primary, 0.16);
   color: $white;
 
@@ -1306,7 +1317,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 4.5rem 5.5rem;
-  background: linear-gradient(180deg, #fff4e7 0%, #ffe7cf 50%, #fff4e7 100%);
+  background: linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 50%, #FFF4EB 100%);
   color: $text-primary;
 
   @include respond-up(md) {
@@ -1484,7 +1495,7 @@
 
 .about-stats__chip--spark {
   transform: rotate(-8deg);
-  background: linear-gradient(135deg, $brand-orange 0%, #ff8c2b 100%);
+  background: linear-gradient(135deg, $brand-orange 0%, #ED743B 100%);
   box-shadow:
     0 0.45em 0.9em rgba($brand-orange, 0.36),
     inset 0 0 0 1px rgba($white, 0.18);
@@ -1605,7 +1616,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 6rem;
-  background: linear-gradient(180deg, #050607 0%, #0a0d12 100%);
+  background: linear-gradient(180deg, #720D28, #5A0A20);
   color: $white;
 
   @include respond-up(md) {
@@ -1811,7 +1822,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 5rem 5.75rem;
-  background: linear-gradient(180deg, #fff4e7 0%, #ffe7cf 50%, #fff4e7 100%);
+  background: linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 50%, #FFF4EB 100%);
   color: $text-primary;
 
   @include respond-up(md) {
@@ -1938,11 +1949,11 @@
 }
 
 .about-team-card__avatar--orange {
-  background: linear-gradient(135deg, #ff8c2b 0%, $brand-orange 100%);
+  background: linear-gradient(135deg, #ED743B 0%, $brand-orange 100%);
 }
 
 .about-team-card__avatar--yellow {
-  background: linear-gradient(135deg, #f4e58a 0%, #e0c95c 100%);
+  background: linear-gradient(135deg, #D8AA68 0%, #D8AA68 100%);
 
   span {
     color: rgba($text-primary, 0.78);
@@ -1950,7 +1961,7 @@
 }
 
 .about-team-card__avatar--dark {
-  background: linear-gradient(135deg, #1f1f1f 0%, #404040 100%);
+  background: linear-gradient(135deg, #0F0F0F 0%, #0F0F0F 100%);
 }
 
 .about-team-card__index {
@@ -2003,7 +2014,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 5rem 5.75rem;
-  background: linear-gradient(180deg, #fbf6ec 0%, #f5ecdb 100%);
+  background: linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 100%);
   color: $text-primary;
 
   @include respond-up(md) {
@@ -2261,7 +2272,7 @@
 
 .about-cta {
   padding: 0 0 5rem;
-  background: linear-gradient(180deg, #f2ede2 0%, #f2ede2 52%, #050505 52%, #050505 100%);
+  background: linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 52%, #0F0F0F 52%, #0F0F0F 100%);
 }
 
 .about-cta__inner {
@@ -2270,7 +2281,7 @@
   gap: 1.5rem;
   padding: 2rem;
   border-radius: 1.5rem;
-  background: linear-gradient(135deg, $brand-orange 0%, #ff8c2b 100%);
+  background: linear-gradient(135deg, $brand-orange 0%, #ED743B 100%);
   box-shadow: 0 24px 60px rgba($text-primary, 0.18);
 
   @include respond-up(md) {
@@ -2288,7 +2299,7 @@
     box-shadow: 0 18px 38px rgba($text-primary, 0.24);
 
     &:hover {
-      background: #151515;
+      background: #0F0F0F;
     }
   }
 }
@@ -2302,7 +2313,7 @@
   h2 {
     max-width: 10ch;
     margin-top: 0.6rem;
-    color: #101010;
+    color: #0F0F0F;
     font-size: clamp(2rem, 3.6vw, 3.5rem);
     font-weight: 800;
     line-height: 0.95;
@@ -2356,7 +2367,7 @@
   background:
     linear-gradient(rgba($text-primary, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba($text-primary, 0.025) 1px, transparent 1px),
-    #fbfaf6;
+    #FFF4EB;
   background-size: 84px 84px, 84px 84px, auto;
 
   &::before,
@@ -2520,7 +2531,7 @@
   padding: 0 0.42rem;
   border: 1px solid rgba($text-primary, 0.28);
   border-radius: 999px;
-  background: #eef4ff;
+  background: #FFF4EB;
   color: rgba($text-primary, 0.82);
   font-size: 0.54rem;
   font-weight: 800;
@@ -2540,7 +2551,7 @@
 .about-story__system-node--strategy {
   left: 1.35rem;
   top: 3.8rem;
-  background: #fff1f1;
+  background: #FFF4EB;
 }
 
 .about-story__system-node--identity {
@@ -2551,13 +2562,13 @@
 .about-story__system-node--web {
   left: 0.25rem;
   bottom: 3.35rem;
-  background: #eef4ff;
+  background: #FFF4EB;
 }
 
 .about-story__system-node--launch {
   right: 2.35rem;
   bottom: 2.2rem;
-  background: #f1f9e9;
+  background: #FFF4EB;
 }
 
 .about-story__result {
@@ -2967,7 +2978,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 5rem 5.75rem;
-  background: linear-gradient(180deg, #fbfaf6 0%, #f5f1e6 100%);
+  background: linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 100%);
   color: $text-primary;
 
   &::before,
@@ -3131,7 +3142,7 @@
 
 .about-story__chip--web {
   transform: rotate(5deg);
-  background: linear-gradient(135deg, $brand-orange 0%, #ff8c2b 100%);
+  background: linear-gradient(135deg, $brand-orange 0%, #ED743B 100%);
   color: $white;
   box-shadow:
     0 0.5rem 1.1rem rgba($brand-orange, 0.32),
@@ -3140,7 +3151,7 @@
 
 .about-story__chip--launch {
   transform: rotate(-6deg) translateY(2px);
-  background: linear-gradient(135deg, $accent-yellow 0%, #e0c95c 100%);
+  background: linear-gradient(135deg, $accent-yellow 0%, #D8AA68 100%);
   color: rgba($text-primary, 0.85);
 }
 

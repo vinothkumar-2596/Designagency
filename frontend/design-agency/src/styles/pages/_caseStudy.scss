@@ -2,10 +2,10 @@
 @use '../abstracts/mixins' as *;
 @use '../abstracts/breakpoints' as *;
 
-$cs-accent: #ee3956;
-$cs-bg: #ffffff;
+$cs-accent: #ED743B;
+$cs-bg: #FFF4EB;
 $cs-border: #f1d6c8;
-$cs-text: #0d0d0d;
+$cs-text: #0F0F0F;
 $cs-muted: #4a4a4a;
 
 .case-study {
@@ -198,7 +198,7 @@ $cs-muted: #4a4a4a;
 /* ===== Facts band (dark) ===== */
 .case-study__facts {
   margin-top: 3rem;
-  background: linear-gradient(120deg, #050505 0%, #0a0d12 55%, #000 100%);
+  background: linear-gradient(180deg, #720D28, #5A0A20);
   color: $white;
 }
 
@@ -350,7 +350,7 @@ $cs-muted: #4a4a4a;
 
 /* ===== Palette ===== */
 .case-study__palette {
-  background: #faf6ef;
+  background: #FFF4EB;
   padding-block: 5rem;
   border-top: 1px solid rgba($cs-text, 0.06);
   border-bottom: 1px solid rgba($cs-text, 0.06);
@@ -487,7 +487,7 @@ $cs-muted: #4a4a4a;
 
 /* ===== Applications gallery ===== */
 .case-study__applications {
-  background: #f7f3eb;
+  background: #FFF4EB;
   padding-block: 5rem;
   border-top: 1px solid rgba($cs-text, 0.06);
 
@@ -590,7 +590,7 @@ $cs-muted: #4a4a4a;
 
 /* ===== Metrics band ===== */
 .case-study__metrics {
-  background: linear-gradient(120deg, #050505 0%, #0a0d12 55%, #000 100%);
+  background: linear-gradient(180deg, #720D28, #5A0A20);
   color: $white;
   padding-block: 5rem;
 
@@ -736,7 +736,7 @@ $cs-muted: #4a4a4a;
 /* ===== Next project navigation ===== */
 .case-study__next {
   display: block;
-  background: #faf6ef;
+  background: #FFF4EB;
   border-top: 1px solid rgba($cs-text, 0.06);
   color: $cs-text;
   text-decoration: none;
@@ -825,7 +825,7 @@ $cs-muted: #4a4a4a;
 
 /* ===== Closing CTA ===== */
 .case-study__cta {
-  background: linear-gradient(120deg, #050505 0%, #0a0d12 55%, #000 100%);
+  background: linear-gradient(180deg, #720D28, #5A0A20);
   color: $white;
 }
 
@@ -859,7 +859,7 @@ $cs-muted: #4a4a4a;
   padding: 0.85rem 1.6rem;
   border-radius: 999px;
   background: $brand-orange;
-  color: #0a0a0a;
+  color: #0F0F0F;
   font-size: 0.92rem;
   font-weight: 700;
   text-decoration: none;

@@ -95,7 +95,7 @@ function AboutUs() {
               <path
                 className="about-hero__sketch-stroke about-hero__sketch-stroke--bubble"
                 d="M50 95 C 50 70, 92 60, 148 58 C 218 55, 286 64, 316 82 C 340 96, 338 130, 332 160 C 326 190, 308 210, 270 218 C 240 222, 218 222, 196 222 L 152 290 L 178 222 C 132 222, 92 218, 70 208 C 48 198, 38 178, 40 150 C 42 120, 44 105, 50 95 Z"
-                stroke="#ff6a00"
+                stroke="#720d28"
                 strokeWidth="14"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -127,7 +127,7 @@ function AboutUs() {
               <path
                 className="about-hero__sketch-stroke about-hero__sketch-stroke--arrow"
                 d="M276 332 C 220 348, 150 348, 80 332"
-                stroke="#ff6a00"
+                stroke="#720d28"
                 strokeWidth="5"
                 strokeLinecap="round"
                 fill="none"
@@ -135,12 +135,29 @@ function AboutUs() {
               <path
                 className="about-hero__sketch-stroke about-hero__sketch-stroke--arrowhead"
                 d="M96 318 L 78 332 L 94 348"
-                stroke="#ff6a00"
+                stroke="#720d28"
                 strokeWidth="5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 fill="none"
               />
+
+              {/* BrandViora emblem — pops in at the end of the sequence,
+                  bottom-right corner of the sketch composition. */}
+              <g
+                className="about-hero__sketch-emblem"
+                transform="translate(248 278) scale(0.95)"
+                aria-hidden="true"
+              >
+                <path
+                  fill="#720d28"
+                  d="M56.93,80.62l-28.75-46.66H9.37l25.77,41.82c1.91,3.1,5.29,4.99,8.93,4.99h12.6l.25-.15Z"
+                />
+                <path
+                  fill="#FFF4EB"
+                  d="M79.32,44.13c1.77-3.55,2.77-7.55,2.77-11.79,0-4.83-1.29-9.35-3.55-13.25-4.58-7.89-13.12-13.2-22.9-13.2H10.61v7.99c0,5.49,4.45,9.93,9.93,9.93h37.52c4.54,0,8.21,3.68,8.21,8.21v.07c0,5.29-4.29,9.58-9.58,9.58h-14.22l7.39,11.46,6.52,10.19,3.02-4.8.18-.29,1.12-1.79c1.4-2.23,4.34-2.9,6.57-1.5,1.78,1.12,2.57,3.23,2.09,5.16-.1.57-.32,1.13-.64,1.65l-11.99,19h18.63l7.86-14.16c4.23-7.62,2.4-16.96-3.89-22.48Z"
+                />
+              </g>
             </svg>
           </div>
 
@@ -371,8 +388,8 @@ function AboutUs() {
                 <line x1="50" y1="394" x2="350" y2="394" stroke="#0a0d12" strokeOpacity="0.14" strokeWidth="1" strokeDasharray="2 5" />
 
                 {/* hand-drawn arrow pointing to the logo */}
-                <path d="M82 132 C 72 154, 76 178, 100 188" fill="none" stroke="#ff6a00" strokeWidth="2.2" strokeLinecap="round" />
-                <path d="M94 180 L100 188 L94 196" fill="none" stroke="#ff6a00" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M82 132 C 72 154, 76 178, 100 188" fill="none" stroke="#720d28" strokeWidth="2.2" strokeLinecap="round" />
+                <path d="M94 180 L100 188 L94 196" fill="none" stroke="#720d28" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
 
                 {/* sticky note, top-right */}
                 <g transform="translate(266 124) rotate(8)">
@@ -384,7 +401,7 @@ function AboutUs() {
 
                 {/* Brand mark + wordmark */}
                 <g transform="translate(120 170)">
-                  <rect x="0" y="0" width="56" height="56" rx="12" fill="#ff6a00" />
+                  <rect x="0" y="0" width="56" height="56" rx="12" fill="#720d28" />
                   <rect x="9" y="9" width="38" height="38" rx="7" fill="#ffc28a" fillOpacity="0.55" />
                   <rect x="18" y="18" width="20" height="20" rx="3" fill="#ffffff" fillOpacity="0.9" />
                 </g>
@@ -397,7 +414,7 @@ function AboutUs() {
                 {/* Palette */}
                 <text x="120" y="266" fontFamily="'Manrope', system-ui, sans-serif" fontSize="8" fontWeight="700" letterSpacing="0.22em" fill="#0a0d12" fillOpacity="0.45">/ PALETTE</text>
                 <g transform="translate(120 276)">
-                  <rect x="0" y="0" width="28" height="28" rx="4" fill="#ff6a00" />
+                  <rect x="0" y="0" width="28" height="28" rx="4" fill="#720d28" />
                   <rect x="34" y="0" width="28" height="28" rx="4" fill="#f4e58a" />
                   <rect x="68" y="0" width="28" height="28" rx="4" fill="#0a0d12" />
                   <rect x="102" y="0" width="28" height="28" rx="4" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="1.2" />
@@ -410,7 +427,7 @@ function AboutUs() {
                 <text x="176" y="372" fontFamily="'Manrope', system-ui, sans-serif" fontSize="9" fontWeight="400" fill="#0a0d12" fillOpacity="0.6">Display · Body · Caption</text>
 
                 {/* corner sparkle */}
-                <g transform="translate(308 218)" stroke="#ff6a00" strokeWidth="2.4" strokeLinecap="round">
+                <g transform="translate(308 218)" stroke="#720d28" strokeWidth="2.4" strokeLinecap="round">
                   <line x1="0" y1="-9" x2="0" y2="9" />
                   <line x1="-9" y1="0" x2="9" y2="0" />
                   <line x1="-6" y1="-6" x2="6" y2="6" strokeWidth="1.6" strokeOpacity="0.7" />
@@ -420,7 +437,7 @@ function AboutUs() {
 
               <g transform="rotate(5 280 460)">
                 <rect x="128" y="426" width="300" height="72" rx="14" fill="#0a0d12" />
-                <rect className="about-stats__bar about-stats__bar--1" x="154" y="454" width="50" height="7" rx="3.5" fill="#ff6a00" />
+                <rect className="about-stats__bar about-stats__bar--1" x="154" y="454" width="50" height="7" rx="3.5" fill="#720d28" />
                 <rect className="about-stats__bar about-stats__bar--2" x="218" y="454" width="128" height="7" rx="3.5" fill="rgba(255,255,255,0.34)" />
                 <rect className="about-stats__bar about-stats__bar--3" x="360" y="454" width="38" height="7" rx="3.5" fill="rgba(255,255,255,0.18)" />
               </g>
@@ -433,7 +450,7 @@ function AboutUs() {
                 fill="none"
               />
 
-              <g stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" strokeOpacity="0.84" transform="translate(478 80)">
+              <g stroke="#720d28" strokeWidth="6" strokeLinecap="round" strokeOpacity="0.84" transform="translate(478 80)">
                 <line x1="0" y1="-32" x2="0" y2="32" />
                 <line x1="-32" y1="0" x2="32" y2="0" />
                 <line x1="-23" y1="-23" x2="23" y2="23" />
@@ -441,7 +458,7 @@ function AboutUs() {
               </g>
 
               <g transform="translate(46 522)">
-                <circle cx="0" cy="0" r="13" fill="#ff6a00" />
+                <circle cx="0" cy="0" r="13" fill="#720d28" />
                 <circle cx="32" cy="0" r="13" fill="#f4e58a" />
                 <circle cx="64" cy="0" r="13" fill="#0a0d12" />
                 <circle cx="96" cy="0" r="13" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="2" />
@@ -472,7 +489,7 @@ function AboutUs() {
                 y1="38"
                 x2="40"
                 y2="422"
-                stroke="#ff6a00"
+                stroke="#720d28"
                 strokeWidth="0.7"
                 strokeOpacity="0.45"
                 strokeDasharray="2 5"
@@ -482,13 +499,13 @@ function AboutUs() {
                 className="about-values__diagram-mark about-values__diagram-mark--intention"
                 transform="translate(40 80)"
               >
-                <circle cx="0" cy="0" r="26" stroke="#ff6a00" strokeWidth="2" fill="none" />
-                <circle cx="0" cy="0" r="14" stroke="#ff6a00" strokeWidth="1.4" strokeOpacity="0.55" fill="none" />
-                <circle cx="0" cy="0" r="3" fill="#ff6a00" />
-                <line x1="-34" y1="0" x2="-30" y2="0" stroke="#ff6a00" strokeWidth="1.4" strokeLinecap="round" />
-                <line x1="34" y1="0" x2="30" y2="0" stroke="#ff6a00" strokeWidth="1.4" strokeLinecap="round" />
-                <line x1="0" y1="-34" x2="0" y2="-30" stroke="#ff6a00" strokeWidth="1.4" strokeLinecap="round" />
-                <line x1="0" y1="34" x2="0" y2="30" stroke="#ff6a00" strokeWidth="1.4" strokeLinecap="round" />
+                <circle cx="0" cy="0" r="26" stroke="#720d28" strokeWidth="2" fill="none" />
+                <circle cx="0" cy="0" r="14" stroke="#720d28" strokeWidth="1.4" strokeOpacity="0.55" fill="none" />
+                <circle cx="0" cy="0" r="3" fill="#720d28" />
+                <line x1="-34" y1="0" x2="-30" y2="0" stroke="#720d28" strokeWidth="1.4" strokeLinecap="round" />
+                <line x1="34" y1="0" x2="30" y2="0" stroke="#720d28" strokeWidth="1.4" strokeLinecap="round" />
+                <line x1="0" y1="-34" x2="0" y2="-30" stroke="#720d28" strokeWidth="1.4" strokeLinecap="round" />
+                <line x1="0" y1="34" x2="0" y2="30" stroke="#720d28" strokeWidth="1.4" strokeLinecap="round" />
               </g>
 
               <g
@@ -505,7 +522,7 @@ function AboutUs() {
                 className="about-values__diagram-mark about-values__diagram-mark--emotion"
                 transform="translate(40 380)"
                 fill="none"
-                stroke="#ff6a00"
+                stroke="#720d28"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >

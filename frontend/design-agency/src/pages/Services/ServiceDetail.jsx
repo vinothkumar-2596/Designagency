@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Gauge, Sparkles, Users } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router-dom'
+import Button from '../../components/Button/Button'
 import SEO from '../../components/SEO/SEO'
 import { siteConfig } from '../../config/site'
 import { getSeo } from '../../services/contentService'
@@ -81,14 +82,14 @@ function ServiceDetail() {
             <p className="services-hero__subtitle">{service.body[0]}</p>
 
             <div className="services-hero__actions">
-              <Link className="services-hero__cta" to="/contactus">
+              <Button as={Link} to="/contactus" className="services-hero__cta">
                 <span>{service.cta}</span>
                 <ArrowRight size={18} />
-              </Link>
-              <Link className="services-hero__link" to="/services">
+              </Button>
+              <Button as={Link} to="/services" variant="secondary" className="services-hero__link">
                 <span>Browse other services</span>
                 <ArrowRight size={16} />
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -276,13 +277,13 @@ function ServiceDetail() {
                     />
 
                     {/* Vertical ribbon — front strip */}
-                    <rect x="160" y="210" width="20" height="160" fill="#ff6a00" />
+                    <rect x="160" y="210" width="20" height="160" fill="#720d28" />
                     <line x1="160" y1="210" x2="160" y2="370" stroke="#0a0d12" strokeWidth="2" />
                     <line x1="180" y1="210" x2="180" y2="370" stroke="#0a0d12" strokeWidth="2" />
                     {/* Vertical ribbon — top strip (over top face) */}
                     <path
                       d="M160 210 L230 160 L250 160 L180 210 Z"
-                      fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                      fill="#720d28" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
                     />
                     {/* Vertical ribbon — edge shadow on the side */}
                     <path d="M180 210 L250 160 L250 168 L180 218 Z" fill="#cc4f00" opacity="0.55" />
@@ -292,21 +293,21 @@ function ServiceDetail() {
                       {/* Left loop */}
                       <path
                         d="M0 0 C -26 -22, -42 -8, -28 7 L -6 5 Z"
-                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                        fill="#720d28" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
                       />
                       {/* Right loop */}
                       <path
                         d="M0 0 C 26 -22, 42 -8, 28 7 L 6 5 Z"
-                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                        fill="#720d28" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
                       />
                       {/* Tails */}
                       <path
                         d="M -3 6 L -8 24 L -2 22 L -2 8 Z"
-                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                        fill="#720d28" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
                       />
                       <path
                         d="M 3 6 L 8 24 L 2 22 L 2 8 Z"
-                        fill="#ff6a00" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
+                        fill="#720d28" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
                       />
                       {/* Knot */}
                       <ellipse cx="0" cy="3" rx="8" ry="6" fill="#cc4f00" stroke="#0a0d12" strokeWidth="2" />
@@ -317,12 +318,12 @@ function ServiceDetail() {
                       <rect x="0" y="0" width="42" height="40" rx="4" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="2" />
                       <path
                         d="M9 16 L18 24 L34 8"
-                        stroke="#ff6a00" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none"
+                        stroke="#720d28" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none"
                       />
                     </g>
 
                     {/* Decorative sparkles around the scene */}
-                    <g stroke="#ff6a00" strokeWidth="3" strokeLinecap="round" fill="none">
+                    <g stroke="#720d28" strokeWidth="3" strokeLinecap="round" fill="none">
                       <g transform="translate(58, 170)">
                         <line x1="0" y1="-11" x2="0" y2="11" />
                         <line x1="-11" y1="0" x2="11" y2="0" />
@@ -346,11 +347,11 @@ function ServiceDetail() {
                     clipPath="url(#serviceStatsCircleClip)"
                   />
                 )}
-                <circle cx="200" cy="270" r="180" fill="#ff6a00" fillOpacity="0.045" clipPath="url(#serviceStatsCircleClip)" />
+                <circle cx="200" cy="270" r="180" fill="#720d28" fillOpacity="0.045" clipPath="url(#serviceStatsCircleClip)" />
 
                 <g transform="rotate(5 280 460)">
                   <rect x="128" y="426" width="300" height="72" rx="14" fill="#0a0d12" />
-                  <rect className="about-stats__bar about-stats__bar--1" x="154" y="454" width="50" height="7" rx="3.5" fill="#ff6a00" />
+                  <rect className="about-stats__bar about-stats__bar--1" x="154" y="454" width="50" height="7" rx="3.5" fill="#720d28" />
                   <rect className="about-stats__bar about-stats__bar--2" x="218" y="454" width="128" height="7" rx="3.5" fill="rgba(255,255,255,0.34)" />
                   <rect className="about-stats__bar about-stats__bar--3" x="360" y="454" width="38" height="7" rx="3.5" fill="rgba(255,255,255,0.18)" />
                 </g>
@@ -363,7 +364,7 @@ function ServiceDetail() {
                   fill="none"
                 />
 
-                <g stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" strokeOpacity="0.84" transform="translate(478 80)">
+                <g stroke="#720d28" strokeWidth="6" strokeLinecap="round" strokeOpacity="0.84" transform="translate(478 80)">
                   <line x1="0" y1="-32" x2="0" y2="32" />
                   <line x1="-32" y1="0" x2="32" y2="0" />
                   <line x1="-23" y1="-23" x2="23" y2="23" />
@@ -371,7 +372,7 @@ function ServiceDetail() {
                 </g>
 
                 <g transform="translate(46 522)">
-                  <circle cx="0" cy="0" r="13" fill="#ff6a00" />
+                  <circle cx="0" cy="0" r="13" fill="#720d28" />
                   <circle cx="32" cy="0" r="13" fill="#f4e58a" />
                   <circle cx="64" cy="0" r="13" fill="#0a0d12" />
                   <circle cx="96" cy="0" r="13" fill="#fbfaf6" stroke="#0a0d12" strokeWidth="2" />

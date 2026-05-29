@@ -7,7 +7,7 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
           x="50" y="80" width="240" height="170" rx="14"
-          stroke="#f4e58a" strokeWidth="3" fill="none"
+          stroke="#ffedd4" strokeWidth="3" fill="none"
           transform="rotate(-8 170 165)"
         />
         <rect
@@ -19,23 +19,23 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
           x="70" y="100" width="240" height="170" rx="14"
-          stroke="#ff6a00" strokeWidth="11" strokeLinejoin="round" fill="none"
+          stroke="#ed743b" strokeWidth="11" strokeLinejoin="round" fill="none"
         />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="92" cy="124" r="5.5" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="112" cy="124" r="5.5" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="92" cy="124" r="5.5" fill="#ed743b" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="112" cy="124" r="5.5" fill="#ffedd4" />
         <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="132" cy="124" r="5.5" fill="#ffffff" opacity="0.45" />
         <g className="services-hero__sketch-stroke services-hero__sketch-stroke--lines" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.7">
           <line x1="92" y1="160" x2="280" y2="160" />
           <line x1="92" y1="180" x2="226" y2="180" />
           <line x1="92" y1="200" x2="252" y2="200" />
         </g>
-        <rect className="services-hero__sketch-btn" x="92" y="220" width="84" height="24" rx="12" fill="#ff6a00" />
+        <rect className="services-hero__sketch-btn" x="92" y="220" width="84" height="24" rx="12" fill="#ed743b" />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--cursor"
           d="M218 196 L218 240 L228 232 L236 250 L246 245 L238 228 L250 226 Z"
           fill="#ffffff" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
         />
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#ffedd4" strokeWidth="4" strokeLinecap="round">
           <line x1="320" y1="34" x2="320" y2="70" />
           <line x1="302" y1="52" x2="338" y2="52" />
           <line x1="307" y1="39" x2="333" y2="65" />
@@ -48,7 +48,7 @@ export const heroSketches = [
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
           d="M30 312 C 100 298, 180 326, 332 304"
-          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+          stroke="#ed743b" strokeWidth="6" strokeLinecap="round" fill="none"
         />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
@@ -68,30 +68,94 @@ export const heroSketches = [
     label: 'Branding',
     render: () => (
       <>
-        {/* Color palette swatches */}
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="138" cy="270" r="12" fill="#fe6102" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="170" cy="270" r="12" fill="#f4e58a" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="202" cy="270" r="12" fill="#ffffff" opacity="0.85" />
-        <circle cx="234" cy="270" r="12" fill="#0a0d12" stroke="#ffffff" strokeWidth="1.5" />
-
-        {/* Bottom swoosh */}
+        {/* Document — outer page with folded corner */}
         <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
+          d="M88 70 L238 70 L290 122 L290 318 L88 318 Z"
+          stroke="#FFF4EB" strokeWidth="3" fill="none" strokeLinejoin="round" strokeLinecap="round"
+        />
+
+        {/* Folded corner triangle */}
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-mid"
+          d="M238 70 L238 122 L290 122"
+          stroke="#FFF4EB" strokeWidth="3" fill="none" strokeLinejoin="round" strokeLinecap="round"
+        />
+
+        {/* Lightbulb — outer bulb circle */}
+        <circle
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
+          cx="189" cy="178" r="44"
+          stroke="#FFF4EB" strokeWidth="3.5" fill="none"
+        />
+
+        {/* Lightbulb — filament (loop inside) */}
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--pen"
+          d="M171 174 Q 189 198 207 174 M189 188 L189 208"
+          stroke="#ED743B" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round"
+        />
+
+        {/* Lightbulb — base (screw threads) */}
+        <g
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--lines"
+          stroke="#FFF4EB" strokeWidth="3" fill="none" strokeLinecap="round"
+        >
+          <line x1="172" y1="226" x2="206" y2="226" />
+          <line x1="174" y1="236" x2="204" y2="236" />
+          <path d="M178 246 L200 246 L195 258 L183 258 Z" strokeLinejoin="round" />
+        </g>
+
+        {/* Idea rays — radiating from bulb top */}
+        <g
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--spark"
+          stroke="#ED743B" strokeWidth="3.2" strokeLinecap="round"
+        >
+          <line x1="189" y1="112" x2="189" y2="128" />
+          <line x1="142" y1="148" x2="152" y2="156" />
+          <line x1="236" y1="148" x2="226" y2="156" />
+          <line x1="128" y1="186" x2="142" y2="186" />
+          <line x1="236" y1="186" x2="250" y2="186" />
+        </g>
+
+        {/* Hand 1 — left side, three minimal finger lines */}
+        <g
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
-          d="M30 322 C 100 308, 200 336, 332 312"
-          stroke="#eda369" strokeWidth="6" strokeLinecap="round" fill="none"
+          stroke="#FFF4EB" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.78"
+        >
+          <path d="M34 196 Q 60 198 84 196" />
+          <path d="M34 214 Q 60 214 84 214" />
+          <path d="M44 232 Q 66 230 86 232" />
+        </g>
+
+        {/* Hand 2 — right side, three minimal finger lines */}
+        <g
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
+          stroke="#FFF4EB" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.78"
+        >
+          <path d="M298 132 Q 322 134 344 132" />
+          <path d="M300 150 Q 322 152 342 150" />
+          <path d="M308 168 Q 326 168 340 168" />
+        </g>
+
+        {/* Pencil — diagonal across bottom-right */}
+        <path
+          className="services-hero__sketch-stroke services-hero__sketch-stroke--cursor"
+          d="M236 296 L294 240 L308 254 L250 310 Z"
+          stroke="#FFF4EB" strokeWidth="3" fill="none" strokeLinejoin="round" strokeLinecap="round"
         />
 
-        {/* Bottom arrow */}
-        <path
-          className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
-          d="M60 352 C 140 360, 220 350, 304 338"
-          stroke="#ffffff" strokeWidth="3" strokeLinecap="round" opacity="0.5" fill="none"
-        />
+        {/* Pencil tip — small triangle */}
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--arrowhead"
-          d="M288 326 L 308 338 L 294 354"
-          stroke="#ffffff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" fill="none"
+          d="M236 296 L222 304 L228 318 L250 310 Z"
+          stroke="#ED743B" strokeWidth="3" fill="none" strokeLinejoin="round" strokeLinecap="round"
         />
+
+        {/* Small idea dot — pops next to bulb */}
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="60" cy="100" r="4" fill="#ED743B" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="320" cy="260" r="4" fill="#ED743B" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="280" cy="86" r="4" fill="#FFF4EB" />
       </>
     ),
   },
@@ -103,12 +167,12 @@ export const heroSketches = [
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
           d="M84 120 L 44 170 L 84 220"
-          stroke="#f4e58a" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" fill="none"
+          stroke="#ffedd4" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" fill="none"
         />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
           d="M276 120 L 316 170 L 276 220"
-          stroke="#ff6a00" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" fill="none"
+          stroke="#ed743b" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" fill="none"
         />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-mid"
@@ -120,26 +184,26 @@ export const heroSketches = [
           <line x1="138" y1="170" x2="222" y2="170" />
           <line x1="120" y1="190" x2="240" y2="190" />
         </g>
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="100" cy="80" r="6" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="120" cy="80" r="6" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="100" cy="80" r="6" fill="#ed743b" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="120" cy="80" r="6" fill="#ffedd4" />
         <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="140" cy="80" r="6" fill="#ffffff" opacity="0.45" />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--ribbon"
           d="M118 250 L 244 250"
-          stroke="#f4e58a" strokeWidth="14" strokeLinecap="round" fill="none"
+          stroke="#ffedd4" strokeWidth="14" strokeLinecap="round" fill="none"
         />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--pen"
           d="M270 70 L 296 80 L 286 110 L 256 100 Z"
           fill="#ffffff" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
         />
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#ffedd4" strokeWidth="4" strokeLinecap="round">
           <line x1="320" y1="34" x2="320" y2="70" />
           <line x1="302" y1="52" x2="338" y2="52" />
           <line x1="307" y1="39" x2="333" y2="65" />
           <line x1="333" y1="39" x2="307" y2="65" />
         </g>
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#ff6a00" strokeWidth="2.5" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#ed743b" strokeWidth="2.5" strokeLinecap="round">
           <line x1="46" y1="280" x2="62" y2="270" />
           <line x1="48" y1="296" x2="68" y2="296" />
           <line x1="46" y1="312" x2="62" y2="320" />
@@ -147,7 +211,7 @@ export const heroSketches = [
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
           d="M30 322 C 100 306, 200 332, 332 308"
-          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+          stroke="#ed743b" strokeWidth="6" strokeLinecap="round" fill="none"
         />
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--arrow"
@@ -171,7 +235,7 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
           x="60" y="80" width="180" height="220" rx="14"
-          stroke="#f4e58a" strokeWidth="3" fill="none"
+          stroke="#ffedd4" strokeWidth="3" fill="none"
           transform="rotate(-7 150 190)"
         />
 
@@ -179,7 +243,7 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
           x="80" y="90" width="180" height="220" rx="14"
-          stroke="#ff6a00" strokeWidth="11" strokeLinejoin="round" fill="none"
+          stroke="#ed743b" strokeWidth="11" strokeLinejoin="round" fill="none"
         />
 
         {/* Photo placeholder inside the post */}
@@ -190,12 +254,12 @@ export const heroSketches = [
         />
 
         {/* Sun inside the photo */}
-        <circle cx="125" cy="148" r="11" fill="#f4e58a" />
+        <circle cx="125" cy="148" r="11" fill="#ffedd4" />
 
         {/* Mountain silhouette inside the photo */}
         <path
           d="M 100 224 L 140 174 L 168 196 L 196 168 L 222 200 L 240 224 Z"
-          fill="#ff6a00" opacity="0.55"
+          fill="#ed743b" opacity="0.55"
         />
 
         {/* Caption lines below the photo */}
@@ -208,7 +272,7 @@ export const heroSketches = [
         <g transform="translate(102 281) scale(0.7)">
           <path
             d="M 12 21.35 l -1.45 -1.32 C 5.4 16.36 2 13.28 2 9.5 C 2 6.42 4.42 4 7.5 4 c 1.74 0 3.41 0.81 4.5 2.09 C 13.09 4.81 14.76 4 16.5 4 C 19.58 4 22 6.42 22 9.5 c 0 3.78 -3.4 6.86 -8.55 11.54 L 12 21.35 z"
-            fill="#ff6a00" stroke="#ffffff" strokeWidth="1.5" strokeLinejoin="round"
+            fill="#ed743b" stroke="#ffffff" strokeWidth="1.5" strokeLinejoin="round"
           />
         </g>
 
@@ -219,8 +283,8 @@ export const heroSketches = [
         </g>
 
         {/* Engagement count dots */}
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="206" cy="291" r="4" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="218" cy="291" r="4" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="206" cy="291" r="4" fill="#ed743b" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="218" cy="291" r="4" fill="#ffedd4" />
         <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="230" cy="291" r="4" fill="#ffffff" opacity="0.6" />
 
         {/* Floating heart popping out top-right */}
@@ -230,19 +294,19 @@ export const heroSketches = [
         >
           <path
             d="M 12 21.35 l -1.45 -1.32 C 5.4 16.36 2 13.28 2 9.5 C 2 6.42 4.42 4 7.5 4 c 1.74 0 3.41 0.81 4.5 2.09 C 13.09 4.81 14.76 4 16.5 4 C 19.58 4 22 6.42 22 9.5 c 0 3.78 -3.4 6.86 -8.55 11.54 L 12 21.35 z"
-            fill="#ff6a00" stroke="#0a0d12" strokeWidth="1.6" strokeLinejoin="round"
+            fill="#ed743b" stroke="#0a0d12" strokeWidth="1.6" strokeLinejoin="round"
           />
         </g>
 
         {/* Sparkle bursts around floating heart */}
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#f4e58a" strokeWidth="2.5" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#ffedd4" strokeWidth="2.5" strokeLinecap="round">
           <line x1="328" y1="88" x2="338" y2="84" />
           <line x1="330" y1="106" x2="342" y2="110" />
           <line x1="262" y1="80" x2="256" y2="74" />
         </g>
 
         {/* Spark top-left */}
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#ffedd4" strokeWidth="4" strokeLinecap="round">
           <line x1="34" y1="48" x2="34" y2="82" />
           <line x1="18" y1="64" x2="50" y2="64" />
           <line x1="22" y1="52" x2="46" y2="76" />
@@ -259,7 +323,7 @@ export const heroSketches = [
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
           d="M30 350 C 100 338, 200 362, 332 340"
-          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+          stroke="#ed743b" strokeWidth="6" strokeLinecap="round" fill="none"
         />
       </>
     ),
@@ -270,7 +334,7 @@ export const heroSketches = [
     render: () => (
       <>
         {/* Spark top-left (matches other sketches' vocabulary) */}
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#ffedd4" strokeWidth="4" strokeLinecap="round">
           <line x1="46" y1="50" x2="46" y2="86" />
           <line x1="28" y1="68" x2="64" y2="68" />
           <line x1="32" y1="54" x2="60" y2="82" />
@@ -287,7 +351,7 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
           x="68" y="86" width="220" height="220" rx="4"
-          stroke="#f4e58a" strokeWidth="3" fill="none"
+          stroke="#ffedd4" strokeWidth="3" fill="none"
           transform="rotate(-5 178 196)"
         />
 
@@ -295,14 +359,14 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
           x="78" y="96" width="220" height="220" rx="4"
-          stroke="#ff6a00" strokeWidth="12" strokeLinejoin="round" fill="none"
+          stroke="#ed743b" strokeWidth="12" strokeLinejoin="round" fill="none"
         />
 
         {/* Yellow tape strip across the top — the signature packaging cue */}
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--tape"
           x="78" y="124" width="220" height="24"
-          fill="#f4e58a"
+          fill="#ffedd4"
         />
         <line
           x1="86" y1="136" x2="290" y2="136"
@@ -349,15 +413,15 @@ export const heroSketches = [
         </g>
 
         {/* Color swatch dots bottom-left (consistent across sketches) */}
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="60" cy="346" r="12" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="92" cy="346" r="12" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="60" cy="346" r="12" fill="#ed743b" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="92" cy="346" r="12" fill="#ffedd4" />
         <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="124" cy="346" r="12" fill="#ffffff" opacity="0.55" />
 
         {/* Bottom orange swoosh */}
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
           d="M160 354 C 222 344, 268 366, 332 348"
-          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+          stroke="#ed743b" strokeWidth="6" strokeLinecap="round" fill="none"
         />
 
         {/* Bottom arrow */}
@@ -382,13 +446,13 @@ export const heroSketches = [
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-back"
           x="84" y="50" width="160" height="240" rx="28"
-          stroke="#f4e58a" strokeWidth="3" fill="none"
+          stroke="#ffedd4" strokeWidth="3" fill="none"
           transform="rotate(-6 164 170)"
         />
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-front"
           x="100" y="60" width="160" height="240" rx="26"
-          stroke="#ff6a00" strokeWidth="11" fill="none"
+          stroke="#ed743b" strokeWidth="11" fill="none"
         />
         <rect
           className="services-hero__sketch-btn"
@@ -399,13 +463,13 @@ export const heroSketches = [
           <line x1="118" y1="118" x2="240" y2="118" />
           <line x1="118" y1="138" x2="206" y2="138" />
         </g>
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="138" cy="190" r="14" fill="#ff6a00" />
-        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="180" cy="190" r="14" fill="#f4e58a" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--1" cx="138" cy="190" r="14" fill="#ed743b" />
+        <circle className="services-hero__sketch-dot services-hero__sketch-dot--2" cx="180" cy="190" r="14" fill="#ffedd4" />
         <circle className="services-hero__sketch-dot services-hero__sketch-dot--3" cx="222" cy="190" r="14" fill="#ffffff" opacity="0.4" />
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--ribbon"
           x="120" y="226" width="120" height="16" rx="8"
-          fill="#f4e58a"
+          fill="#ffedd4"
         />
         <rect
           className="services-hero__sketch-stroke services-hero__sketch-stroke--card-mid"
@@ -417,13 +481,13 @@ export const heroSketches = [
           d="M268 188 L268 232 L278 224 L286 242 L296 237 L288 220 L300 218 Z"
           fill="#ffffff" stroke="#0a0d12" strokeWidth="2" strokeLinejoin="round"
         />
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#f4e58a" strokeWidth="4" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--spark" stroke="#ffedd4" strokeWidth="4" strokeLinecap="round">
           <line x1="320" y1="50" x2="320" y2="86" />
           <line x1="302" y1="68" x2="338" y2="68" />
           <line x1="307" y1="55" x2="333" y2="81" />
           <line x1="333" y1="55" x2="307" y2="81" />
         </g>
-        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#ff6a00" strokeWidth="2.5" strokeLinecap="round">
+        <g className="services-hero__sketch-stroke services-hero__sketch-stroke--burst" stroke="#ed743b" strokeWidth="2.5" strokeLinecap="round">
           <line x1="60" y1="180" x2="76" y2="172" />
           <line x1="56" y1="200" x2="74" y2="200" />
           <line x1="60" y1="220" x2="76" y2="228" />
@@ -431,7 +495,7 @@ export const heroSketches = [
         <path
           className="services-hero__sketch-stroke services-hero__sketch-stroke--swoosh"
           d="M30 332 C 100 318, 200 344, 332 322"
-          stroke="#ff6a00" strokeWidth="6" strokeLinecap="round" fill="none"
+          stroke="#ed743b" strokeWidth="6" strokeLinecap="round" fill="none"
         />
       </>
     ),

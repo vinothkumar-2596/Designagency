@@ -13,6 +13,22 @@
   text-align: inherit;
 }
 
+:root {
+  --color-brand-primary: #720d28;
+  --color-brand-primary-hover: #8a1835;
+  --color-brand-secondary: #720d28;
+  --color-brand-bronze: #784e24;
+  --color-brand-gold: #d8aa68;
+  --color-background: #f3ece5;
+  --color-background-alt: #fbf7f2;
+  --color-background-soft: #eee3d8;
+  --color-text-primary: #0f0f0f;
+  --color-text-muted: rgba(15, 15, 15, 0.65);
+  --color-white: #ffffff;
+  --shadow-soft: 0 18px 44px rgba(15, 15, 15, 0.08);
+  --shadow-premium: 0 24px 70px rgba(114, 13, 40, 0.16);
+}
+
 html {
   scroll-behavior: smooth;
 
@@ -30,12 +46,12 @@ body::-webkit-scrollbar {
 }
 
 ::selection {
-  background: #f7c28b;
+  background: rgba($brand-burgundy, 0.18);
   color: $text-primary;
 }
 
 ::-moz-selection {
-  background: #f7c28b;
+  background: rgba($brand-burgundy, 0.18);
   color: $text-primary;
 }
 
@@ -66,6 +82,10 @@ button {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a:hover {
+  color: $brand-burgundy;
 }
 
 a:focus-visible {

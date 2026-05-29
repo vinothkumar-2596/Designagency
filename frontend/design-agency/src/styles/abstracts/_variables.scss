@@ -1,21 +1,28 @@
 // Base
-$bg-main: #e7e5df;
+$bg-main: #f3ece5;
+$bg-alt: #fbf7f2;
+$bg-soft: #eee3d8;
 
 // Text
-$text-primary: #000000;
-$text-secondary: #111111;
+$text-primary: #0f0f0f;
+$text-secondary: rgba($text-primary, 0.65);
 
 // Brand
-$brand-orange: #ff6a00;
-$brand-orange-hover: #e65c00;
-$brand-orange-light: #fff1e6;
+$brand-burgundy: #720d28;
+$brand-burgundy-hover: #8a1835;
+$brand-orange: $brand-burgundy;
+$brand-orange-hover: $brand-burgundy-hover;
+$brand-secondary-orange: $brand-burgundy;
+$brand-secondary-orange-hover: $brand-burgundy-hover;
+$brand-orange-light: #f7dfd3;
 
 // Secondary Accent
-$accent-yellow: #f4e58a;
+$accent-bronze: #784e24;
+$accent-yellow: #d8aa68;
 
 // Borders
-$border-dark: #1a1a1a;
-$border-light: #bdbdbd;
+$border-dark: rgba($text-primary, 0.24);
+$border-light: rgba($text-primary, 0.14);
 
 // Utility
 $white: #ffffff;

@@ -3,9 +3,7 @@
 @use '../../abstracts/breakpoints' as *;
 
 .footer {
-  background: linear-gradient(-45deg, #0a0a0a, #0f0f0a, #0a0a0f, #0a0a0a);
-  background-size: 400% 400%;
-  animation: footerGradient 20s ease infinite;
+  background: #0F0F0F;
   color: #ffffff;
   border-top: 1px solid rgba(#ffffff, 0.08);
   position: relative;
@@ -86,7 +84,7 @@
 }
 
 .footer__cta-link {
-  color: $brand-orange;
+  color: #ED743B;
   font-size: 3.5rem;
   font-weight: 700;
   text-decoration: none;
@@ -362,15 +360,15 @@
   width: 3rem;
   height: 3rem;
   padding: 0;
-  border: 1px solid rgba($brand-orange, 0.45);
+  border: 1px solid #784E24;
   border-radius: 50%;
-  background: rgba(10, 10, 10, 0.82);
-  color: $brand-orange;
+  background: #0F0F0F;
+  color: #784E24;
   cursor: pointer;
   backdrop-filter: blur(6px);
   box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.35),
-    0 0 0 4px rgba($brand-orange, 0.08);
+    0 12px 28px rgba(15, 15, 15, 0.4),
+    0 0 0 4px rgba(120, 78, 36, 0.14);
   opacity: 0;
   visibility: hidden;
   transform: translateY(12px);
@@ -404,12 +402,12 @@
   }
 
   &:hover {
-    background: $brand-orange;
-    border-color: $brand-orange;
-    color: #ffffff;
+    background: #784E24;
+    border-color: #784E24;
+    color: #FFEDD4;
     box-shadow:
-      0 14px 32px rgba($brand-orange, 0.45),
-      0 0 0 6px rgba($brand-orange, 0.14);
+      0 14px 32px rgba(120, 78, 36, 0.45),
+      0 0 0 6px rgba(120, 78, 36, 0.18);
 
     svg {
       transform: translateY(-2px);
@@ -417,7 +415,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid $brand-orange;
+    outline: 2px solid #784E24;
     outline-offset: 4px;
   }
 }
