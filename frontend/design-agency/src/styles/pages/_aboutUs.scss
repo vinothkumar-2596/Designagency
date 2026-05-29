@@ -164,11 +164,9 @@
 
 /* Brand emblem — pops in last, after the dots + sparkle, settles
    and stays. Sized via the SVG transform attribute. */
-.about-hero__sketch-emblem {
-  transform-box: fill-box;
-  transform-origin: center;
-  opacity: 0;
-  animation: about-sketch-pop 0.55s cubic-bezier(0.34, 1.4, 0.5, 1) 2.4s forwards;
+.about-hero__sketch-logo {
+  opacity: 0.98;
+  filter: drop-shadow(0 12px 14px rgba($text-primary, 0.18));
 }
 
 @keyframes about-sketch-draw {
@@ -205,8 +203,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .about-hero__sketch-stroke,
-  .about-hero__sketch-dot,
-  .about-hero__sketch-emblem {
+  .about-hero__sketch-dot {
     animation: none;
   }
 
@@ -215,8 +212,7 @@
     stroke-dashoffset: 0;
   }
 
-  .about-hero__sketch-dot,
-  .about-hero__sketch-emblem {
+  .about-hero__sketch-dot {
     opacity: 1;
     transform: none;
   }
