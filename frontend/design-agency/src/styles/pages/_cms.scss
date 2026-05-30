@@ -253,10 +253,7 @@
   overflow: hidden;
   padding-block: 3.5rem 3rem;
   border-bottom: 1px solid rgba($white, 0.08);
-  background:
-    radial-gradient(circle at 18% 80%, rgba(#ed743b, 0.18), transparent 38%),
-    radial-gradient(circle at 85% 10%, rgba(#ebbd80, 0.08), transparent 40%),
-    #720d28;
+  background: #870F32;
   color: $white;
 
   @include respond-up(md) {
@@ -389,7 +386,7 @@
   text-wrap: balance;
 
   em {
-    color: #ebbd80;
+    color: #d8aa68;
     font-style: normal;
     font-weight: 500;
   }

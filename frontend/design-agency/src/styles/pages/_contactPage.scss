@@ -373,10 +373,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 5rem 4.5rem;
-  background:
-    radial-gradient(circle at 15% 80%, rgba($brand-orange, 0.24), transparent 40%),
-    radial-gradient(circle at 85% 14%, rgba($accent-yellow, 0.12), transparent 44%),
-    linear-gradient(120deg, #720D28 0%, #5A0A20 55%, #720D28 100%);
+  background: #870F32;
   color: $white;
 
   @include respond-up(md) {

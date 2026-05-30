@@ -33,10 +33,7 @@
   isolation: isolate;
   overflow: hidden;
   padding-block: 6rem 5.5rem;
-  background:
-    radial-gradient(circle at 18% 80%, rgba($brand-orange, 0.22), transparent 38%),
-    radial-gradient(circle at 85% 10%, rgba($accent-yellow, 0.1), transparent 40%),
-    linear-gradient(180deg, #720D28, #5A0A20);
+  background: #870F32;
   color: $white;
 
   @include respond-up(md) {

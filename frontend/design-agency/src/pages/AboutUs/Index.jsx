@@ -69,35 +69,80 @@ function AboutUs() {
       <SEO meta={meta} />
 
       <section className="about-hero">
-        <div className="about-hero__grid-box grid-box" aria-hidden="true">
-          {heroGridLines.map((line) => (
-            <div className="grid-line" key={line}>
-              <div className="grid-line-inner" />
-            </div>
-          ))}
-        </div>
-
         <div className="about-hero__inner">
-          <p className="eyebrow about-hero__eyebrow">About us</p>
+          <div className="about-hero__rail" aria-hidden="true">
+            <span className="about-hero__rail-index">( 01 )</span>
+            <span className="about-hero__rail-label">About the studio</span>
+            <span className="about-hero__rail-dot" />
+            <span className="about-hero__rail-meta">BrandViora India</span>
+            <span className="about-hero__rail-dot" />
+            <span className="about-hero__rail-meta">Est. 2010 · Chennai</span>
+          </div>
 
-          <div className="about-hero__headline">
-            <h1 className="about-hero__title">
-              Strategy and craft. In the same room. Shipping the same week.
-            </h1>
+          <div className="about-hero__main">
+            <div className="about-hero__manifesto">
+              <h1 className="about-hero__title">
+                <span>Strategy and craft.</span>
+                <span>In the same room.</span>
+                <span>
+                  Shipping the same week
+                  <em className="about-hero__title-mark">.</em>
+                </span>
+              </h1>
 
-            <svg
-              className="about-hero__sketch"
-              viewBox="0 0 360 380"
-              fill="none"
-              aria-hidden="true"
-              role="img"
-            >
+              <p className="about-hero__subtitle">
+                A strategy, design, and frontend studio for ambitious teams.
+              </p>
+
+              <div className="about-hero__actions">
+                <Button as={Link} to="/contactus" className="about-button">
+                  <span>Start a project</span>
+                  <ArrowRight size={18} />
+                </Button>
+                <Link className="about-hero__link" to="/services">
+                  <span>Explore services</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+
+            <aside className="about-hero__signature" aria-hidden="true">
+              <svg
+                className="about-hero__sketch"
+                viewBox="0 0 360 380"
+                fill="none"
+                aria-hidden="true"
+                role="img"
+              >
+              {/* Hand-drawn circle encircling the logo — clean closed oval */}
+              <path
+                className="about-hero__sketch-stroke about-hero__sketch-stroke--loop"
+                d="M 180 86 C 236 86, 286 128, 286 190 C 286 252, 234 294, 178 292 C 124 290, 78 250, 82 188 C 86 128, 128 86, 180 86 Z"
+                stroke="#fff4eb"
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+                strokeOpacity="0.85"
+              />
+
+              {/* Brush underline well below the logo */}
+              <path
+                className="about-hero__sketch-stroke about-hero__sketch-stroke--underline"
+                d="M 132 322 C 172 316, 212 322, 248 316"
+                stroke="#f4e58a"
+                strokeWidth="5"
+                strokeLinecap="round"
+                fill="none"
+              />
+
+              {/* BrandViora V mark — the centerpiece. Pops in after the loop. */}
               <g
                 className="about-hero__sketch-logo"
-                transform="translate(54 24) scale(0.82)"
+                transform="translate(118 124) scale(1.55)"
                 aria-hidden="true"
               >
-                <g transform="translate(10 12)" opacity="0.3">
+                <g transform="translate(6 8)" opacity="0.32">
                   <path
                     fill="#420516"
                     d="M56.93,80.62l-28.75-46.66H9.37l25.77,41.82c1.91,3.1,5.29,4.99,8.93,4.99h12.6l.25-.15Z"
@@ -116,83 +161,41 @@ function AboutUs() {
                   d="M79.32,44.13c1.77-3.55,2.77-7.55,2.77-11.79,0-4.83-1.29-9.35-3.55-13.25-4.58-7.89-13.12-13.2-22.9-13.2H10.61v7.99c0,5.49,4.45,9.93,9.93,9.93h37.52c4.54,0,8.21,3.68,8.21,8.21v.07c0,5.29-4.29,9.58-9.58,9.58h-14.22l7.39,11.46,6.52,10.19,3.02-4.8.18-.29,1.12-1.79c1.4-2.23,4.34-2.9,6.57-1.5,1.78,1.12,2.57,3.23,2.09,5.16-.1.57-.32,1.13-.64,1.65l-11.99,19h18.63l7.86-14.16c4.23-7.62,2.4-16.96-3.89-22.48Z"
                 />
               </g>
-              <path
-                className="about-hero__sketch-stroke about-hero__sketch-stroke--bubble"
-                d="M50 95 C 50 70, 92 60, 148 58 C 218 55, 286 64, 316 82 C 340 96, 338 130, 332 160 C 326 190, 308 210, 270 218 C 240 222, 218 222, 196 222 L 152 290 L 178 222 C 132 222, 92 218, 70 208 C 48 198, 38 178, 40 150 C 42 120, 44 105, 50 95 Z"
-                stroke="#720d28"
-                strokeWidth="14"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
-              <circle className="about-hero__sketch-dot about-hero__sketch-dot--1" cx="142" cy="142" r="9" fill="#f4e58a" />
-              <circle className="about-hero__sketch-dot about-hero__sketch-dot--2" cx="182" cy="142" r="9" fill="#f4e58a" />
-              <circle className="about-hero__sketch-dot about-hero__sketch-dot--3" cx="222" cy="142" r="9" fill="#f4e58a" />
+
+              {/* Spark top-right */}
               <g
                 className="about-hero__sketch-stroke about-hero__sketch-stroke--spark"
                 stroke="#f4e58a"
                 strokeWidth="4"
                 strokeLinecap="round"
               >
-                <line x1="312" y1="22" x2="312" y2="58" />
-                <line x1="294" y1="40" x2="330" y2="40" />
-                <line x1="299" y1="27" x2="325" y2="53" />
-                <line x1="325" y1="27" x2="299" y2="53" />
+                <line x1="312" y1="42" x2="312" y2="78" />
+                <line x1="294" y1="60" x2="330" y2="60" />
+                <line x1="299" y1="47" x2="325" y2="73" />
+                <line x1="325" y1="47" x2="299" y2="73" />
               </g>
-              <path
-                className="about-hero__sketch-stroke about-hero__sketch-stroke--at"
-                d="M295 320 C 295 305, 308 296, 322 298 C 336 300, 343 312, 340 326 C 337 336, 328 340, 322 336 C 318 333, 318 322, 322 314 C 326 306, 333 305, 336 308"
-                stroke="#ffffff"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                fill="none"
-                opacity="0.5"
-              />
-              <path
-                className="about-hero__sketch-stroke about-hero__sketch-stroke--arrow"
-                d="M276 332 C 220 348, 150 348, 80 332"
-                stroke="#720d28"
-                strokeWidth="5"
-                strokeLinecap="round"
-                fill="none"
-              />
-              <path
-                className="about-hero__sketch-stroke about-hero__sketch-stroke--arrowhead"
-                d="M96 318 L 78 332 L 94 348"
-                stroke="#720d28"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
 
-              {/* BrandViora emblem — pops in at the end of the sequence,
-                  bottom-right corner of the sketch composition. */}
-            </svg>
-          </div>
+              {/* Small twinkles around the composition */}
+              <circle className="about-hero__sketch-dot about-hero__sketch-dot--1" cx="58" cy="118" r="5" fill="#f4e58a" />
+              <circle className="about-hero__sketch-dot about-hero__sketch-dot--2" cx="308" cy="248" r="5" fill="#fff4eb" opacity="0.7" />
+              <circle className="about-hero__sketch-dot about-hero__sketch-dot--3" cx="46" cy="290" r="4" fill="#f4e58a" opacity="0.85" />
 
-          <div className="about-hero__support">
-            <p className="about-hero__subtitle">
-              A strategy, design, and frontend studio for ambitious teams.
-            </p>
+              </svg>
 
-            <div className="about-hero__actions">
-              <Button as={Link} to="/contactus" className="about-button">
-                <span>Start a project</span>
-                <ArrowRight size={18} />
-              </Button>
-              <Link className="about-hero__link" to="/services">
-                <span>Explore services</span>
-                <ArrowRight size={16} />
-              </Link>
-            </div>
+              <div className="about-hero__signature-meta">
+                <span>Studio mark</span>
+                <span>—</span>
+                <span>Est. 2010</span>
+              </div>
+            </aside>
           </div>
 
           <dl className="about-hero__facts" aria-label="BrandViora India at a glance">
-            {heroFacts.map((fact) => (
+            {heroFacts.map((fact, idx) => (
               <div className="about-hero__fact" key={fact.label}>
-                <dt>{fact.label}</dt>
+                <span className="about-hero__fact-index">{String(idx + 1).padStart(2, '0')}</span>
                 <dd>{fact.value}</dd>
+                <dt>{fact.label}</dt>
               </div>
             ))}
           </dl>

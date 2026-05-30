@@ -1,5 +1,55 @@
 import { useEffect, useState } from 'react'
-import { ArrowRight, ChevronDown } from 'lucide-react'
+import {
+  ArrowRight,
+  BookCopy,
+  BookOpen,
+  Box,
+  Boxes,
+  Camera,
+  ChevronDown,
+  Code2,
+  Compass,
+  Component,
+  CreditCard,
+  Database,
+  FileCheck,
+  Fingerprint,
+  Gauge,
+  GitBranch,
+  Globe,
+  Hexagon,
+  Image as ImageIcon,
+  Layers,
+  Layout,
+  LayoutDashboard,
+  LayoutGrid,
+  Lightbulb,
+  ListChecks,
+  Megaphone,
+  MessageSquare,
+  Monitor,
+  MonitorPlay,
+  MonitorSmartphone,
+  Newspaper,
+  Palette,
+  Plus,
+  Presentation,
+  Printer,
+  Rocket,
+  Ruler,
+  Search,
+  Server,
+  Share2,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Tag,
+  TestTube,
+  Type,
+  Users,
+  Wand2,
+  Wrench,
+} from 'lucide-react'
 import { Link } from 'react-router-dom'
 import SEO from '../../components/SEO/SEO'
 import { siteConfig } from '../../config/site'
@@ -7,6 +57,60 @@ import { getSeo } from '../../services/contentService'
 import { heroSketches, services } from './serviceContent.jsx'
 import { SERVICE_SKETCH_MAP, SERVICE_SLUGS } from './serviceSlugs'
 import ServicesPortfolio from './ServicesPortfolio.jsx'
+
+const itemIconMap = {
+  'Logo Design': Hexagon,
+  'Brand Identity Design': Fingerprint,
+  'Color Palette': Palette,
+  'Typography System': Type,
+  'Brand Guidelines': BookOpen,
+  'Social Media Brand Kit': Share2,
+  'Business Card & Stationery Design': CreditCard,
+  'Visual Direction': Compass,
+  'Website UI Design': Monitor,
+  'Mobile App UI Design': Smartphone,
+  'User Experience Design': Users,
+  Wireframes: LayoutGrid,
+  'User Flow': GitBranch,
+  'Landing Page Design': Layout,
+  'Dashboard Design': LayoutDashboard,
+  'Prototype Design': Component,
+  'Design System': Boxes,
+  'Business Website Design': Globe,
+  'Responsive Web Development': MonitorSmartphone,
+  'Frontend Development': Code2,
+  'CMS Setup': Database,
+  'SEO-Ready Website Structure': Search,
+  'Website Speed Optimization': Gauge,
+  'Contact Form Integration': MessageSquare,
+  'Website Maintenance Support': Wrench,
+  'App Prototype': Component,
+  'Backend Integration': Server,
+  'User Dashboard': LayoutDashboard,
+  'Admin Panel': ShieldCheck,
+  'App Testing': TestTube,
+  'Launch Support': Rocket,
+  'Feature Planning': ListChecks,
+  'Social Media Creative Design': Camera,
+  'Ad Banner Design': Megaphone,
+  'Poster Design': ImageIcon,
+  'Brochure Design': BookCopy,
+  'Pitch Deck Design': Presentation,
+  'Presentation Design': MonitorPlay,
+  'Campaign Visuals': Sparkles,
+  'Marketing Collaterals': Newspaper,
+  'Digital Creatives': Wand2,
+  'Packaging Strategy': Lightbulb,
+  'Label & Graphic Design': Tag,
+  'Dieline & Structural Design': Ruler,
+  'Material & Finish Specification': Layers,
+  'Mockups & Print Files': Printer,
+  'Brand-Consistent Visual System': Box,
+  'Multi-SKU Family Design': Boxes,
+  'Production-Ready Artwork': FileCheck,
+}
+
+const getItemIcon = (label) => itemIconMap[label] || Plus
 
 const brandName = siteConfig.name
 
@@ -49,6 +153,28 @@ const outcomes = [
   'Ongoing Support Options',
 ]
 
+const splitItemIconMap = {
+  'Clear Project Direction': Compass,
+  'Professional Visual Design': Sparkles,
+  'Responsive Digital Experience': MonitorSmartphone,
+  'SEO-Ready Website Structure': Search,
+  'User-Friendly Interface': Users,
+  'Brand Consistency': Fingerprint,
+  'Conversion-Focused Layouts': Gauge,
+  'Shelf-Ready Packaging': Box,
+  'Launch-Ready Delivery': Rocket,
+  'Ongoing Support Options': Wrench,
+  'Startups launching a new idea': Lightbulb,
+  'Small businesses building trust online': Globe,
+  'Personal brands improving their presence': Users,
+  'Companies redesigning their website': Monitor,
+  'Brands preparing for campaigns': Megaphone,
+  'D2C brands launching a new product': Tag,
+  'Businesses needing creative support': Wand2,
+}
+
+const getSplitItemIcon = (label) => splitItemIconMap[label] || Sparkles
+
 const audiences = [
   'Startups launching a new idea',
   'Small businesses building trust online',
@@ -57,6 +183,24 @@ const audiences = [
   'Brands preparing for campaigns',
   'D2C brands launching a new product',
   'Businesses needing creative support',
+]
+
+const whyPillars = [
+  {
+    number: '01',
+    title: 'Strategy first',
+    copy: 'Every decision starts with a goal — audience, message, and outcome before pixels.',
+  },
+  {
+    number: '02',
+    title: 'Crafted execution',
+    copy: 'Considered typography, motion, and detail. Nothing shipped for the sake of shipping.',
+  },
+  {
+    number: '03',
+    title: 'Built to grow',
+    copy: 'Systems and structures that scale with your brand instead of breaking under it.',
+  },
 ]
 
 const faqs = [
@@ -133,12 +277,12 @@ function Services() {
 
             <div className="services-hero__actions">
               <Link className="services-hero__cta" to="/contactus">
-                <span>Start a project</span>
+                <span>Start a Project</span>
                 <ArrowRight size={18} />
               </Link>
               <a className="services-hero__link" href="#services">
-                <span>Browse services</span>
-                <ArrowRight size={16} />
+                <span>Browse Services</span>
+                <span className="services-hero__link-chevron" aria-hidden="true">›</span>
               </a>
             </div>
           </div>
@@ -196,9 +340,17 @@ function Services() {
                   <div className="service-panel__includes" aria-label={`${service.title} deliverables`}>
                     <p className="service-panel__includes-label">What we provide</p>
                     <ul>
-                      {service.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
+                      {service.items.map((item) => {
+                        const Icon = getItemIcon(item)
+                        return (
+                          <li key={item}>
+                            <span className="service-panel__includes-icon" aria-hidden="true">
+                              <Icon size={15} strokeWidth={1.8} />
+                            </span>
+                            <span className="service-panel__includes-text">{item}</span>
+                          </li>
+                        )
+                      })}
                     </ul>
                   </div>
 
@@ -246,10 +398,18 @@ function Services() {
             professional execution, and a digital experience built to support your business goals.
           </p>
         </div>
-        <ul className="services-split__chips">
-          {outcomes.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+        <ul className="services-split__items">
+          {outcomes.map((item) => {
+            const Icon = getSplitItemIcon(item)
+            return (
+            <li className="services-split__item" key={item}>
+              <span className="services-split__item-icon" aria-hidden="true">
+                <Icon size={17} strokeWidth={1.8} />
+              </span>
+              <span className="services-split__item-text">{item}</span>
+            </li>
+            )
+          })}
         </ul>
       </section>
 
@@ -262,21 +422,41 @@ function Services() {
             experience that feels clear, trustworthy, and ready for growth.
           </p>
         </div>
-        <ul className="services-split__chips services-split__chips--filled">
-          {audiences.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+        <ul className="services-split__items services-split__items--filled">
+          {audiences.map((item) => {
+            const Icon = getSplitItemIcon(item)
+            return (
+            <li className="services-split__item" key={item}>
+              <span className="services-split__item-icon" aria-hidden="true">
+                <Icon size={17} strokeWidth={1.8} />
+              </span>
+              <span className="services-split__item-text">{item}</span>
+            </li>
+            )
+          })}
         </ul>
       </section>
 
       <section className="services-why">
-        <p className="eyebrow">/ Why choose us</p>
-        <h2>We design with purpose, <span>not just decoration.</span></h2>
-        <p>
-          Every project is built with intention. We focus on what your audience needs to understand, feel,
-          and do. Strategy, creativity, emotion, and clean execution — so your brand looks better, communicates
-          clearly, and grows with confidence.
-        </p>
+        <div className="services-why__intro">
+          <p className="eyebrow">/ Why choose us</p>
+          <h2>We design with purpose, <span>not just decoration.</span></h2>
+          <p>
+            Every project is built with intention. We focus on what your audience needs to understand, feel,
+            and do. Strategy, creativity, emotion, and clean execution — so your brand looks better, communicates
+            clearly, and grows with confidence.
+          </p>
+        </div>
+
+        <ul className="services-why__pillars">
+          {whyPillars.map((pillar) => (
+            <li className="services-why__pillar" key={pillar.number}>
+              <span className="services-why__pillar-num">{pillar.number}</span>
+              <h3>{pillar.title}</h3>
+              <p>{pillar.copy}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="services-faq">
@@ -320,26 +500,6 @@ function Services() {
         </div>
       </section>
 
-      <section className="services-final-cta">
-        <div className="services-final-cta__inner">
-          <p className="eyebrow services-final-cta__eyebrow">/ Next move</p>
-          <h2>
-            Not sure what your brand needs yet? <span>That&apos;s completely okay.</span>
-          </h2>
-          <p>
-            Share your idea, goal, or challenge — we&apos;ll help you find the right direction.
-          </p>
-          <div className="services-final-cta__actions">
-            <Link className="services-final-cta__button" to="/contactus">
-              <span>Start a conversation</span>
-              <ArrowRight size={18} />
-            </Link>
-            <a className="services-final-cta__link" href={`mailto:${siteConfig.email}`}>
-              <span>{siteConfig.email}</span>
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
   )
 }

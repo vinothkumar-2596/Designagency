@@ -832,6 +832,14 @@
   }
 }
 
+/* 1920x1080 desktop viewport at 100% browser zoom: move the real phone+hands
+   wrapper down so it slightly overlaps the cream services section. */
+@media (min-width: 1600px) and (max-width: 2000px) and (min-height: 850px) and (max-height: 1150px) {
+  .home-hero__mockup {
+    transform: translate(15%, 19.7%) !important;
+  }
+}
+
 .home-hero__mockup-glow {
   position: absolute;
   inset: 6%;
