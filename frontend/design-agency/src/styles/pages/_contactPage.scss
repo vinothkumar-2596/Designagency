@@ -1286,10 +1286,8 @@ body:has(.contact-flow) .footer__back-to-top {
   isolation: isolate;
   overflow: hidden;
   padding: 1.5rem 1.55rem 1.6rem;
-  border: 1px solid rgba($text-primary, 0.14);
-  background:
-    radial-gradient(circle at 100% 0%, rgba($brand-orange, 0.18), transparent 45%),
-    linear-gradient(180deg, #FFF4EB 0%, #FFF4EB 100%);
+  border: 1px solid rgba(#870F32, 0.18);
+  background: #fff4eb;
   color: $text-primary;
 
   &::before {
@@ -1299,7 +1297,7 @@ body:has(.contact-flow) .footer__back-to-top {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, $brand-orange, $accent-yellow 60%, transparent);
+    background: #ed743b;
     z-index: 1;
   }
 
@@ -1431,7 +1429,7 @@ body:has(.contact-flow) .footer__back-to-top {
     position: absolute;
     inset: auto 0 0 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, $brand-orange 50%, transparent);
+    background: #ed743b;
     opacity: 0;
     transition: opacity 220ms ease;
   }
@@ -1439,16 +1437,16 @@ body:has(.contact-flow) .footer__back-to-top {
   &:hover {
     border-style: solid;
     border-color: $text-primary;
-    background: rgba($white, 0.4);
+    background: #fff4eb;
 
     &::before {
       opacity: 1;
     }
 
     .contact-card__icon {
-      background: $brand-orange;
-      color: $white;
-      border-color: $brand-orange;
+      background: #ed743b;
+      color: #fff4eb;
+      border-color: #ed743b;
     }
   }
 
@@ -1532,37 +1530,12 @@ body:has(.contact-flow) .footer__back-to-top {
   isolation: isolate;
   overflow: hidden;
   padding: 0.9rem 0.95rem 0.95rem;
-  border: 1px solid rgba($text-primary, 0.88);
-  background:
-    linear-gradient(180deg, #0F0F0F 0%, #0F0F0F 100%);
+  border: 1px solid #0F0F0F;
+  background: #0F0F0F;
   color: $white;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background-image:
-      linear-gradient(0deg, rgba($white, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba($white, 0.035) 1px, transparent 1px);
-    background-size: 36px 36px;
-    mask-image: radial-gradient(circle at 30% 0%, #000 0%, transparent 75%);
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: -30%;
-    right: -10%;
-    z-index: 0;
-    width: 55%;
-    height: 140%;
-    background: radial-gradient(ellipse at center, rgba($brand-orange, 0.35), transparent 62%);
-    filter: blur(32px);
-    opacity: 0.85;
-    pointer-events: none;
-  }
+  &::before { display: none; }
+  &::after  { display: none; }
 
   > * {
     position: relative;
@@ -1638,16 +1611,16 @@ body:has(.contact-flow) .footer__back-to-top {
   }
 
   &:hover {
-    background: linear-gradient(90deg, rgba($brand-orange, 0.08), transparent 80%);
+    background: rgba(#ed743b, 0.08);
 
     .contact-console__icon:not(.contact-console__icon--whatsapp) {
-      color: $brand-orange;
-      border-color: rgba($brand-orange, 0.55);
+      color: #ed743b;
+      border-color: rgba(#ed743b, 0.55);
     }
 
     .contact-console__value svg {
       transform: translate(2px, -2px);
-      color: $brand-orange;
+      color: #ed743b;
     }
   }
 }
@@ -1860,9 +1833,7 @@ body:has(.contact-flow) .footer__back-to-top {
   gap: 0.85rem;
   padding: 1rem 1.1rem;
   border: 1px solid $accent-yellow;
-  background:
-    linear-gradient(90deg, rgba($accent-yellow, 0.16), transparent 60%),
-    $white;
+  background: #fff4eb;
   color: $text-primary;
 
   &::before {
