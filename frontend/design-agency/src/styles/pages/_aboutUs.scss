@@ -2396,59 +2396,171 @@
 }
 
 .about-cta__inner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 2rem;
-  border-radius: 1.5rem;
-  background: linear-gradient(135deg, $brand-orange 0%, #ED743B 100%);
-  box-shadow: 0 24px 60px rgba($text-primary, 0.18);
+  gap: 2rem;
+  padding: 2.25rem 1.75rem;
+  border: 1px solid rgba($accent-yellow, 0.16);
+  background: $brand-burgundy;
 
   @include respond-up(md) {
     flex-direction: row;
-    align-items: end;
+    align-items: center;
     justify-content: space-between;
-    padding: 2.5rem 2.75rem;
+    gap: 3.5rem;
+    padding: 3.5rem 3.25rem;
+  }
+}
+
+/* Faint grid texture, masked toward the top-left like other sections */
+.about-cta__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(#FFF4EB, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(#FFF4EB, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 18% 0%, #000 0%, transparent 70%);
+}
+
+/* Gold accent rail down the left edge */
+.about-cta__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 3px;
+  background: linear-gradient(180deg, $accent-yellow, $brand-burgundy-hover);
+}
+
+.about-cta__content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-cta__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: rgba(#FFF4EB, 0.7);
+  font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.about-cta__eyebrow-rule {
+  width: 1.6rem;
+  height: 1px;
+  background: $accent-yellow;
+}
+
+.about-cta__eyebrow-index {
+  color: rgba(#FFF4EB, 0.4);
+  letter-spacing: 0.12em;
+}
+
+.about-cta__content h2 {
+  max-width: 14ch;
+  margin: 1rem 0 0;
+  color: #FFF4EB;
+  font-size: clamp(2.1rem, 3.8vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+
+  span {
+    color: $accent-yellow;
+  }
+}
+
+.about-cta__lede {
+  max-width: 34rem;
+  margin: 1.15rem 0 0;
+  color: rgba(#FFF4EB, 0.62);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.about-cta__action {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  flex-shrink: 0;
+
+  @include respond-up(md) {
+    align-self: stretch;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1.1rem;
+    padding-left: 3.25rem;
+    border-left: 1px solid rgba($accent-yellow, 0.22);
+    text-align: right;
+  }
+}
+
+.about-cta__inner .about-cta__button {
+  align-self: flex-start;
+  min-width: 11rem;
+  border-radius: 0;
+  border: 1px solid $accent-yellow;
+
+  @include respond-up(md) {
+    align-self: flex-end;
+  }
+  background: $accent-yellow;
+  color: #0F0F0F;
+  font-weight: 800;
+  box-shadow: none;
+  transition: background 180ms ease, color 180ms ease, box-shadow 200ms ease, transform 200ms ease;
+
+  svg {
+    transition: transform 200ms ease;
   }
 
-  .button {
-    align-self: flex-start;
-    min-width: 9.5rem;
-    background: $text-primary;
-    color: $white;
-    box-shadow: 0 18px 38px rgba($text-primary, 0.24);
+  &:hover {
+    background: #FFF4EB;
+    border-color: #FFF4EB;
+    color: #0F0F0F;
+    box-shadow: 4px 4px 0 rgba($accent-yellow, 0.85);
+    transform: translateY(-1px);
 
-    &:hover {
-      background: #0F0F0F;
+    svg {
+      transform: translateX(3px);
     }
   }
 }
 
-.about-cta__content {
-  .eyebrow {
-    color: rgba($text-primary, 0.72);
-    letter-spacing: 0.14em;
-  }
+.about-cta__note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(#FFF4EB, 0.5);
+  font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
 
-  h2 {
-    max-width: 10ch;
-    margin-top: 0.6rem;
-    color: #0F0F0F;
-    font-size: clamp(2rem, 3.6vw, 3.5rem);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.045em;
-    text-wrap: balance;
-  }
-
-  p:last-child {
-    max-width: 34rem;
-    margin-top: 1rem;
-    color: rgba($text-primary, 0.8);
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1.65;
-  }
+.about-cta__note-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5bd17c;
+  box-shadow: 0 0 8px rgba(91, 209, 124, 0.8);
 }
 
 @keyframes about-stage-in {

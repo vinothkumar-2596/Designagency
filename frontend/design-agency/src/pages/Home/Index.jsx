@@ -39,6 +39,7 @@ import heroMockupImage from '../../assets/coffee-app-mockup.png'
 import Button from '../../components/Button/Button'
 import SectionRail from '../../components/SectionRail/SectionRail'
 import SEO from '../../components/SEO/SEO'
+import StudioIllustration from '../../components/StudioIllustration/StudioIllustration'
 import { getSeo } from '../../services/contentService'
 import { resolveRegionalGreeting, splitGreetingText } from '../../utils/regionalGreeting'
 
@@ -823,16 +824,7 @@ function Home() {
               </a>
 
               <figure className="home-faq__cta-image">
-                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80" alt="Leadership team in a strategy meeting" width="900" height="600" loading="lazy" decoding="async" />
-                <svg className="home-faq__cta-vector" viewBox="0 0 160 160" aria-hidden="true">
-                  <circle cx="118" cy="42" r="28" />
-                  <path d="M28 132C54 98 76 82 118 42" />
-                  <path d="M58 132C78 104 94 90 126 58" />
-                  <path d="M86 132C102 112 114 96 132 76" />
-                  <circle cx="28" cy="132" r="4" />
-                  <circle cx="58" cy="132" r="4" />
-                  <circle cx="86" cy="132" r="4" />
-                </svg>
+                <StudioIllustration />
                 <figcaption>Direct access for planning, launch, and long-term brand work.</figcaption>
               </figure>
             </div>

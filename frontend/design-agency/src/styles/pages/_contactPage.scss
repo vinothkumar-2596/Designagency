@@ -1166,7 +1166,7 @@ body:has(.contact-flow) .footer__back-to-top {
   border: 1px solid rgba($text-primary, 0.9);
   border-radius: 0;
   background: $brand-orange;
-  color: #0F0F0F;
+  color: #FFF4EB;
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0.01em;
@@ -1881,6 +1881,207 @@ body:has(.contact-flow) .footer__back-to-top {
 
 .contact-availability > svg {
   color: rgba($text-primary, 0.55);
+}
+
+/* ===== Integrations banner ===== */
+.contact-integrations {
+  position: relative;
+  isolation: isolate;
+  padding-block: 3.25rem 3.5rem;
+  background: transparent;
+
+  @include respond-up(md) {
+    padding-block: 4.25rem 4.75rem;
+  }
+}
+
+.contact-integrations__inner {
+  @include container;
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1180px;
+  overflow: hidden;
+  padding: 1.75rem;
+  border: 1px solid rgba($text-primary, 0.14);
+  background: $white;
+
+  @include respond-up(md) {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 2.5rem;
+    padding: 2.5rem 2.75rem;
+  }
+}
+
+.contact-integrations__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-integrations__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: rgba($text-primary, 0.62);
+  font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.contact-integrations__eyebrow-rule {
+  width: 1.6rem;
+  height: 1px;
+  background: $brand-orange;
+}
+
+.contact-integrations__title {
+  margin: 1rem 0 0;
+  max-width: 19ch;
+  color: $text-primary;
+  font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+
+  span {
+    color: $brand-orange;
+  }
+}
+
+.contact-integrations__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  padding-bottom: 0.25rem;
+  color: $text-primary;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  border-bottom: 1.5px solid $brand-orange;
+  transition: color 200ms ease, border-color 200ms ease;
+
+  svg {
+    color: $brand-orange;
+    transition: transform 200ms ease;
+  }
+
+  &:hover {
+    color: $brand-orange-hover;
+    border-bottom-color: $brand-orange-hover;
+
+    svg {
+      transform: translateX(3px);
+    }
+  }
+}
+
+/* Scatter canvas */
+.contact-integrations__canvas {
+  position: relative;
+  z-index: 1;
+  min-height: 16rem;
+
+  @include respond-up(md) {
+    min-height: 19rem;
+  }
+}
+
+.contact-integrations__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba($text-primary, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($text-primary, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at 60% 45%, #000 0%, transparent 72%);
+}
+
+.contact-integrations__tile {
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid transparent;
+  font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transform: rotate(var(--r, 0deg));
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms ease;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    transform: rotate(0deg) translateY(-3px) scale(1.04);
+    box-shadow: 4px 6px 0 rgba($text-primary, 0.16);
+  }
+
+  &--orange {
+    background: $brand-orange;
+    border-color: $brand-orange;
+    color: #FFF4EB;
+  }
+
+  &--burgundy {
+    background: $brand-burgundy;
+    border-color: $brand-burgundy;
+    color: #FFF4EB;
+  }
+
+  &--dark {
+    background: #0F0F0F;
+    border-color: #0F0F0F;
+    color: #FFF4EB;
+  }
+
+  &--gold {
+    background: $accent-yellow;
+    border-color: $accent-yellow;
+    color: #0F0F0F;
+  }
+
+  &--cream {
+    background: #FFF4EB;
+    border-color: rgba($text-primary, 0.18);
+    color: $text-primary;
+
+    svg {
+      color: $brand-orange;
+    }
+  }
+}
+
+/* On small screens, drop the absolute scatter for a tidy wrap */
+@media (max-width: 767px) {
+  .contact-integrations__canvas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    min-height: 0;
+  }
+
+  .contact-integrations__grid {
+    display: none;
+  }
+
+  .contact-integrations__tile {
+    position: static;
+    transform: rotate(var(--r, 0deg));
+  }
 }
 
 /* ===== FAQ block (reuses newsletter visual system) ===== */

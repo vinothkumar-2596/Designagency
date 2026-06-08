@@ -1,0 +1,113 @@
+@use '../../abstracts/variables' as *;
+
+.studio-illustration {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: #0f2f2a;
+}
+
+.studio-illustration__paper {
+  fill: #fff9f0;
+}
+
+.studio-illustration__panel {
+  fill: #5d0628;
+}
+
+.studio-illustration__floor,
+.studio-illustration path:not(.studio-illustration__paper):not(.studio-illustration__panel):not(.studio-illustration__lamp-shade):not(.studio-illustration__lamp-glow):not(.studio-illustration__side-table):not(.studio-illustration__pot):not(.studio-illustration__leaf):not(.studio-illustration__chair-seat):not(.studio-illustration__chair-arm):not(.studio-illustration__neck):not(.studio-illustration__head):not(.studio-illustration__hair):not(.studio-illustration__shirt):not(.studio-illustration__arm):not(.studio-illustration__book-back):not(.studio-illustration__book-front):not(.studio-illustration__hand):not(.studio-illustration__pants):not(.studio-illustration__shoe) {
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__lamp path {
+  stroke: #f8f6ea;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__lamp-shade {
+  fill: #fff9f0;
+}
+
+.studio-illustration__lamp-glow {
+  stroke: #ed743b;
+}
+
+.studio-illustration__side-table {
+  fill: #fff9f0;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__pot,
+.studio-illustration__book-back,
+.studio-illustration__book-front {
+  fill: #f05a16;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__plant path:not(.studio-illustration__side-table):not(.studio-illustration__pot):not(.studio-illustration__leaf) {
+  stroke: #f8f6ea;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__leaf {
+  fill: #fff9f0;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__chair-seat,
+.studio-illustration__chair-arm,
+.studio-illustration__shirt,
+.studio-illustration__head,
+.studio-illustration__neck,
+.studio-illustration__hand,
+.studio-illustration__shoe {
+  fill: #fff9f0;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__hair,
+.studio-illustration__pants {
+  fill: #0f2f2a;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__arm {
+  fill: #fff9f0;
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__chair path:not(.studio-illustration__chair-seat):not(.studio-illustration__chair-arm),
+.studio-illustration__person path:not(.studio-illustration__neck):not(.studio-illustration__head):not(.studio-illustration__hair):not(.studio-illustration__shirt):not(.studio-illustration__arm):not(.studio-illustration__book-back):not(.studio-illustration__book-front):not(.studio-illustration__hand):not(.studio-illustration__pants):not(.studio-illustration__shoe) {
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.studio-illustration__face-line {
+  stroke: currentColor;
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

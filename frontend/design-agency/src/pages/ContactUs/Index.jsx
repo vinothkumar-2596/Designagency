@@ -52,6 +52,19 @@ const BUDGET_OPTIONS = [
 
 const TIMELINE_OPTIONS = ['ASAP', '1 month', '2–3 months', 'Later this year', 'Flexible']
 
+// Scattered, brand-tinted tiles for the tools we actually design and build in.
+// x/y are % positions inside the canvas; r is the rest rotation (deg).
+const INTEGRATION_TILES = [
+  { label: 'Figma', icon: Layers3, variant: 'orange', x: 3, y: 5, r: -8 },
+  { label: 'Webflow', icon: MonitorSmartphone, variant: 'dark', x: 39, y: 0, r: 6 },
+  { label: 'Framer', icon: Sparkles, variant: 'gold', x: 71, y: 7, r: -5 },
+  { label: 'Notion', icon: FileText, variant: 'cream', x: 19, y: 28, r: 9 },
+  { label: 'Adobe CC', icon: Diamond, variant: 'burgundy', x: 55, y: 33, r: -6 },
+  { label: 'Slack', icon: MessageSquare, variant: 'orange', x: 2, y: 56, r: 5 },
+  { label: 'WordPress', icon: BookOpen, variant: 'gold', x: 36, y: 64, r: -7 },
+  { label: 'Shopify', icon: Rocket, variant: 'cream', x: 70, y: 58, r: 7 },
+]
+
 const FAQ_ITEMS = [
   {
     label: 'Project size',
@@ -857,6 +870,42 @@ function ContactUs() {
               <ChevronRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </button>
           </nav>
+        </div>
+      </section>
+
+      <section className="contact-integrations" aria-label="Integrations">
+        <div className="contact-integrations__inner">
+          <div className="contact-integrations__copy">
+            <p className="contact-integrations__eyebrow">
+              <span className="contact-integrations__eyebrow-rule" aria-hidden="true" />
+              How we work
+            </p>
+            <h2 className="contact-integrations__title">
+              We design and build in the tools{' '}
+              <span>your team already uses.</span>
+            </h2>
+            <Link to="/services" className="contact-integrations__link">
+              See how we collaborate
+              <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="contact-integrations__canvas" aria-hidden="true">
+            <span className="contact-integrations__grid" />
+            {INTEGRATION_TILES.map((tile) => {
+              const Icon = tile.icon
+              return (
+                <span
+                  key={tile.label}
+                  className={`contact-integrations__tile contact-integrations__tile--${tile.variant}`}
+                  style={{ left: `${tile.x}%`, top: `${tile.y}%`, '--r': `${tile.r}deg` }}
+                >
+                  <Icon size={15} strokeWidth={2} />
+                  {tile.label}
+                </span>
+              )
+            })}
+          </div>
         </div>
       </section>
 

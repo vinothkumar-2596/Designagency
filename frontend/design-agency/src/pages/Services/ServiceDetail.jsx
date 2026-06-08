@@ -8,6 +8,7 @@ import { getSeo } from '../../services/contentService'
 import { SERVICE_SKETCH_MAP, SLUG_TO_NUMBER } from './serviceSlugs'
 import { heroSketches, services } from './serviceContent.jsx'
 import ServicesPortfolio from './ServicesPortfolio.jsx'
+import StudioIllustration from '../../components/StudioIllustration/StudioIllustration'
 
 const brandName = siteConfig.name
 
@@ -118,6 +119,10 @@ function ServiceDetail() {
             <div className="service-banner__tag service-banner__tag--research">
               <span className="service-banner__tag-dot" />
               Research
+            </div>
+
+            <div className="service-banner__illustration">
+              <StudioIllustration />
             </div>
           </div>
 

@@ -684,16 +684,34 @@ function AboutUs() {
 
       <section className="about-cta">
         <div className="about-cta__inner">
+          <span className="about-cta__grid" aria-hidden="true" />
+          <span className="about-cta__rail" aria-hidden="true" />
+
           <div className="about-cta__content">
-            <p className="eyebrow">Start a project</p>
-            <h2>Ready to build something bold?</h2>
-            <p>Let&apos;s talk about your next project and make it count.</p>
+            <p className="about-cta__eyebrow">
+              <span className="about-cta__eyebrow-rule" aria-hidden="true" />
+              Start a project
+              <span className="about-cta__eyebrow-index">[ 06 ]</span>
+            </p>
+            <h2>
+              Ready to build
+              <span> something bold?</span>
+            </h2>
+            <p className="about-cta__lede">
+              Let&apos;s talk about your next project and make it count.
+            </p>
           </div>
 
-          <Button as={Link} to="/contactus" className="about-button">
-            <span>Start a project</span>
-            <ArrowRight size={18} />
-          </Button>
+          <div className="about-cta__action">
+            <Button as={Link} to="/contactus" className="about-cta__button">
+              <span>Start a project</span>
+              <ArrowRight size={18} />
+            </Button>
+            <span className="about-cta__note">
+              <span className="about-cta__note-dot" aria-hidden="true" />
+              Replies within 1 business day
+            </span>
+          </div>
         </div>
       </section>
     </main>
