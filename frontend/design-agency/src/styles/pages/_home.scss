@@ -12,12 +12,13 @@
 }
 
 .home-hero {
-  position: relative;
+  position: relative !important;
   isolation: isolate;
   z-index: 2;
   width: 100%;
   margin-inline: auto;
   overflow: visible;
+
   border-bottom: 0;
   background:
     radial-gradient(circle at 12% 78%, rgba($brand-orange, 0.16), transparent 34%),
@@ -30,21 +31,15 @@
   flex-direction: column;
   align-items: stretch;
 
-  /* Mobile: blend the bottom of the dark hero into the cream of the
-     next section (.why-section #fefff5). The bottom ~80px (matching the
-     visual's margin-bottom reserve) becomes cream-colored so the phone
-     visually transitions into cream rather than sitting on a dark band. */
+  /* Mobile: keep the hero background continuous behind the pinned phone. */
   @media (max-width: 767px) {
     border-bottom: 0;
-    /* Drop the orange radial-gradient on mobile so it can't tint the
-       cream area a slightly warmer shade than the why-section below. */
-    background: linear-gradient(
-      to bottom,
-      #7a0c2a 0%,
-      #870f32 45%,
-      #6d0925 calc(100% - 80px),
-      #fefff5 calc(100% - 80px)
-    );
+    /* Keep the mobile hero burgundy to the bottom. The phone visual is
+       absolutely pinned, so a cream fade here appears as a visible gap. */
+    background: linear-gradient(to bottom,
+        #7a0c2a 0%,
+        #870f32 45%,
+        #6d0925 100%);
   }
 
   /* Mobile + tablet (<1024px): single-column flow. The phone visual sits
@@ -57,7 +52,6 @@
      for that absolute visual + the services strip overlay below. */
   @media (min-width: 1024px) {
     min-height: 893px;
-    padding-bottom: 106px;
   }
 
   /* Big-monitor only (above 24"): shrink so the phone doesn't overflow
@@ -93,18 +87,14 @@
      Desktop concept untouched. */
   @media (max-width: 767px) {
     opacity: 0.35;
-    mask-image: radial-gradient(
-      ellipse 50% 58% at 50% 66%,
-      #000 28%,
-      rgba(0, 0, 0, 0.55) 62%,
-      transparent 92%
-    );
-    -webkit-mask-image: radial-gradient(
-      ellipse 50% 58% at 50% 66%,
-      #000 28%,
-      rgba(0, 0, 0, 0.55) 62%,
-      transparent 92%
-    );
+    mask-image: radial-gradient(ellipse 50% 58% at 50% 66%,
+        #000 28%,
+        rgba(0, 0, 0, 0.55) 62%,
+        transparent 92%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 58% at 50% 66%,
+        #000 28%,
+        rgba(0, 0, 0, 0.55) 62%,
+        transparent 92%);
   }
 }
 
@@ -305,7 +295,9 @@
 }
 
 @keyframes home-hero-tech-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.35;
   }
 
@@ -514,7 +506,7 @@
     padding-top: 1.4rem;
   }
 
-  > div {
+  >div {
     display: flex;
     flex-direction: column;
     /* Slightly more air between number and label so the hierarchy reads. */
@@ -601,7 +593,7 @@
     gap: 0.12em;
   }
 
-  .home-hero__greeting-line > span:first-child {
+  .home-hero__greeting-line>span:first-child {
     background:
       linear-gradient(115deg, #fff7a8 0%, $accent-yellow 26%, $brand-orange 55%, #fff2d4 74%, #ffd15f 100%);
     background-size: 220% 100%;
@@ -626,8 +618,7 @@
   height: clamp(3.2rem, 6vw, 5.2rem);
   color: $brand-orange;
   filter:
-    drop-shadow(0 0 12px rgba($brand-orange, 0.4))
-    drop-shadow(0 0 26px rgba($accent-yellow, 0.16));
+    drop-shadow(0 0 12px rgba($brand-orange, 0.4)) drop-shadow(0 0 26px rgba($accent-yellow, 0.16));
   transform-origin: center;
   animation: hero-greeting-love 780ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -665,32 +656,29 @@
 }
 
 .home-hero__visual {
-  /* Mobile + tablet (<1024px): phone mockup sits below the hero content in
-     normal flow, centered, no absolute positioning. */
+  /* Pin the phone visual to the hero bottom on every viewport. */
+  position: absolute;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   width: 100%;
   /* Tight 20px gap to the stats above â€” premium rhythm, no dead space. */
-  margin-top: 1.25rem;
+
   margin-bottom: 0;
-  padding-inline: 1.5rem;
   pointer-events: none;
   overflow: visible;
 
 
-  /* Mobile + tablet (<1024px): 2500px of dark "footer" space below the
-     phone+hands before the cream section begins (50Ã— the previous 50px).
-     Applies to BOTH mobile and tablet â€” anything narrower than the desktop
-     two-column layout. No cream overlap. */
   @media (max-width: 1023px) {
-    margin-top: 1.5rem;
-    margin-bottom: 80px;
+    margin-top: 0;
+    margin-bottom: 0;
     padding-inline: 0;
   }
 
   @include respond-up(md) {
-    margin-top: 2rem;
+    margin-top: 0;
     padding-inline: 2rem;
   }
 
@@ -700,7 +688,8 @@
      contained by .home-page { overflow-x: clip }. */
   @media (min-width: 1024px) {
     position: absolute;
-    inset: auto 0 60px 0;
+    right: 0;
+    bottom: 0;
     z-index: 9999;
     height: 730px;
     margin: 0;
@@ -734,25 +723,17 @@
 }
 
 .home-hero__mockup {
-  /* Single wrapper that holds the phone+hands as ONE composition. The PNG
-     is a single image â€” never position the phone separately from the hands.
-     Everything inside (glow, ring, img) scales / positions with this wrapper. */
+
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   isolation: isolate;
-  /* Mobile defaults â€” single wrapper, full-width (capped at 480px for very
-     wide phones), centered, natural aspect of the source PNG (2124Ã—2083)
-     so the image fills the wrapper edge-to-edge with no letterbox and the
-     hands+phone stay locked as one composition. The visual's negative
-     margin-bottom (above) extends the lower hand/wrist portion onto the
-     cream section below, matching the desktop concept. */
-  width: 100%;
-  max-width: 480px;
+  width: clamp(280px, 84vw, 480px);
+  max-width: none;
   margin-inline: auto;
   aspect-ratio: 2124 / 2083;
-  transform: none;
+  transform: translate(15%, 12.2%);
 
   img {
     position: relative;
@@ -765,14 +746,12 @@
        at those sizes. center bottom is retained for desktop where the
        absolute visual container has its own explicit height. */
     object-position: center bottom;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2))
-      drop-shadow(0 0 24px rgba($brand-orange, 0.09));
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2)) drop-shadow(0 0 24px rgba($brand-orange, 0.09));
   }
 
   /* Tablet / iPad: phone slightly larger but capped â€” never spans the row. */
   @include respond-up(md) {
-    width: clamp(280px, 50%, 420px);
-    max-width: none;
+    width: clamp(360px, 52vw, 560px);
     aspect-ratio: 2124 / 2083;
   }
 
@@ -780,38 +759,35 @@
      controlled translate biases the phone toward the right portion of the
      hero. Page-wrapper overflow-x:clip contains any jut past the viewport. */
   @media (min-width: 1024px) {
-    width: min(100%, 1800px);
-    height: 100%;
-    aspect-ratio: auto;
-    transform: translate(25%, 0);
+    width: clamp(620px, 58vw, 980px);
+    height: auto;
+    aspect-ratio: 2124 / 2083;
   }
 
   /* At 1440px+ the visual container is capped + right-aligned, so the
      mockup needs less translate-x to land inside its container. */
   @media (min-width: 1440px) {
-    width: 100%;
-    transform: translate(18%, 0);
+    width: clamp(760px, 54vw, 1120px);
   }
 
   @media (min-width: 1700px) {
-    transform: translate(15%, 0);
+    width: clamp(860px, 50vw, 1180px);
   }
 
   /* Above 24" â€” pull the phone up so it doesn't overflow into the
      services strip below the hero. */
   @media (min-width: 2000px) {
-    transform: translate(12%, 0);
+    width: clamp(900px, 44vw, 1220px);
   }
 
   @media (min-width: 2400px) {
-    transform: translate(10%, 0);
+    width: clamp(940px, 40vw, 1260px);
   }
 
   /* User's 30.6" display (~2559px viewport): nudge the phone+hands down by
      25% of the mockup height to settle it lower in the section. Scoped to
      this device range only so wider monitors keep the existing alignment. */
   @media (min-width: 2400px) and (max-width: 2700px) {
-    transform: translate(10%, 20.5%);
   }
 }
 
@@ -820,10 +796,17 @@
 @media (min-width: 1024px) and (max-width: 1699px) {
   .home-hero__visual {
     height: clamp(940px, 78vw, 1080px);
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    justify-content: flex-end;
   }
 
   .home-hero__mockup {
-    transform: translate(0, 5%);
+    width: clamp(560px, 50vw, 860px);
+    margin-left: auto;
+    margin-right: 0;
+    transform: translate(0, 12.2%);
   }
 
   .home-hero__mockup img {
@@ -1037,7 +1020,9 @@
     chipDriftRight 0.95s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both,
     chipFloat 6s ease-in-out 1.85s infinite;
 
-  strong { color: $white; }
+  strong {
+    color: $white;
+  }
 
   .home-hero__chip-stars {
     display: inline-flex;
@@ -1113,17 +1098,47 @@
     animation: chipGrowthBar 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   }
 
-  span:nth-child(1) { height: 32%; animation-delay: 0s; }
-  span:nth-child(2) { height: 50%; animation-delay: 0.12s; }
-  span:nth-child(3) { height: 68%; animation-delay: 0.24s; }
-  span:nth-child(4) { height: 84%; animation-delay: 0.36s; }
-  span:nth-child(5) { height: 100%; animation-delay: 0.48s; }
+  span:nth-child(1) {
+    height: 32%;
+    animation-delay: 0s;
+  }
+
+  span:nth-child(2) {
+    height: 50%;
+    animation-delay: 0.12s;
+  }
+
+  span:nth-child(3) {
+    height: 68%;
+    animation-delay: 0.24s;
+  }
+
+  span:nth-child(4) {
+    height: 84%;
+    animation-delay: 0.36s;
+  }
+
+  span:nth-child(5) {
+    height: 100%;
+    animation-delay: 0.48s;
+  }
 }
 
 @keyframes chipGrowthBar {
-  0% { transform: scaleY(0.28); opacity: 0.5; }
-  45% { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(0.28); opacity: 0.5; }
+  0% {
+    transform: scaleY(0.28);
+    opacity: 0.5;
+  }
+
+  45% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleY(0.28);
+    opacity: 0.5;
+  }
 }
 
 .home-hero__chip--offer {
@@ -1140,7 +1155,9 @@
     chipDriftLeft 0.95s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both,
     chipFloat 5s ease-in-out 2.15s infinite;
 
-  strong { color: $white; }
+  strong {
+    color: $white;
+  }
 
   .home-hero__chip-meta {
     color: rgba($white, 0.82);
@@ -1231,7 +1248,7 @@
     padding-top: 1.1rem;
     border-top: 1px solid rgba($white, 0.1);
 
-    > div {
+    >div {
       gap: 0.5rem;
     }
 
@@ -1252,19 +1269,19 @@
   }
 
   .home-hero__visual {
-    margin-top: 1.5rem;
-    margin-bottom: clamp(-6rem, -18vw, -3.5rem);
     padding-inline: 0;
     overflow: visible;
-    position: relative;
+    position: absolute !important;
+    bottom: 0;
+    right: 0;
+
     z-index: 2;
   }
 
   .home-hero__mockup {
-    width: 100%;
-    max-width: 480px;
+    width: clamp(280px, 84vw, 480px);
+    max-width: none;
     aspect-ratio: 2124 / 2083;
-    transform: none;
   }
 
   .home-hero__mockup-ring {
@@ -1274,41 +1291,89 @@
 }
 
 @keyframes heroGlowPulse {
-  0%, 100% { opacity: 0.85; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.08); }
+
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
 }
 
 @keyframes heroRingSpin {
-  from { transform: translateX(-50%) rotate(0deg); }
-  to { transform: translateX(-50%) rotate(360deg); }
+  from {
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
 }
 
 @keyframes heroRingSpinReverse {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(-360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
 }
 
 @keyframes chipDriftLeft {
-  from { opacity: 0; transform: translate(-34px, 10px); }
-  to { opacity: 1; transform: translate(0, 0); }
+  from {
+    opacity: 0;
+    transform: translate(-34px, 10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 @keyframes chipDriftRight {
-  from { opacity: 0; transform: translate(34px, 10px); }
-  to { opacity: 1; transform: translate(0, 0); }
+  from {
+    opacity: 0;
+    transform: translate(34px, 10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 @keyframes chipFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
 }
 
 @keyframes chipPulseRing {
-  0% { opacity: 0.85; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.55); }
+  0% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .home-hero__mockup-glow,
   .home-hero__mockup-ring,
   .home-hero__mockup-ring::after,
@@ -1360,15 +1425,49 @@
   pointer-events: none;
   z-index: 1;
 
-  &--1 { top: 18%; left: 38%; animation: hero-particle 4s ease-in-out infinite; }
-  &--2 { top: 72%; left: 26%; width: 3px; height: 3px; animation: hero-particle 5.5s ease-in-out 0.6s infinite; }
-  &--3 { top: 30%; right: 18%; width: 5px; height: 5px; animation: hero-particle 4.8s ease-in-out 1.1s infinite; }
-  &--4 { bottom: 22%; right: 36%; width: 3px; height: 3px; animation: hero-particle 6s ease-in-out 1.8s infinite; }
+  &--1 {
+    top: 18%;
+    left: 38%;
+    animation: hero-particle 4s ease-in-out infinite;
+  }
+
+  &--2 {
+    top: 72%;
+    left: 26%;
+    width: 3px;
+    height: 3px;
+    animation: hero-particle 5.5s ease-in-out 0.6s infinite;
+  }
+
+  &--3 {
+    top: 30%;
+    right: 18%;
+    width: 5px;
+    height: 5px;
+    animation: hero-particle 4.8s ease-in-out 1.1s infinite;
+  }
+
+  &--4 {
+    bottom: 22%;
+    right: 36%;
+    width: 3px;
+    height: 3px;
+    animation: hero-particle 6s ease-in-out 1.8s infinite;
+  }
 }
 
 @keyframes hero-particle {
-  0%, 100% { opacity: 0.35; transform: translateY(0); }
-  50%      { opacity: 1;    transform: translateY(-8px); }
+
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-8px);
+  }
 }
 
 .hero-stage__cube {
@@ -1398,20 +1497,20 @@
 
 .hero-stage:hover .hero-stage__cube {
   filter:
-    drop-shadow(0 28px 56px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 0 70px rgba($brand-orange, 0.45));
+    drop-shadow(0 28px 56px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 70px rgba($brand-orange, 0.45));
 }
 
 @keyframes hero-cube-glow-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     filter:
-      drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55))
-      drop-shadow(0 0 32px rgba($brand-orange, 0.22));
+      drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 32px rgba($brand-orange, 0.22));
   }
+
   50% {
     filter:
-      drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55))
-      drop-shadow(0 0 60px rgba($brand-orange, 0.38));
+      drop-shadow(0 24px 48px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 60px rgba($brand-orange, 0.38));
   }
 }
 
@@ -1470,8 +1569,17 @@
 }
 
 @keyframes hero-panel-pulse {
-  0%, 100% { transform: scale(1);    opacity: 1; }
-  50%      { transform: scale(1.35); opacity: 0.55; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.35);
+    opacity: 0.55;
+  }
 }
 
 .hero-stage__panel-close {
@@ -1589,7 +1697,9 @@
   border-radius: 999px;
   background: rgba($white, 0.08);
 
-  &--short { width: 60%; }
+  &--short {
+    width: 60%;
+  }
 }
 
 .hero-stage__mockup-tiles {
@@ -1657,19 +1767,27 @@
 
 /* Below md â€” collapse to a simpler stack */
 @media (max-width: 767px) {
-  .hero-stage { translate: 0 0; }
-  .hero-stage__panel--analytics { display: none; }
+  .hero-stage {
+    translate: 0 0;
+  }
+
+  .hero-stage__panel--analytics {
+    display: none;
+  }
+
   .hero-stage__panel--services {
     top: 6%;
     width: 64%;
     max-width: none;
   }
+
   .hero-stage__panel--web {
     top: auto;
     bottom: 6%;
     right: 0;
     width: 58%;
   }
+
   .hero-stage__cube {
     width: 11rem;
     height: 11rem;
@@ -1677,6 +1795,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .hero-stage__cube,
   .hero-stage__panel--services,
   .hero-stage__panel--web,
@@ -1684,7 +1803,10 @@
     translate: 0 0;
     animation: none;
   }
-  .hero-stage__particle { animation: none; }
+
+  .hero-stage__particle {
+    animation: none;
+  }
 }
 
 /* ============================================================
@@ -1722,16 +1844,9 @@
   }
 }
 
-/* Mobile (<768px): horizontal auto-marquee carousel that sits cleanly BELOW
-   the phone â€” no negative margin / overlap. Forcing the desktop "absolute
-   overlay" rhythm here caused the cards to slice through the middle of the
-   phone mockup (cards land above the phone in stacking order while the
-   phone is in normal flow). Mobile layout now reads:
-     content â†’ phone â†’ breathing space â†’ moving carousel. */
-/* Mobile (<768px): remove the services carousel entirely â€” too cramped
-   under the phone visual on small screens. Tablet keeps the touch-scrollable
-   strip; desktop keeps the auto-marquee. */
-@media (max-width: 767px) {
+/* Mobile + tablet (<1024px): remove the services carousel so it does not
+   cover the pinned phone mockup. Desktop keeps the auto-marquee. */
+@media (max-width: 1023px) {
   .services-strip {
     display: none;
   }
@@ -1740,6 +1855,18 @@
 /* Tablet (768â€“1023px): touch-scrollable marquee with proper edge padding so
    the first/last card doesn't bleed flush against the viewport edge. */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .home-hero__visual {
+    justify-content: flex-end;
+    padding-inline: 0;
+  }
+
+  .home-hero__mockup {
+    width: clamp(300px, 42vw, 430px);
+    margin-left: auto;
+    margin-right: 0;
+    transform: translate(0, 12.2%);
+  }
+
   .services-strip {
     overflow-x: hidden;
   }
@@ -1770,20 +1897,16 @@
   position: relative;
   width: 100%;
   --strip-fade: 80px;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 var(--strip-fade),
-    #000 48%,
-    transparent 64%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 var(--strip-fade),
-    #000 48%,
-    transparent 64%
-  );
+  mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 var(--strip-fade),
+      #000 48%,
+      transparent 64%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 var(--strip-fade),
+      #000 48%,
+      transparent 64%);
 
   @media (min-width: 1024px) {
     --strip-fade: 140px;
@@ -1943,8 +2066,13 @@
 }
 
 @keyframes servicesStripMarquee {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(calc(-50% - 0.425rem), 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 0.425rem), 0, 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2035,21 +2163,42 @@
 }
 
 @keyframes whyDecorFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes whyDecorSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes whyDecorTwinkle {
-  0% { opacity: 0.55; transform: rotate(0deg) scale(0.9); }
-  50% { opacity: 1; transform: rotate(45deg) scale(1.08); }
-  100% { opacity: 0.55; transform: rotate(90deg) scale(0.9); }
+  0% {
+    opacity: 0.55;
+    transform: rotate(0deg) scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: rotate(45deg) scale(1.08);
+  }
+
+  100% {
+    opacity: 0.55;
+    transform: rotate(90deg) scale(0.9);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .why-section__decor,
   .why-section__decor-circle,
   .why-section__decor-spark {
@@ -2565,7 +2714,10 @@
     padding: 1.4rem 1.25rem 1.5rem;
   }
 
-  > * { position: relative; z-index: 1; }
+  >* {
+    position: relative;
+    z-index: 1;
+  }
 
   &:hover,
   &:focus-visible {
@@ -2574,7 +2726,9 @@
       background: currentColor;
       opacity: 1;
 
-      svg { color: $brand-burgundy; }
+      svg {
+        color: $brand-burgundy;
+      }
     }
   }
 
@@ -2593,14 +2747,20 @@
     background: $brand-burgundy;
     color: #fff4eb;
 
-    &:hover, &:focus-visible { background: $brand-burgundy-hover; }
+    &:hover,
+    &:focus-visible {
+      background: $brand-burgundy-hover;
+    }
   }
 
   .home-service:last-child {
     background: #0F0F0F;
     color: #fff4eb;
 
-    &:hover, &:focus-visible { background: #0F0F0F; }
+    &:hover,
+    &:focus-visible {
+      background: #0F0F0F;
+    }
   }
 }
 
@@ -2609,14 +2769,20 @@
     background: #0F0F0F;
     color: #fff4eb;
 
-    &:hover, &:focus-visible { background: #0F0F0F; }
+    &:hover,
+    &:focus-visible {
+      background: #0F0F0F;
+    }
   }
 
   .home-service:last-child {
     background: $brand-burgundy;
     color: #fff4eb;
 
-    &:hover, &:focus-visible { background: $brand-burgundy-hover; }
+    &:hover,
+    &:focus-visible {
+      background: $brand-burgundy-hover;
+    }
   }
 }
 
@@ -2645,7 +2811,10 @@
     width: 2.6rem;
     height: 2.6rem;
 
-    svg { width: 1.15rem; height: 1.15rem; }
+    svg {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
   }
 }
 
@@ -2721,7 +2890,9 @@
     background 240ms ease,
     transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 
-  svg { transition: color 240ms ease; }
+  svg {
+    transition: color 240ms ease;
+  }
 
   @media (max-width: 767px) {
     right: 1.2rem;
@@ -2778,11 +2949,13 @@
    on every viewport. */
 
 @media (prefers-reduced-motion: reduce) {
+
   .home-service,
   .home-service__arrow,
   .home-service__arrow svg {
     transition: none;
   }
+
   .home-service:hover .home-service__arrow,
   .home-service:focus-visible .home-service__arrow {
     transform: none;
@@ -2858,7 +3031,7 @@
       font-size: 3.7rem;
     }
 
-    > span {
+    >span {
       color: #ED743B;
     }
   }
@@ -3291,31 +3464,46 @@
   }
 }
 
-/* Final mobile hero composition override: 50Ã— dark footer below the
-   phone+hands (= 2500px). No cream overlap. */
+/* Final mobile hero composition override. */
 @media (max-width: 767px) {
   .home-hero {
     overflow: visible;
   }
 
+  .home-hero__inner {
+    z-index: 3;
+  }
+
   .home-hero__visual {
-    z-index: 10;
-    margin-top: 1.35rem;
-    margin-bottom: 80px;
+    z-index: 1;
     overflow: visible;
   }
 
   .home-hero__mockup {
-    width: min(116vw, 480px);
+    width: clamp(280px, 88vw, 480px);
     max-width: none;
     aspect-ratio: 2124 / 2083;
-    transform: translateY(56px);
   }
 
   .home-hero__mockup img {
     height: 100%;
     object-fit: contain;
     object-position: center bottom;
+  }
+}
+
+@media (max-width: 650px) {
+  .home-hero {
+    min-height: calc(100vh - 60px);
+  }
+
+  .home-hero__mockup {
+    width: clamp(180px, 52vw, 260px);
+    transform: translate(0, 12.2%);
+  }
+
+  .why-section {
+    padding-top: 4rem;
   }
 }
 
@@ -3351,20 +3539,16 @@
   width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 80px,
-    #000 calc(100% - 80px),
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 80px,
-    #000 calc(100% - 80px),
-    transparent 100%
-  );
+  mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 80px,
+      #000 calc(100% - 80px),
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 80px,
+      #000 calc(100% - 80px),
+      transparent 100%);
 }
 
 .trusted-by__logos {
@@ -3416,29 +3600,29 @@
     padding-block: 0.5rem;
     /* Soft fade on both edges via mask â€” replaces the harsh solid-color
        overlays from the desktop pseudo-elements. */
-    mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 36px,
-      #000 calc(100% - 36px),
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to right,
-      transparent 0,
-      #000 36px,
-      #000 calc(100% - 36px),
-      transparent 100%
-    );
+    mask-image: linear-gradient(to right,
+        transparent 0,
+        #000 36px,
+        #000 calc(100% - 36px),
+        transparent 100%);
+    -webkit-mask-image: linear-gradient(to right,
+        transparent 0,
+        #000 36px,
+        #000 calc(100% - 36px),
+        transparent 100%);
 
-    &::after { display: none; }
+    &::after {
+      display: none;
+    }
   }
 
   .trusted-by__logos {
     gap: 2rem;
     animation-duration: 22s;
 
-    &::before { display: none; }
+    &::before {
+      display: none;
+    }
   }
 
   .trusted-by__logo {
@@ -3784,6 +3968,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .home-work__media img,
   .home-work__arrow,
   .home-work__overlay,
@@ -4778,6 +4963,7 @@
 }
 
 @keyframes hero-greeting-cursor {
+
   0%,
   45% {
     opacity: 1;
@@ -4826,7 +5012,7 @@
 
   .home-hero__brand-canvas,
   .home-hero__greeting,
-  .home-hero__greeting .home-hero__greeting-line > span:first-child,
+  .home-hero__greeting .home-hero__greeting-line>span:first-child,
   .home-hero__greeting-love,
   .home-hero__greeting-cursor,
   .grid-line-inner,
@@ -4836,4 +5022,3 @@
     animation: none;
   }
 }
-

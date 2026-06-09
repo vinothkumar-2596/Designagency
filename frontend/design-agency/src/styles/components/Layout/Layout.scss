@@ -653,18 +653,42 @@
     transform: none;
     margin-left: 0;
     left: auto;
+    /* Drawer is dark — the desktop dropdown's dark-on-cream palette must
+       flip to light-on-dark or submenu rows go invisible. */
+    color: rgba($white, 0.82);
+    border-bottom-color: rgba($white, 0.08);
 
     &:hover,
     &:focus-visible {
       transform: none;
-      background: rgba($accent-yellow, 0.08);
-      border-color: rgba($accent-yellow, 0.35);
+      color: $white;
+      background: rgba($white, 0.04);
+      border-color: rgba($white, 0.18);
     }
+  }
+
+  .site-header__nav-menu-icon {
+    color: rgba($white, 0.7);
+  }
+
+  .site-header__nav-menu-copy {
+    strong { color: $white; }
+    small  { color: rgba($white, 0.6); }
+  }
+
+  .site-header__nav-menu-arrow {
+    color: rgba($white, 0.5);
+  }
+
+  .site-header__nav-menu-link:hover .site-header__nav-menu-icon,
+  .site-header__nav-menu-link:focus-visible .site-header__nav-menu-icon {
+    color: $accent-bronze;
   }
 
   /* Arrow may still tint on hover, but must not translate on mobile. */
   .site-header__nav-menu-link:hover .site-header__nav-menu-arrow,
   .site-header__nav-menu-link:focus-visible .site-header__nav-menu-arrow {
+    color: $accent-bronze;
     transform: none;
   }
 }
